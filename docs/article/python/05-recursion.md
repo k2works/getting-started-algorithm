@@ -51,25 +51,24 @@ def factorial(n: int) -> int:
 
 ```plantuml
 @startuml
-title 階乗の再帰呼び出し
+title 階乗の再帰呼び出し（n=5）
 
-factorial(5)
-note right: 5 * factorial(4)
-
-factorial(4)
-note right: 4 * factorial(3)
-
-factorial(3)
-note right: 3 * factorial(2)
-
-factorial(2)
-note right: 2 * factorial(1)
-
-factorial(1)
-note right: 1 * factorial(0)
-
-factorial(0)
-note right: return 1 （基底ケース）
+start
+:factorial(5) → 5 × factorial(4);
+:factorial(4) → 4 × factorial(3);
+:factorial(3) → 3 × factorial(2);
+:factorial(2) → 2 × factorial(1);
+:factorial(1) → 1 × factorial(0);
+:factorial(0) = 1（基底ケース）;
+note right
+  ここから戻り始める
+end note
+:戻り: 1 × 1 = 1;
+:戻り: 2 × 1 = 2;
+:戻り: 3 × 2 = 6;
+:戻り: 4 × 6 = 24;
+:戻り: 5 × 24 = **120**;
+stop
 @enduml
 ```
 
