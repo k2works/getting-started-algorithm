@@ -7,35 +7,34 @@ on:
       - develop
     paths:
       - 'apps/python/**'
+      - 'flake.nix'
+      - 'flake.lock'
   pull_request:
     branches:
       - main
       - develop
     paths:
       - 'apps/python/**'
+      - 'flake.nix'
+      - 'flake.lock'
 
 jobs:
   test:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: apps/python
 
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v4
 
-      - name: Install uv
-        uses: astral-sh/setup-uv@v5
-
-      - name: Set up Python
-        run: uv python install
-
-      - name: Install dependencies
-        run: uv sync --group dev
+      - name: Install Nix
+        uses: cachix/install-nix-action@v30
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+          extra_nix_config: |
+            experimental-features = nix-command flakes
 
       - name: Lint with ruff
-        run: uv run ruff check src tests
+        run: nix develop .#python --command bash -c "cd apps/python && uv run ruff check src tests"
 
       - name: Run tests with coverage
-        run: uv run pytest --cov=algorithm --cov-report=term-missing --cov-fail-under=100
+        run: nix develop .#python --command bash -c "cd apps/python && uv run pytest --cov=algorithm --cov-report=term-missing --cov-fail-under=100"
