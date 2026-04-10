@@ -83,6 +83,9 @@ nav:
       - 概要: article/index.md
       - 執筆計画: article/outline.md
       - 執筆ワークフロー: article/workflow.md
+      - Python 版:
+          - 概要: article/python/index.md
+          - 第 1 章 基本的なアルゴリズム: article/python/01-basic-algorithms.md
   - リファレンス:
       - 概要: reference/index.md
       - よいソフトウェアとは: reference/よいソフトウェアとは.md
