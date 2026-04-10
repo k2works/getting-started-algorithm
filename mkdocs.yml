@@ -86,6 +86,7 @@ nav:
       - Python 版:
           - 概要: article/python/index.md
           - 第 1 章 基本的なアルゴリズム: article/python/01-basic-algorithms.md
+          - 第 2 章 配列: article/python/02-arrays.md
   - リファレンス:
       - 概要: reference/index.md
       - よいソフトウェアとは: reference/よいソフトウェアとは.md
