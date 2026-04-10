@@ -2,26 +2,48 @@
 
 ## 概要
 
-「アルゴリズムから始めるプログラミング入門」シリーズの執筆計画。Wiki 記事（Python, TypeScript, Go, Haskell, Clojure, F#）の内容を再構成し、12 言語で統一的な章構成の記事として執筆する。
+「アルゴリズムから始めるプログラミング入門」シリーズの執筆計画。Wiki 記事のうち最も完成度の高い Python 版を原本として再構成し、Python 版を基に 11 言語へ多言語展開する。
 
 ## 対象言語
 
 `ops/nix/environments/` に定義された 12 言語環境：
 
-| 環境名 | 言語 | Wiki 記事 | 備考 |
-|--------|------|-----------|------|
-| java | Java | なし | OOP 代表、新規執筆 |
-| node | TypeScript | あり | 静的型付き JS |
-| python | Python | あり | マルチパラダイム、原本 |
-| ruby | Ruby | なし | 動的型付き OOP |
-| php | PHP | なし | Web 特化 |
-| go | Go | あり | シンプル志向 |
-| rust | Rust | なし | 所有権・メモリ安全性 |
-| dotnet (C#) | C# | なし | .NET OOP |
-| dotnet (F#) | F# | あり | .NET 関数型 |
-| clojure | Clojure | あり | LISP + 関数型 |
-| scala | Scala | なし | OOP + FP ハイブリッド |
-| haskell | Haskell | あり | 純粋関数型 |
+| 環境名 | 言語 | Wiki 記事 | 展開元 | 備考 |
+|--------|------|-----------|--------|------|
+| python | Python | あり（原本） | - | マルチパラダイム、全言語の基準 |
+| node | TypeScript | あり（補助参照） | Python | 静的型付き JS |
+| java | Java | なし | Python | OOP 代表 |
+| dotnet (C#) | C# | なし | Python | .NET OOP |
+| ruby | Ruby | なし | Python | 動的型付き OOP |
+| php | PHP | なし | Python | Web 特化 |
+| go | Go | あり（補助参照） | Python | シンプル志向 |
+| rust | Rust | なし | Python | 所有権・メモリ安全性 |
+| dotnet (F#) | F# | あり（補助参照） | Python | .NET 関数型 |
+| scala | Scala | なし | Python | OOP + FP ハイブリッド |
+| clojure | Clojure | あり（補助参照） | Python | LISP + 関数型 |
+| haskell | Haskell | あり（補助参照） | Python | 純粋関数型 |
+
+## 執筆方針
+
+### Python 原本方式
+
+参考元の Wiki 記事は 6 言語（Python, TypeScript, Go, Haskell, Clojure, F#）で存在するが、**Python 版が最も完成度が高い**ため、以下の方針で進める。
+
+1. **Python 版を原本として作成**: Wiki の Python 記事を基に `docs/article/python/` を執筆・実装する
+2. **Python 版を基に多言語展開**: 完成した Python 版の構成・コード例・解説を基準として、他 11 言語へ展開する
+3. **他の Wiki 記事は補助参照**: TypeScript, Go, Haskell, Clojure, F# の Wiki 記事は、言語固有のイディオムや表現の参考として活用する（構成の基準にはしない）
+
+### 展開順序
+
+```
+Python（原本）
+  ├── OOP 言語: TypeScript → Java → C# → Ruby → PHP
+  ├── システム言語: Go → Rust
+  └── 関数型言語: F# → Scala → Clojure → Haskell
+```
+
+- OOP 言語は Python との構造的類似性が高いため、展開コストが低い
+- システム言語・関数型言語は言語固有の設計判断が必要なため、後半に配置
 
 ## 章構成
 
