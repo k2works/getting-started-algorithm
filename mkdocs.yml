@@ -89,6 +89,7 @@ nav:
           - 第 2 章 配列: article/python/02-arrays.md
           - 第 3 章 探索アルゴリズム: article/python/03-search-algorithms.md
           - 第 4 章 スタックとキュー: article/python/04-stacks-and-queues.md
+          - 第 5 章 再帰アルゴリズム: article/python/05-recursion.md
   - リファレンス:
       - 概要: reference/index.md
       - よいソフトウェアとは: reference/よいソフトウェアとは.md
