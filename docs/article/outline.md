@@ -25,7 +25,30 @@
 
 ## 環境構築方針
 
-各言語の環境構築は `tmp/getting-started-tdd/docs/article/{lang}/05` および `06` を参考にする。
+### Nix 開発環境
+
+各言語の実行環境は **Nix** で管理する。`ops/nix/environments/` に定義された言語別の `devShell` を使用することで、開発環境の再現性を保証する。
+
+```bash
+# 言語別 Nix 環境に入る
+nix develop .#python
+nix develop .#java
+nix develop .#node
+nix develop .#ruby
+nix develop .#php
+nix develop .#go
+nix develop .#rust
+nix develop .#dotnet
+nix develop .#clojure
+nix develop .#scala
+nix develop .#haskell
+```
+
+Nix 環境に入ることで、言語処理系・ビルドツール・パッケージマネージャーがすべて利用可能になる。ホスト環境に言語をインストールする必要はない。
+
+### パッケージ管理・静的解析・タスクランナー
+
+言語固有のパッケージ管理・静的解析・タスクランナーの設定は `tmp/getting-started-tdd/docs/article/{lang}/05` および `06` を参考にする。
 
 参考元: `tmp/getting-started-tdd/docs/article/{lang}/`
 

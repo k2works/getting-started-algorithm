@@ -472,11 +472,23 @@ nix develop .#haskell
 
 ### 実装の始め方
 
-環境構築は `tmp/getting-started-tdd/docs/article/{lang}/05` および `06` を参考にする。詳細は `docs/article/outline.md` の「環境構築方針」を参照。
+開発には **Nix** を使用する。Nix 環境に入ることで言語処理系・ビルドツールがすべて利用可能になる。
+
+パッケージ管理・静的解析・タスクランナーの構成は `tmp/getting-started-tdd/docs/article/{lang}/05` および `06` を参考にする。詳細は `docs/article/outline.md` の「環境構築方針」を参照。
 
 ```bash
-# 1. Nix 環境に入る
-nix develop .#python
+# 1. Nix 環境に入る（言語処理系・ビルドツールが利用可能になる）
+nix develop .#python   # Python + uv
+nix develop .#java     # Java + Gradle
+nix develop .#node     # Node.js + npm
+nix develop .#ruby     # Ruby + Bundler
+nix develop .#php      # PHP + Composer
+nix develop .#go       # Go + Go Modules
+nix develop .#rust     # Rust + Cargo
+nix develop .#dotnet   # .NET (C# / F#) + NuGet
+nix develop .#clojure  # Clojure + Leiningen
+nix develop .#scala    # Scala + sbt
+nix develop .#haskell  # Haskell + Stack
 
 # 2. apps/{lang}/ に移動（初回はディレクトリ作成）
 cd apps/python
