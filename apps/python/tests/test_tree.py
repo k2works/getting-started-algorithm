@@ -62,11 +62,11 @@ class TestBinarySearchTree:
         assert self.bst.max() == 7
 
     def test_min_empty_raises(self):
-        with pytest.raises(Exception):
+        with pytest.raises(BinarySearchTree.Empty):
             self.bst.min()
 
     def test_max_empty_raises(self):
-        with pytest.raises(Exception):
+        with pytest.raises(BinarySearchTree.Empty):
             self.bst.max()
 
     def test_delete_leaf(self):

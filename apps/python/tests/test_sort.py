@@ -2,13 +2,12 @@
 
 from algorithm.sort import (
     bubble_sort,
-    selection_sort,
     insertion_sort,
-    shell_sort,
-    quick_sort,
     merge_sort,
+    quick_sort,
+    selection_sort,
+    shell_sort,
 )
-
 
 UNSORTED = [6, 4, 3, 7, 1, 9, 8]
 SORTED = [1, 3, 4, 6, 7, 8, 9]

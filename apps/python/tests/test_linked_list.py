@@ -3,8 +3,8 @@
 import pytest
 
 from algorithm.linked_list import (
-    LinkedList,
     DoublyLinkedList,
+    LinkedList,
 )
 
 
@@ -68,11 +68,11 @@ class TestLinkedList:
         assert 0 not in self.lst
 
     def test_remove_first_empty_raises(self):
-        with pytest.raises(Exception):
+        with pytest.raises(LinkedList.Empty):
             self.lst.remove_first()
 
     def test_remove_last_empty_raises(self):
-        with pytest.raises(Exception):
+        with pytest.raises(LinkedList.Empty):
             self.lst.remove_last()
 
     def test_iter(self):

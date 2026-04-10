@@ -3,8 +3,8 @@
 import pytest
 
 from algorithm.stack_queue import (
-    FixedStack,
     FixedQueue,
+    FixedStack,
 )
 
 
@@ -42,18 +42,18 @@ class TestFixedStack:
         assert small.is_full() is True
 
     def test_pop_empty_raises(self):
-        with pytest.raises(Exception):
+        with pytest.raises(FixedStack.Empty):
             self.stack.pop()
 
     def test_push_full_raises(self):
         small = FixedStack(2)
         small.push(1)
         small.push(2)
-        with pytest.raises(Exception):
+        with pytest.raises(FixedStack.Full):
             small.push(3)
 
     def test_peek_empty_raises(self):
-        with pytest.raises(Exception):
+        with pytest.raises(FixedStack.Empty):
             self.stack.peek()
 
     def test_find(self):
@@ -141,18 +141,18 @@ class TestFixedQueue:
         assert small.is_full() is True
 
     def test_deque_empty_raises(self):
-        with pytest.raises(Exception):
+        with pytest.raises(FixedQueue.Empty):
             self.queue.deque()
 
     def test_enque_full_raises(self):
         small = FixedQueue(2)
         small.enque(1)
         small.enque(2)
-        with pytest.raises(Exception):
+        with pytest.raises(FixedQueue.Full):
             small.enque(3)
 
     def test_peek_empty_raises(self):
-        with pytest.raises(Exception):
+        with pytest.raises(FixedQueue.Empty):
             self.queue.peek()
 
     def test_find(self):
