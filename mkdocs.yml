@@ -93,6 +93,7 @@ nav:
           - 第 6 章 ソートアルゴリズム: article/python/06-sort-algorithms.md
           - 第 7 章 文字列処理: article/python/07-string-processing.md
           - 第 8 章 リスト: article/python/08-linked-lists.md
+          - 第 9 章 木構造: article/python/09-trees.md
   - リファレンス:
       - 概要: reference/index.md
       - よいソフトウェアとは: reference/よいソフトウェアとは.md
