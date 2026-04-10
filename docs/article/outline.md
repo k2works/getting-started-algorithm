@@ -23,6 +23,156 @@
 | clojure | Clojure | あり（補助参照） | Python | LISP + 関数型 |
 | haskell | Haskell | あり（補助参照） | Python | 純粋関数型 |
 
+## 環境構築方針
+
+各言語の環境構築は `tmp/getting-started-tdd/docs/article/{lang}/05` および `06` を参考にする。
+
+参考元: `tmp/getting-started-tdd/docs/article/{lang}/`
+
+- `05-package-management-and-static-analysis.md` — パッケージ管理と静的解析
+- `06-task-runner-and-ci-cd.md` — タスクランナーと CI/CD
+
+### 言語別環境構築仕様
+
+| 言語 | パッケージ管理 | 設定ファイル | リンター/フォーマッター | タスクランナー | テストフレームワーク |
+|------|--------------|------------|----------------------|-------------|----------------|
+| Python | uv | `pyproject.toml`, `.ruff.toml` | Ruff, mypy | tox | pytest + pytest-cov |
+| TypeScript | npm | `package.json`, `eslint.config.mjs`, `tsconfig.json` | ESLint, Prettier | npm scripts | Jest |
+| Java | Gradle | `build.gradle` | Checkstyle, PMD, SpotBugs | Gradle tasks | JUnit 5 |
+| C# | NuGet (dotnet) | `.csproj`, `.editorconfig` | dotnet format, Roslyn Analyzers | dotnet CLI | xUnit |
+| Ruby | Bundler | `Gemfile`, `.rubocop.yml` | RuboCop | Rake | Minitest + SimpleCov |
+| PHP | Composer | `composer.json`, `.php-cs-fixer.php` | PHP_CodeSniffer, PHPStan | Composer scripts | PHPUnit |
+| Go | Go Modules | `go.mod` | golangci-lint | Makefile / go test | testing (標準) |
+| Rust | Cargo | `Cargo.toml`, `rustfmt.toml` | Clippy, rustfmt | cargo | cargo test |
+| F# | NuGet (dotnet) | `.fsproj`, `.editorconfig` | Fantomas, Roslyn Analyzers | dotnet CLI | xUnit |
+| Scala | sbt | `build.sbt`, `project/plugins.sbt`, `.scalafmt.conf` | scalafmt, WartRemover | sbt tasks | ScalaTest |
+| Clojure | Leiningen | `project.clj` | Eastwood, Kibit, cljfmt | Leiningen tasks | clojure.test |
+| Haskell | Stack | `package.yaml`, `stack.yaml`, `.hlint.yaml` | HLint, stylish-haskell | stack | Hspec |
+
+### 各言語の apps/ ディレクトリ構造
+
+#### Python (`apps/python/`)
+
+```
+apps/python/
+├── src/algorithm/          # プロダクションコード
+├── tests/                  # テストコード
+├── pyproject.toml          # uv + pytest + mypy 設定
+├── .ruff.toml              # Ruff（リンター + フォーマッター）設定
+└── tox.ini                 # タスクランナー（test/lint/type/format）
+```
+
+#### TypeScript (`apps/node/`)
+
+```
+apps/node/
+├── src/algorithm/          # プロダクションコード
+├── test/                   # テストコード
+├── package.json            # npm 依存関係 + scripts
+├── tsconfig.json           # TypeScript 設定
+└── eslint.config.mjs       # ESLint 設定
+```
+
+#### Java (`apps/java/`)
+
+```
+apps/java/
+├── src/main/java/algorithm/  # プロダクションコード
+├── src/test/java/algorithm/  # テストコード
+├── build.gradle              # Gradle ビルド + Checkstyle/PMD/SpotBugs
+└── checkstyle.xml            # Checkstyle 設定
+```
+
+#### C# (`apps/dotnet/csharp/`)
+
+```
+apps/dotnet/csharp/
+├── src/Algorithm/          # プロダクションコード
+├── test/Algorithm.Tests/   # テストコード
+├── Algorithm.sln           # ソリューションファイル
+└── .editorconfig           # フォーマット設定
+```
+
+#### Ruby (`apps/ruby/`)
+
+```
+apps/ruby/
+├── lib/algorithm/          # プロダクションコード
+├── test/                   # テストコード
+├── Gemfile                 # Bundler 依存関係
+└── .rubocop.yml            # RuboCop 設定
+```
+
+#### PHP (`apps/php/`)
+
+```
+apps/php/
+├── src/Algorithm/          # プロダクションコード（PSR-4）
+├── tests/                  # テストコード
+├── composer.json           # Composer 依存関係
+└── phpunit.xml             # PHPUnit 設定
+```
+
+#### Go (`apps/go/`)
+
+```
+apps/go/
+├── algorithm/              # プロダクションコード
+├── go.mod                  # Go Modules
+└── .golangci.yml           # golangci-lint 設定
+```
+
+#### Rust (`apps/rust/`)
+
+```
+apps/rust/
+├── src/                    # プロダクションコード
+├── tests/                  # 統合テスト
+├── Cargo.toml              # Cargo 依存関係
+└── rustfmt.toml            # rustfmt 設定
+```
+
+#### F# (`apps/dotnet/fsharp/`)
+
+```
+apps/dotnet/fsharp/
+├── src/Algorithm/          # プロダクションコード
+├── test/Algorithm.Tests/   # テストコード
+├── Algorithm.sln           # ソリューションファイル
+└── .editorconfig           # フォーマット設定（Fantomas）
+```
+
+#### Scala (`apps/scala/`)
+
+```
+apps/scala/
+├── src/main/scala/         # プロダクションコード
+├── src/test/scala/         # テストコード
+├── build.sbt               # sbt ビルド + WartRemover
+├── project/plugins.sbt     # sbt プラグイン（scalafmt 等）
+└── .scalafmt.conf          # scalafmt 設定
+```
+
+#### Clojure (`apps/clojure/`)
+
+```
+apps/clojure/
+├── src/algorithm/          # プロダクションコード
+├── test/algorithm/         # テストコード
+└── project.clj             # Leiningen プロジェクト設定
+```
+
+#### Haskell (`apps/haskell/`)
+
+```
+apps/haskell/
+├── src/                    # プロダクションコード
+├── test/                   # テストコード（Hspec）
+├── package.yaml            # hpack 形式プロジェクト設定
+├── stack.yaml              # Stack スナップショット設定
+└── .hlint.yaml             # HLint 設定
+```
+
 ## 執筆方針
 
 ### Python 原本方式

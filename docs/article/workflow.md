@@ -472,6 +472,8 @@ nix develop .#haskell
 
 ### 実装の始め方
 
+環境構築は `tmp/getting-started-tdd/docs/article/{lang}/05` および `06` を参考にする。詳細は `docs/article/outline.md` の「環境構築方針」を参照。
+
 ```bash
 # 1. Nix 環境に入る
 nix develop .#python
@@ -479,11 +481,19 @@ nix develop .#python
 # 2. apps/{lang}/ に移動（初回はディレクトリ作成）
 cd apps/python
 
-# 3. 言語固有のプロジェクトを初期化
-#    例: Python の場合
-#    uv init
-#    例: Java の場合
-#    gradle init --type java-application
+# 3. 言語固有のプロジェクトを初期化（ch05/06 の構成に準拠）
+#    Python:  uv init → pyproject.toml + .ruff.toml + tox.ini
+#    Java:    gradle init → build.gradle + checkstyle.xml
+#    Node:    npm init → package.json + tsconfig.json + eslint.config.mjs
+#    Ruby:    bundle init → Gemfile + .rubocop.yml
+#    PHP:     composer init → composer.json + phpunit.xml
+#    Go:      go mod init → go.mod + .golangci.yml
+#    Rust:    cargo init → Cargo.toml + rustfmt.toml
+#    C#:      dotnet new → .csproj + .editorconfig
+#    F#:      dotnet new → .fsproj + .editorconfig
+#    Scala:   sbt init → build.sbt + .scalafmt.conf
+#    Clojure: lein new → project.clj
+#    Haskell: stack new → package.yaml + stack.yaml + .hlint.yaml
 
 # 4. TDD サイクル開始
 #    テスト作成 → 実行（Red） → 実装（Green） → リファクタリング
