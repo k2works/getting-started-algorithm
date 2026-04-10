@@ -22,7 +22,7 @@
 | [運用](./operation/index.md) | 環境構築、デプロイ、運用手順の整理                   | `index.md` を整備済み |
 | [レビュー](./review/index.md) | 分析・開発レビュー結果の記録                      | `index.md` を整備済み |
 | [ADR](./adr/index.md) | Architecture Decision Records の管理   | `index.md` を整備済み |
-| [記事](./article/index.md) | 学習用の記事シリーズ一覧                        | `index.md` を整備済み |
+| [記事](./article/index.md) | アルゴリズムから始めるプログラミング入門（12 言語対応）       | `index.md`・`outline.md`・`workflow.md` を整備済み |
 | [リファレンス](./reference/index.md) | 開発ガイドラインやベストプラクティス                  | 29 件のドキュメントを配置 |
 | [テンプレート](./template/index.md) | 各種ドキュメントの作成テンプレート                   | 17 件のテンプレートを配置 |
 
