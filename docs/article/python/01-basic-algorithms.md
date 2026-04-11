@@ -209,6 +209,40 @@ def med3(a: int, b: int, c: int) -> int:
 
 ### アルゴリズムの考え方
 
+```plantuml
+@startuml
+title 3値の中央値を求めるアルゴリズム (med3)
+
+start
+:入力: 3つの整数値 a, b, c;
+
+if (a >= b) then (はい)
+  if (b >= c) then (はい)
+    :中央値 = b;
+  else (いいえ)
+    if (a <= c) then (はい)
+      :中央値 = a;
+    else (いいえ)
+      :中央値 = c;
+    endif
+  endif
+else (いいえ)
+  if (a > c) then (はい)
+    :中央値 = a;
+  else (いいえ)
+    if (b > c) then (はい)
+      :中央値 = c;
+    else (いいえ)
+      :中央値 = b;
+    endif
+  endif
+endif
+
+:出力: 中央値;
+stop
+@enduml
+```
+
 中央値を求めるアルゴリズムは、最大値よりも複雑です。すべての場合分けを考える必要があります：
 
 | 条件 | 中央値 |
@@ -514,7 +548,7 @@ TOTAL                                  71      0   100%
 13 passed in 0.07s
 ```
 
-カバレッジ 100% 達成コロ助。
+カバレッジ 100% 達成しました。
 
 ---
 
