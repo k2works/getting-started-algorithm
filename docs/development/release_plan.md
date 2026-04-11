@@ -272,9 +272,9 @@ gantt
 
 **主なタスク**:
 
-- [ ] TypeScript プロジェクト初期化（apps/node/）
-- [ ] Python 版を基に TypeScript 版 9 章を執筆
-- [ ] TDD 実装と記事の同期確認
+- [x] TypeScript プロジェクト初期化（apps/node/）
+- [x] Python 版を基に TypeScript 版 9 章を執筆
+- [x] TDD 実装と記事の同期確認
 
 **目標 SP**: 3
 
@@ -358,7 +358,7 @@ gantt
 | イテレーション | 言語 | 計画 SP | 実績 SP | 達成率 | 状態 |
 |---------------|------|---------|---------|--------|------|
 | 1 | Python（原本） | 5 | 5 | 100% | ✅ 完了 |
-| 2 | TypeScript | 3 | - | - | 未着手 |
+| 2 | TypeScript | 3 | 3 | 100% | ✅ 完了 |
 | 3 | Java | 3 | - | - | 未着手 |
 | 4 | C# | 3 | - | - | 未着手 |
 | 5 | Ruby | 3 | - | - | 未着手 |
@@ -389,9 +389,12 @@ xychart-beta
 1. ~~イテレーション 1 計画の詳細作成（Python 原本）~~ ✅ 完了
 2. ~~Python プロジェクト初期化（apps/python/）~~ ✅ 完了
 3. ~~Wiki 記事の Python 版を移行開始~~ ✅ 完了
-4. イテレーション 2 計画の詳細作成（TypeScript 版）
-5. TypeScript プロジェクト初期化（apps/node/）
-6. Python 版を基に TypeScript 版 9 章の執筆開始
+4. ~~イテレーション 2 計画の詳細作成（TypeScript 版）~~ ✅ 完了
+5. ~~TypeScript プロジェクト初期化（apps/node/）~~ ✅ 完了
+6. ~~Python 版を基に TypeScript 版 9 章の執筆開始~~ ✅ 完了
+7. イテレーション 3 計画の詳細作成（Java 版）
+8. Java プロジェクト初期化（apps/java/）
+9. Python 版を基に Java 版 9 章の執筆開始
 
 ---
 
@@ -402,3 +405,4 @@ xychart-beta
 | 2026-04-10 | 初版作成 | - |
 | 2026-04-11 | Elixir を対象言語に追加（13 言語体制、14 イテレーション、61 SP） | - |
 | 2026-04-11 | IT-1 完了：Python 版 5 SP 達成（239 テスト全通過、カバレッジ 99%） | - |
+| 2026-04-11 | IT-2 完了：TypeScript 版 3 SP 達成 | - |
