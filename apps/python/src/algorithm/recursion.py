@@ -88,3 +88,94 @@ def maze_solve(
                 return True
 
     return False
+
+
+class EightQueen:
+    """8 王妃問題（全組み合わせ列挙）
+
+    各列に 1 個の王妃を配置する組み合わせを全列挙する。
+    行・対角線の重複チェックなし。
+    """
+
+    def __init__(self):
+        self.result = []
+        self.__pos = [0] * 8
+
+    def put(self) -> None:
+        """現在の盤面を結果に追加"""
+        self.result.append(self.__pos[:])
+
+    def set(self, i: int) -> None:
+        """i 列目に王妃を配置"""
+        for j in range(8):
+            self.__pos[i] = j
+            if i == 7:
+                self.put()
+            else:
+                self.set(i + 1)
+
+
+class EightQueen2:
+    """8 王妃問題（行制約あり）
+
+    各行・各列に 1 個の王妃を配置する組み合わせを列挙する。
+    対角線の重複チェックなし。
+    """
+
+    def __init__(self):
+        self.result = []
+        self.__pos = [0] * 8
+        self.__flag = [False] * 8  # 各行に王妃が配置済みかのフラグ
+
+    def put(self) -> None:
+        """現在の盤面を結果に追加"""
+        self.result.append(self.__pos[:])
+
+    def set(self, i: int) -> None:
+        """i 列目の適切な位置に王妃を配置"""
+        for j in range(8):
+            if not self.__flag[j]:
+                self.__pos[i] = j
+                if i == 7:
+                    self.put()
+                else:
+                    self.__flag[j] = True
+                    self.set(i + 1)
+                    self.__flag[j] = False
+
+
+class EightQueen3:
+    """8 王妃問題（行・対角線制約あり）
+
+    各行・各列・各対角線に 1 個の王妃を配置する完全な 8 王妃問題。
+    92 通りの解を求める。
+    """
+
+    def __init__(self):
+        self.result = []
+        self.__pos = [0] * 8
+        self.__flag_a = [False] * 8   # 各行のフラグ
+        self.__flag_b = [False] * 15  # 右上がり対角線のフラグ
+        self.__flag_c = [False] * 15  # 右下がり対角線のフラグ
+
+    def put(self) -> None:
+        """現在の盤面を結果に追加"""
+        self.result.append(self.__pos[:])
+
+    def set(self, i: int) -> None:
+        """i 列目の適切な位置に王妃を配置"""
+        for j in range(8):
+            if (not self.__flag_a[j]
+                    and not self.__flag_b[i + j]
+                    and not self.__flag_c[i - j + 7]):
+                self.__pos[i] = j
+                if i == 7:
+                    self.put()
+                else:
+                    self.__flag_a[j] = True
+                    self.__flag_b[i + j] = True
+                    self.__flag_c[i - j + 7] = True
+                    self.set(i + 1)
+                    self.__flag_a[j] = False
+                    self.__flag_b[i + j] = False
+                    self.__flag_c[i - j + 7] = False

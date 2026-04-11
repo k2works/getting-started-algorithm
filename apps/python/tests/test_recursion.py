@@ -1,6 +1,9 @@
 """第5章 再帰アルゴリズム — テスト"""
 
 from algorithm.recursion import (
+    EightQueen,
+    EightQueen2,
+    EightQueen3,
     factorial,
     gcd,
     hanoi,
@@ -100,3 +103,52 @@ class TestMazeSolve:
         ]
         # (1,1) から (3,1) への経路が存在しない
         assert maze_solve(maze, 1, 1, 3, 1) is False
+
+
+class TestEightQueen:
+    """8 王妃問題（全組み合わせ）"""
+
+    def test_実行結果を配列で返す(self):
+        eq = EightQueen()
+        eq.set(0)
+        # 8^8 = 16,777,216 通り（行制約なし）
+        assert len(eq.result) == 8**8
+
+    def test_各行に1つ配置(self):
+        eq = EightQueen()
+        eq.set(0)
+        # 各結果の列数が 8
+        assert all(len(row) == 8 for row in eq.result)
+
+
+class TestEightQueen2:
+    """8 王妃問題（行制約あり）"""
+
+    def test_実行結果を配列で返す(self):
+        eq2 = EightQueen2()
+        eq2.set(0)
+        # 8! = 40,320 通り（各行に 1 つ）
+        assert len(eq2.result) == 40320
+
+    def test_各行は重複しない(self):
+        eq2 = EightQueen2()
+        eq2.set(0)
+        # 各結果の行インデックスが重複しない
+        for row in eq2.result:
+            assert len(set(row)) == 8
+
+
+class TestEightQueen3:
+    """8 王妃問題（完全解）"""
+
+    def test_実行結果を配列で返す(self):
+        eq3 = EightQueen3()
+        eq3.set(0)
+        # 8 王妃問題の解は 92 通り
+        assert len(eq3.result) == 92
+
+    def test_各行は重複しない(self):
+        eq3 = EightQueen3()
+        eq3.set(0)
+        for row in eq3.result:
+            assert len(set(row)) == 8

@@ -168,3 +168,68 @@ def _merge(left: list, right: list) -> list:
     result.extend(left[i:])
     result.extend(right[j:])
     return result
+
+
+def heap_sort(a: list) -> None:
+    """ヒープソート（in-place）
+
+    ヒープデータ構造を利用したソートアルゴリズム。
+    最大ヒープを構築してから、最大値を末尾に移動することを繰り返す。
+
+    計算量: O(n log n)
+
+    >>> a = [6, 4, 3, 7, 1, 9, 8]
+    >>> heap_sort(a)
+    >>> a
+    [1, 3, 4, 6, 7, 8, 9]
+    """
+    def down_heap(a: list, left: int, right: int) -> None:
+        """a[left]～a[right] をヒープ化（下方移動）"""
+        temp = a[left]  # 根
+        parent = left
+        while parent < (right + 1) // 2:
+            cl = parent * 2 + 1  # 左の子
+            cr = cl + 1          # 右の子
+            child = cr if cr <= right and a[cr] > a[cl] else cl  # 大きいほう
+            if temp >= a[child]:
+                break
+            a[parent] = a[child]
+            parent = child
+        a[parent] = temp
+
+    n = len(a)
+    # 最大ヒープを構築
+    for i in range((n - 1) // 2, -1, -1):
+        down_heap(a, i, n - 1)
+    # ヒープの最大要素と未ソート部末尾要素を交換
+    for i in range(n - 1, 0, -1):
+        a[0], a[i] = a[i], a[0]
+        down_heap(a, 0, i - 1)
+
+
+def counting_sort(a: list) -> list:
+    """度数ソート（計数ソート）— 新しいリストを返す
+
+    要素の値の頻度を数えて整列する。非負整数のみ対応。
+
+    計算量: O(n + k)（k は値の最大値）
+
+    >>> counting_sort([6, 4, 3, 7, 1, 9, 8])
+    [1, 3, 4, 6, 7, 8, 9]
+    """
+    if not a:
+        return []
+    max_val = max(a)
+    # 度数（各値の出現回数）
+    freq = [0] * (max_val + 1)
+    for x in a:
+        freq[x] += 1
+    # 累積度数
+    for i in range(1, len(freq)):
+        freq[i] += freq[i - 1]
+    # 出力配列を後ろから埋める（安定ソート）
+    result = [0] * len(a)
+    for x in reversed(a):
+        freq[x] -= 1
+        result[freq[x]] = x
+    return result

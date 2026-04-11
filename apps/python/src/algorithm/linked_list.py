@@ -179,3 +179,86 @@ class DoublyLinkedList:
         self.head.prev = self.head
         self.head.next = self.head
         self.no = 0
+
+
+Null = -1
+
+
+class _ArrayNode:
+    """線形リストノードクラス（配列カーソル版）"""
+
+    def __init__(self, data: Any = Null, next: int = Null, dnext: int = Null) -> None:
+        self.data = data
+        self.next = next
+        self.dnext = dnext
+
+
+class ArrayLinkedList:
+    """線形リストクラス（配列カーソル版）"""
+
+    def __init__(self, capacity: int) -> None:
+        self.head = Null
+        self.current = Null
+        self.max = Null
+        self.deleted = Null
+        self.capacity = capacity
+        self.n: list[_ArrayNode] = [_ArrayNode() for _ in range(self.capacity)]
+        self.no = 0
+
+    def __len__(self) -> int:
+        return self.no
+
+    def get_insert_index(self) -> int:
+        """次に挿入するレコードの添字を求める"""
+        if self.deleted == Null:
+            if self.max + 1 < self.capacity:
+                self.max += 1
+                return self.max
+            else:
+                return Null
+        else:
+            rec = self.deleted
+            self.deleted = self.n[rec].dnext
+            return rec
+
+    def add_first(self, data: Any) -> None:
+        """先頭にノードを挿入"""
+        ptr = self.head
+        rec = self.get_insert_index()
+        if rec != Null:
+            self.head = self.current = rec
+            self.n[self.head] = _ArrayNode(data, ptr)
+            self.no += 1
+
+    def add_last(self, data: Any) -> None:
+        """末尾にノードを挿入"""
+        if self.head == Null:
+            self.add_first(data)
+        else:
+            ptr = self.head
+            while self.n[ptr].next != Null:
+                ptr = self.n[ptr].next
+            rec = self.get_insert_index()
+            if rec != Null:
+                self.n[ptr].next = self.current = rec
+                self.n[rec] = _ArrayNode(data)
+                self.no += 1
+
+    def search(self, data: Any) -> int:
+        """data と等しいノードを探索し、そのインデックスを返す。見つからなければ Null"""
+        ptr = self.head
+        while ptr != Null:
+            if self.n[ptr].data == data:
+                self.current = ptr
+                return ptr
+            ptr = self.n[ptr].next
+        return Null
+
+    def remove_first(self) -> None:
+        """先頭ノードを削除"""
+        if self.head != Null:
+            ptr = self.head
+            self.head = self.current = self.n[ptr].next
+            self.n[ptr].dnext = self.deleted
+            self.deleted = ptr
+            self.no -= 1

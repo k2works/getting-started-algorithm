@@ -3,8 +3,10 @@
 import pytest
 
 from algorithm.linked_list import (
+    ArrayLinkedList,
     DoublyLinkedList,
     LinkedList,
+    Null,
 )
 
 
@@ -190,3 +192,82 @@ class TestDoublyLinkedList:
         orphan = ll._DNode(99)
         self.lst.remove(orphan)  # 空なので何もしない
         assert self.lst.is_empty() is True
+
+
+class TestArrayLinkedList:
+    """カーソルによる線形リスト（配列版）"""
+
+    def test_array_linked_list_init(self):
+        array_list = ArrayLinkedList(100)
+        assert len(array_list) == 0
+
+    def test_add_first(self):
+        array_list = ArrayLinkedList(100)
+        array_list.add_first(1)
+        assert len(array_list) == 1
+        array_list.add_first(2)
+        assert len(array_list) == 2
+
+    def test_add_first_order(self):
+        """add_first は先頭に追加するので、後から追加したものが先頭になる"""
+        array_list = ArrayLinkedList(100)
+        array_list.add_first(1)
+        array_list.add_first(2)
+        array_list.add_first(3)
+        # head から辿ると 3 -> 2 -> 1 の順
+        assert array_list.n[array_list.head].data == 3
+
+    def test_add_last(self):
+        array_list = ArrayLinkedList(100)
+        array_list.add_last(1)
+        assert len(array_list) == 1
+        array_list.add_last(2)
+        assert len(array_list) == 2
+
+    def test_add_last_order(self):
+        """add_last は末尾に追加するので、追加順に並ぶ"""
+        array_list = ArrayLinkedList(100)
+        array_list.add_last(1)
+        array_list.add_last(2)
+        array_list.add_last(3)
+        # head から辿ると 1 -> 2 -> 3 の順
+        assert array_list.n[array_list.head].data == 1
+
+    def test_search_found(self):
+        array_list = ArrayLinkedList(100)
+        array_list.add_last(10)
+        array_list.add_last(20)
+        array_list.add_last(30)
+        idx = array_list.search(20)
+        assert idx != Null
+        assert array_list.n[idx].data == 20
+
+    def test_search_not_found(self):
+        array_list = ArrayLinkedList(100)
+        array_list.add_last(10)
+        assert array_list.search(99) == Null
+
+    def test_remove_first(self):
+        array_list = ArrayLinkedList(100)
+        array_list.add_last(1)
+        array_list.add_last(2)
+        array_list.add_last(3)
+        array_list.remove_first()
+        assert len(array_list) == 2
+        assert array_list.search(1) == Null
+
+    def test_remove_first_empty(self):
+        """空のリストで remove_first を呼んでも何もしない"""
+        array_list = ArrayLinkedList(100)
+        array_list.remove_first()
+        assert len(array_list) == 0
+
+    def test_reuse_deleted_slot(self):
+        """削除されたスロットが再利用される"""
+        array_list = ArrayLinkedList(100)
+        array_list.add_first(1)
+        array_list.add_first(2)
+        array_list.remove_first()
+        # 削除されたスロットが再利用されることを確認
+        array_list.add_first(3)
+        assert len(array_list) == 2

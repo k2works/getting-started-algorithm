@@ -2,6 +2,8 @@
 
 from algorithm.sort import (
     bubble_sort,
+    counting_sort,
+    heap_sort,
     insertion_sort,
     merge_sort,
     quick_sort,
@@ -167,4 +169,55 @@ class TestMergeSort:
 
     def test_duplicates(self):
         result = merge_sort([3, 1, 2, 1, 3])
+        assert result == [1, 1, 2, 3, 3]
+
+
+class TestHeapSort:
+    """ヒープソート"""
+
+    def test_heap_sort(self):
+        a = UNSORTED[:]
+        heap_sort(a)
+        assert a == SORTED
+
+    def test_already_sorted(self):
+        a = SORTED[:]
+        heap_sort(a)
+        assert a == SORTED
+
+    def test_single_element(self):
+        a = [42]
+        heap_sort(a)
+        assert a == [42]
+
+    def test_empty(self):
+        a = []
+        heap_sort(a)
+        assert a == []
+
+    def test_duplicates(self):
+        a = [3, 1, 2, 1, 3]
+        heap_sort(a)
+        assert a == [1, 1, 2, 3, 3]
+
+
+class TestCountingSort:
+    """度数ソート"""
+
+    def test_counting_sort(self):
+        result = counting_sort(UNSORTED[:])
+        assert result == SORTED
+
+    def test_already_sorted(self):
+        result = counting_sort(SORTED[:])
+        assert result == SORTED
+
+    def test_single_element(self):
+        assert counting_sort([5]) == [5]
+
+    def test_empty(self):
+        assert counting_sort([]) == []
+
+    def test_duplicates(self):
+        result = counting_sort([3, 1, 2, 1, 3])
         assert result == [1, 1, 2, 3, 3]
