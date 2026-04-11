@@ -97,6 +97,17 @@ nav:
           - 第 7 章 文字列処理: article/python/07-string-processing.md
           - 第 8 章 リスト: article/python/08-linked-lists.md
           - 第 9 章 木構造: article/python/09-trees.md
+      - TypeScript 版:
+          - 概要: article/node/index.md
+          - 第 1 章 基本的なアルゴリズム: article/node/01-basic-algorithms.md
+          - 第 2 章 配列: article/node/02-arrays.md
+          - 第 3 章 探索アルゴリズム: article/node/03-search-algorithms.md
+          - 第 4 章 スタックとキュー: article/node/04-stacks-and-queues.md
+          - 第 5 章 再帰アルゴリズム: article/node/05-recursion.md
+          - 第 6 章 ソートアルゴリズム: article/node/06-sort-algorithms.md
+          - 第 7 章 文字列処理: article/node/07-string-processing.md
+          - 第 8 章 リスト: article/node/08-linked-lists.md
+          - 第 9 章 木構造: article/node/09-trees.md
   - リファレンス:
       - 概要: reference/index.md
       - よいソフトウェアとは: reference/よいソフトウェアとは.md
