@@ -100,6 +100,17 @@ describe('固定長スタック', () => {
   test('capacity: 容量', () => {
     expect(stack.capacity).toBe(64);
   });
+
+  test('dump: スタック内容を配列で返す', () => {
+    stack.push(1);
+    stack.push(2);
+    stack.push(3);
+    expect(stack.dump()).toEqual([1, 2, 3]);
+  });
+
+  test('dump: 空スタックは空配列', () => {
+    expect(stack.dump()).toEqual([]);
+  });
 });
 
 describe('固定長キュー（リングバッファ）', () => {
@@ -209,5 +220,22 @@ describe('固定長キュー（リングバッファ）', () => {
     expect(small.dequeue()).toBe(2);
     expect(small.dequeue()).toBe(3);
     expect(small.dequeue()).toBe(4);
+  });
+
+  test('dump: キュー内容を配列で返す（FIFO 順）', () => {
+    queue.enqueue(1);
+    queue.enqueue(2);
+    queue.enqueue(3);
+    expect(queue.dump()).toEqual([1, 2, 3]);
+  });
+
+  test('dump: リングバッファ折り返し後も正しい順序', () => {
+    const small = new FixedQueue<number>(3);
+    small.enqueue(1);
+    small.enqueue(2);
+    small.enqueue(3);
+    small.dequeue();
+    small.enqueue(4);
+    expect(small.dump()).toEqual([2, 3, 4]);
   });
 });

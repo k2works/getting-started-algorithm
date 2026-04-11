@@ -153,13 +153,60 @@ dequeue():  [4, _, 3]  front=2, rear=1, num=2  → 2 を返す
 
 ---
 
+## 3. dump — スタック・キューの内容を配列で返す
+
+`dump()` はデバッグや検証に使うユーティリティメソッドです。
+
+```typescript
+// FixedStack
+dump(): T[] {
+  return this.stk.slice(0, this.ptr) as T[];
+}
+
+// FixedQueue（リングバッファ折り返しを考慮）
+dump(): T[] {
+  return Array.from({ length: this.num }, (_, i) =>
+    this.que[(i + this.front) % this.capacity] as T,
+  );
+}
+```
+
+```typescript
+test('dump: スタック内容を配列で返す', () => {
+  stack.push(1); stack.push(2); stack.push(3);
+  expect(stack.dump()).toEqual([1, 2, 3]);
+});
+
+test('dump: リングバッファ折り返し後も正しい順序', () => {
+  const small = new FixedQueue<number>(3);
+  small.enqueue(1); small.enqueue(2); small.enqueue(3);
+  small.dequeue();
+  small.enqueue(4);
+  expect(small.dump()).toEqual([2, 3, 4]);
+});
+```
+
+---
+
 ## テスト実行結果
 
 ```bash
 $ npm test tests/stack_queue.test.ts
 
-Tests: 31 passed, 31 total
+Tests: 37 passed, 37 total
 ```
+
+---
+
+## スタックとキューの比較
+
+| 項目 | スタック | キュー |
+|------|---------|--------|
+| 取り出し順序 | LIFO（後入れ先出し） | FIFO（先入れ先出し） |
+| 追加操作 | `push()` | `enqueue()` |
+| 取り出し操作 | `pop()` | `dequeue()` |
+| 主な用途 | 関数呼び出し、DFS | タスクキュー、BFS |
+| 計算量（追加/取り出し） | O(1) | O(1) |
 
 ---
 

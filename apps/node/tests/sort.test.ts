@@ -3,6 +3,7 @@
  */
 import {
   bubbleSort,
+  shakerSort,
   selectionSort,
   insertionSort,
   shellSort,
@@ -21,6 +22,14 @@ describe('バブルソート', () => {
   test('1要素', () => { const a = [42]; bubbleSort(a); expect(a).toEqual([42]); });
   test('空配列', () => { const a: number[] = []; bubbleSort(a); expect(a).toEqual([]); });
   test('重複あり', () => { const a = [3, 1, 2, 1, 3]; bubbleSort(a); expect(a).toEqual([1, 1, 2, 3, 3]); });
+});
+
+describe('シェーカーソート', () => {
+  test('ソート', () => { const a = [...UNSORTED]; shakerSort(a); expect(a).toEqual(SORTED); });
+  test('整列済み', () => { const a = [...SORTED]; shakerSort(a); expect(a).toEqual(SORTED); });
+  test('1要素', () => { const a = [42]; shakerSort(a); expect(a).toEqual([42]); });
+  test('空配列', () => { const a: number[] = []; shakerSort(a); expect(a).toEqual([]); });
+  test('重複あり', () => { const a = [3, 1, 2, 1, 3]; shakerSort(a); expect(a).toEqual([1, 1, 2, 3, 3]); });
 });
 
 describe('選択ソート', () => {

@@ -17,6 +17,29 @@ export function bubbleSort(a: number[]): void {
   }
 }
 
+/** シェーカーソート（双方向バブルソート、in-place） */
+export function shakerSort(a: number[]): void {
+  let left = 0;
+  let right = a.length - 1;
+  let last = right;
+  while (left < right) {
+    for (let j = right; j > left; j--) {
+      if (a[j - 1] > a[j]) {
+        [a[j - 1], a[j]] = [a[j], a[j - 1]];
+        last = j;
+      }
+    }
+    left = last;
+    for (let j = left; j < right; j++) {
+      if (a[j] > a[j + 1]) {
+        [a[j], a[j + 1]] = [a[j + 1], a[j]];
+        last = j;
+      }
+    }
+    right = last;
+  }
+}
+
 /** 選択ソート（in-place） */
 export function selectionSort(a: number[]): void {
   const n = a.length;

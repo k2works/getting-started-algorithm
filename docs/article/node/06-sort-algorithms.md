@@ -28,6 +28,36 @@ export function bubbleSort(a: number[]): void {
 
 TypeScript の **分割代入** `[a, b] = [b, a]` で一時変数不要なスワップを実現します。
 
+### シェーカーソート（双方向バブルソート）
+
+バブルソートの変種で、走査を交互に上向き・下向きに行います。小さな値が先頭に、大きな値が末尾に同時に移動します。
+
+```typescript
+export function shakerSort(a: number[]): void {
+  let left = 0;
+  let right = a.length - 1;
+  let last = right;
+  while (left < right) {
+    for (let j = right; j > left; j--) {
+      if (a[j - 1] > a[j]) {
+        [a[j - 1], a[j]] = [a[j], a[j - 1]];
+        last = j;
+      }
+    }
+    left = last;
+    for (let j = left; j < right; j++) {
+      if (a[j] > a[j + 1]) {
+        [a[j], a[j + 1]] = [a[j + 1], a[j]];
+        last = j;
+      }
+    }
+    right = last;
+  }
+}
+```
+
+バブルソートが一方向にしか走査しないのに対し、シェーカーソートは双方向に走査することで「亀の要素（小さいが末尾寄りにある要素）」の移動を高速化します。
+
 ---
 
 ## 2. 選択ソート
@@ -205,7 +235,7 @@ export function countingSort(a: number[]): number[] {
 ```bash
 $ npm test tests/sort.test.ts
 
-Tests:  37 passed, 37 total
+Tests:  42 passed, 42 total
 ```
 
 ---
@@ -215,6 +245,7 @@ Tests:  37 passed, 37 total
 | アルゴリズム | 平均計算量 | 最悪計算量 | 安定性 | in-place |
 |------------|-----------|-----------|--------|----------|
 | バブルソート | O(n²) | O(n²) | ✓ | ✓ |
+| シェーカーソート | O(n²) | O(n²) | ✓ | ✓ |
 | 選択ソート | O(n²) | O(n²) | ✗ | ✓ |
 | 挿入ソート | O(n²) | O(n²) | ✓ | ✓ |
 | シェルソート | O(n log² n) | O(n²) | ✗ | ✓ |

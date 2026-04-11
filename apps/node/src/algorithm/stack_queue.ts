@@ -56,6 +56,10 @@ export class FixedStack<T> {
   size(): number {
     return this.ptr;
   }
+
+  dump(): T[] {
+    return this.stk.slice(0, this.ptr) as T[];
+  }
 }
 
 /** 固定長キュー（リングバッファ） */
@@ -125,5 +129,11 @@ export class FixedQueue<T> {
 
   size(): number {
     return this.num;
+  }
+
+  dump(): T[] {
+    return Array.from({ length: this.num }, (_, i) =>
+      this.que[(i + this.front) % this.capacity] as T,
+    );
   }
 }
