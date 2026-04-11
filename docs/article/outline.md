@@ -22,6 +22,7 @@
 | scala | Scala | なし | Python | OOP + FP ハイブリッド |
 | clojure | Clojure | あり（補助参照） | Python | LISP + 関数型 |
 | haskell | Haskell | あり（補助参照） | Python | 純粋関数型 |
+| elixir | Elixir | なし | Python | BEAM VM、並行関数型 |
 
 ## 環境構築方針
 
@@ -42,6 +43,7 @@ nix develop .#dotnet
 nix develop .#clojure
 nix develop .#scala
 nix develop .#haskell
+nix develop .#elixir
 ```
 
 Nix 環境に入ることで、言語処理系・ビルドツール・パッケージマネージャーがすべて利用可能になる。ホスト環境に言語をインストールする必要はない。
@@ -71,6 +73,7 @@ Nix 環境に入ることで、言語処理系・ビルドツール・パッケ�
 | Scala | sbt | `build.sbt`, `project/plugins.sbt`, `.scalafmt.conf` | scalafmt, WartRemover | sbt tasks | ScalaTest |
 | Clojure | Leiningen | `project.clj` | Eastwood, Kibit, cljfmt | Leiningen tasks | clojure.test |
 | Haskell | Stack | `package.yaml`, `stack.yaml`, `.hlint.yaml` | HLint, stylish-haskell | stack | Hspec |
+| Elixir | Mix | `mix.exs` | Credo, Dialyxir | mix tasks | ExUnit |
 
 ### 各言語の apps/ ディレクトリ構造
 
@@ -196,6 +199,16 @@ apps/haskell/
 └── .hlint.yaml             # HLint 設定
 ```
 
+#### Elixir (`apps/elixir/`)
+
+```
+apps/elixir/
+├── lib/algorithm/          # プロダクションコード
+├── test/                   # テストコード（ExUnit）
+├── mix.exs                 # Mix プロジェクト設定
+└── .credo.exs              # Credo 設定
+```
+
 ## 執筆方針
 
 ### Python 原本方式
@@ -212,7 +225,7 @@ apps/haskell/
 Python（原本）
   ├── OOP 言語: TypeScript → Java → C# → Ruby → PHP
   ├── システム言語: Go → Rust
-  └── 関数型言語: F# → Scala → Clojure → Haskell
+  └── 関数型言語: F# → Scala → Clojure → Haskell → Elixir
 ```
 
 - OOP 言語は Python との構造的類似性が高いため、展開コストが低い
@@ -287,6 +300,7 @@ Wiki 記事の 9 章構成をそのまま維持する。各章はアルゴリズ
 | Scala | sealed trait、case class、関数型コレクション |
 | Clojure | 永続データ構造、REPL 駆動、マルチメソッド |
 | Haskell | 代数的データ型、型クラス、遅延評価、モナド |
+| Elixir | パターンマッチング、パイプ演算子、BEAM 並行処理、イミュータブル |
 
 ## ファイル構成
 
@@ -339,6 +353,9 @@ docs/article/
 ├── haskell/              # Haskell
 │   ├── index.md
 │   └── ...
+├── elixir/               # Elixir
+│   ├── index.md
+│   └── ...
 └── all/                  # 多言語統合解説
     ├── index.md
     └── ...
@@ -360,7 +377,8 @@ apps/
 ├── dotnet/               # C# / F# プロジェクト
 ├── clojure/              # Clojure プロジェクト
 ├── scala/                # Scala プロジェクト
-└── haskell/              # Haskell プロジェクト
+├── haskell/              # Haskell プロジェクト
+└── elixir/               # Elixir プロジェクト
 ```
 
 ## Wiki 記事との対応
