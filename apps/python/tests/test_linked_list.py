@@ -271,3 +271,12 @@ class TestArrayLinkedList:
         # 削除されたスロットが再利用されることを確認
         array_list.add_first(3)
         assert len(array_list) == 2
+
+    def test_capacity_exceeded(self):
+        """容量超過時は挿入が無視される"""
+        array_list = ArrayLinkedList(2)
+        array_list.add_first(1)
+        array_list.add_first(2)
+        # capacity=2 に達しているので挿入されない
+        array_list.add_first(3)
+        assert len(array_list) == 2
