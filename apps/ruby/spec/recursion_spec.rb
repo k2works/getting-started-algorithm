@@ -75,4 +75,20 @@ RSpec.describe "第5章 再帰アルゴリズム" do
       expect(q.result.length).to eq(92)
     end
   end
+
+  describe "Algorithm.recure" do
+    it "真に再帰的な関数: recure(4, []) => [1, 2, 3, 1, 4, 1, 2]" do
+      expect(Algorithm.recure(4, [])).to eq([1, 2, 3, 1, 4, 1, 2])
+    end
+
+    it "n=0 のとき空リスト" do
+      expect(Algorithm.recure(0, [])).to eq([])
+    end
+  end
+
+  describe "Algorithm.recure2" do
+    it "末尾再帰除去版: recure2(4, []) => [1, 2, 3, 1, 4, 1, 2]" do
+      expect(Algorithm.recure2(4, [])).to eq([1, 2, 3, 1, 4, 1, 2])
+    end
+  end
 end

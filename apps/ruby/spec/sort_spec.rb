@@ -69,4 +69,46 @@ RSpec.describe "第6章 ソートアルゴリズム" do
       expect(Algorithm.counting_sort([])).to eq([])
     end
   end
+
+  describe "Algorithm.bubble_sort3" do
+    it "バブルソート（走査範囲の限定）" do
+      a = unsorted.dup
+      Algorithm.bubble_sort3(a)
+      expect(a).to eq(sorted)
+    end
+  end
+
+  describe "Algorithm.shaker_sort" do
+    it "シェーカーソート（双方向バブルソート）" do
+      a = unsorted.dup
+      Algorithm.shaker_sort(a)
+      expect(a).to eq(sorted)
+    end
+  end
+
+  describe "Algorithm.binary_insertion_sort" do
+    it "二分挿入ソート" do
+      a = unsorted.dup
+      Algorithm.binary_insertion_sort(a)
+      expect(a).to eq(sorted)
+    end
+  end
+
+  describe "Algorithm.qsort_stack" do
+    it "非再帰的クイックソート" do
+      a = unsorted.dup
+      Algorithm.qsort_stack(a)
+      expect(a).to eq(sorted)
+    end
+  end
+
+  describe "Algorithm.merge_sorted_array" do
+    it "ソート済み配列のマージ" do
+      a = [1, 3, 5, 7]
+      b = [2, 4, 6, 8]
+      c = Array.new(8)
+      Algorithm.merge_sorted_array(a, b, c)
+      expect(c).to eq([1, 2, 3, 4, 5, 6, 7, 8])
+    end
+  end
 end

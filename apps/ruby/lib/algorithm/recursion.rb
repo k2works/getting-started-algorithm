@@ -35,6 +35,26 @@ module Algorithm
     moves
   end
 
+  # 真に再帰的な関数（複数の再帰呼び出しを含む）
+  def self.recure(n, list)
+    if n > 0
+      recure(n - 1, list)
+      list << n
+      recure(n - 2, list)
+    end
+    list
+  end
+
+  # 真に再帰的な関数（末尾再帰の一部を除去した版）
+  def self.recure2(n, list)
+    while n > 0
+      recure2(n - 1, list)
+      list << n
+      n -= 2
+    end
+    list
+  end
+
   # 迷路をバックトラッキングで解く
   # maze[r][c] == 0: 通路, 1: 壁
   def self.maze_solve(maze, row, col, goal_row, goal_col, visited = nil)

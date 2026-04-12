@@ -141,6 +141,129 @@ module Algorithm
     end
   end
 
+  # バブルソート第3版（走査範囲の限定）
+  def self.bubble_sort3(a)
+    n = a.length
+    k = 0
+    while k < n - 1
+      last = n - 1
+      (n - 1).downto(k + 1) do |j|
+        if a[j - 1] > a[j]
+          a[j - 1], a[j] = a[j], a[j - 1]
+          last = j
+        end
+      end
+      k = last
+    end
+  end
+
+  # シェーカーソート（双方向バブルソート）
+  def self.shaker_sort(a)
+    left = 0
+    right = a.length - 1
+    last = right
+    while left < right
+      right.downto(left + 1) do |j|
+        if a[j - 1] > a[j]
+          a[j - 1], a[j] = a[j], a[j - 1]
+          last = j
+        end
+      end
+      left = last
+
+      (left...right).each do |j|
+        if a[j] > a[j + 1]
+          a[j], a[j + 1] = a[j + 1], a[j]
+          last = j
+        end
+      end
+      right = last
+    end
+  end
+
+  # 二分挿入ソート
+  def self.binary_insertion_sort(a)
+    n = a.length
+    (1...n).each do |i|
+      key = a[i]
+      pl = 0
+      pr = i - 1
+
+      loop do
+        pc = (pl + pr) / 2
+        if a[pc] == key
+          break
+        elsif a[pc] < key
+          pl = pc + 1
+        else
+          pr = pc - 1
+        end
+        break if pl > pr
+      end
+
+      pd = pl <= pr ? pc + 1 : pr + 1
+
+      i.downto(pd + 1) { |j| a[j] = a[j - 1] }
+      a[pd] = key
+    end
+  end
+
+  # 非再帰的クイックソート（スタック使用）
+  def self.qsort_stack(a, left = 0, right = nil)
+    right ||= a.length - 1
+    stack = [[left, right]]
+
+    while stack.any?
+      left, right = stack.pop
+      pl = left
+      pr = right
+      x = a[(left + right) / 2]
+
+      while pl <= pr
+        pl += 1 while a[pl] < x
+        pr -= 1 while a[pr] > x
+        if pl <= pr
+          a[pl], a[pr] = a[pr], a[pl]
+          pl += 1
+          pr -= 1
+        end
+      end
+
+      stack << [left, pr] if left < pr
+      stack << [pl, right] if pl < right
+    end
+  end
+
+  # ソート済み配列のマージ（a と b をマージして c に格納）
+  def self.merge_sorted_array(a, b, c)
+    pa = pb = pc = 0
+    na = a.length
+    nb = b.length
+
+    while pa < na && pb < nb
+      if a[pa] <= b[pb]
+        c[pc] = a[pa]
+        pa += 1
+      else
+        c[pc] = b[pb]
+        pb += 1
+      end
+      pc += 1
+    end
+
+    while pa < na
+      c[pc] = a[pa]
+      pa += 1
+      pc += 1
+    end
+
+    while pb < nb
+      c[pc] = b[pb]
+      pb += 1
+      pc += 1
+    end
+  end
+
   # 度数ソート（計数ソート）— 新しい配列を返す
   def self.counting_sort(a)
     return [] if a.empty?
