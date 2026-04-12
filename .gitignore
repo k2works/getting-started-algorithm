@@ -31,3 +31,12 @@ npm-debug.log*
 
 # MkDocs
 site/
+tmp
+# Python
+__pycache__/
+*.py[cod]
+*.pyc
+.coverage
+.coverage.*
+htmlcov/
+.pytest_cache/
