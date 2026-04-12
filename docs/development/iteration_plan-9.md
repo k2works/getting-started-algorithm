@@ -141,8 +141,8 @@
 
 | # | タスク | 見積もり | 状態 |
 |---|--------|---------|------|
-| 12-1 | index.md 作成（docs/article/rust/index.md） | 30 分 | [ ] |
-| 12-2 | mkdocs.yml に Rust 版 9 章を追加 | 10 分 | [ ] |
+| 12-1 | index.md 作成（docs/article/rust/index.md） | 30 分 | [x] |
+| 12-2 | mkdocs.yml に Rust 版 9 章を追加 | 10 分 | [x] |
 | 12-3 | ローカルプレビュー確認（`mkdocs serve`） | 10 分 | [ ] |
 
 ### タスク合計
