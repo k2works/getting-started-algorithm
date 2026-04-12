@@ -50,3 +50,30 @@ func TestMazeSolve(t *testing.T) {
 		t.Error("MazeSolve should return true for start==goal")
 	}
 }
+
+func TestEightQueen(t *testing.T) {
+	q := &chapter05.EightQueen{}
+	q.Set(0)
+	// 全組み合わせ: 8^8 = 16777216
+	if len(q.Result) != 16777216 {
+		t.Errorf("EightQueen len(Result) = %d; want 16777216", len(q.Result))
+	}
+}
+
+func TestEightQueen2(t *testing.T) {
+	q := &chapter05.EightQueen2{}
+	q.Set(0)
+	// 行制約のみ: 8! = 40320
+	if len(q.Result) != 40320 {
+		t.Errorf("EightQueen2 len(Result) = %d; want 40320", len(q.Result))
+	}
+}
+
+func TestEightQueen3(t *testing.T) {
+	q := &chapter05.EightQueen3{}
+	q.Set(0)
+	// 完全な8王妃問題: 92通り
+	if len(q.Result) != 92 {
+		t.Errorf("EightQueen3 len(Result) = %d; want 92", len(q.Result))
+	}
+}

@@ -25,6 +25,22 @@ func SsearchFor(a []int, key int) int {
 	return -1
 }
 
+// SsearchSentinel シーケンスaからkeyと等価な要素を線形探索（番兵法）
+func SsearchSentinel(a []int, key int) int {
+	n := len(a)
+	tmp := make([]int, n+1)
+	copy(tmp, a)
+	tmp[n] = key // 番兵を追加
+	i := 0
+	for tmp[i] != key {
+		i++
+	}
+	if i == n {
+		return -1
+	}
+	return i
+}
+
 // Bsearch シーケンスaからkeyと一致する要素を二分探索
 func Bsearch(a []int, key int) int {
 	pl := 0
@@ -93,6 +109,93 @@ func (ht *HashTable) Remove(key int) bool {
 			ht.buckets[h] = append(ht.buckets[h][:i], ht.buckets[h][i+1:]...)
 			return true
 		}
+	}
+	return false
+}
+
+// --- オープンアドレス法（線形探索法）ハッシュ ---
+
+type bucketStatus int
+
+const (
+	bucketEmpty    bucketStatus = iota // 空
+	bucketOccupied                     // 占有
+	bucketDeleted                      // 削除済み
+)
+
+type openBucket struct {
+	key   int
+	value string
+	stat  bucketStatus
+}
+
+// OpenHash オープンアドレス法（線形探索法）によるハッシュテーブル
+type OpenHash struct {
+	table []openBucket
+	size  int
+}
+
+// NewOpenHash オープンアドレス法ハッシュテーブルを生成する
+func NewOpenHash(size int) *OpenHash {
+	return &OpenHash{
+		table: make([]openBucket, size),
+		size:  size,
+	}
+}
+
+func (oh *OpenHash) hashVal(key int) int {
+	if key < 0 {
+		return (-key) % oh.size
+	}
+	return key % oh.size
+}
+
+// Search キーに対応する値を検索する
+func (oh *OpenHash) Search(key int) (string, bool) {
+	h := oh.hashVal(key)
+	for range oh.size {
+		b := oh.table[h]
+		if b.stat == bucketEmpty {
+			break
+		}
+		if b.stat == bucketOccupied && b.key == key {
+			return b.value, true
+		}
+		h = (h + 1) % oh.size
+	}
+	return "", false
+}
+
+// Add キーと値をハッシュテーブルに追加する
+func (oh *OpenHash) Add(key int, value string) bool {
+	if _, ok := oh.Search(key); ok {
+		return false // 重複キーは追加しない
+	}
+	h := oh.hashVal(key)
+	for range oh.size {
+		b := oh.table[h]
+		if b.stat == bucketEmpty || b.stat == bucketDeleted {
+			oh.table[h] = openBucket{key, value, bucketOccupied}
+			return true
+		}
+		h = (h + 1) % oh.size
+	}
+	return false
+}
+
+// Remove キーに対応するエントリを削除する
+func (oh *OpenHash) Remove(key int) bool {
+	h := oh.hashVal(key)
+	for range oh.size {
+		b := oh.table[h]
+		if b.stat == bucketEmpty {
+			return false
+		}
+		if b.stat == bucketOccupied && b.key == key {
+			oh.table[h].stat = bucketDeleted
+			return true
+		}
+		h = (h + 1) % oh.size
 	}
 	return false
 }

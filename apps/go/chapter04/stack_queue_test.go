@@ -82,3 +82,49 @@ func TestQueueEmpty(t *testing.T) {
 		t.Error("Dequeue on empty queue should return error")
 	}
 }
+
+func TestStackFindCountClear(t *testing.T) {
+	s := chapter04.NewStack(5)
+	s.Push(1)
+	s.Push(2)
+	s.Push(1)
+
+	if s.Find(2) == -1 {
+		t.Error("Find(2) should find 2")
+	}
+	if s.Find(99) != -1 {
+		t.Error("Find(99) should return -1")
+	}
+	if s.Count(1) != 2 {
+		t.Errorf("Count(1) = %d; want 2", s.Count(1))
+	}
+	s.Clear()
+	if s.Len() != 0 {
+		t.Errorf("after Clear Len() = %d; want 0", s.Len())
+	}
+}
+
+func TestQueuePeekFindCountClear(t *testing.T) {
+	q := chapter04.NewQueue(5)
+	q.Enqueue(1)
+	q.Enqueue(2)
+	q.Enqueue(1)
+
+	val, err := q.Peek()
+	if err != nil || val != 1 {
+		t.Errorf("Peek() = %v, %v; want 1, nil", val, err)
+	}
+	if q.Find(2) != 1 {
+		t.Errorf("Find(2) = %d; want 1", q.Find(2))
+	}
+	if q.Find(99) != -1 {
+		t.Error("Find(99) should return -1")
+	}
+	if q.Count(1) != 2 {
+		t.Errorf("Count(1) = %d; want 2", q.Count(1))
+	}
+	q.Clear()
+	if q.Len() != 0 {
+		t.Errorf("after Clear Len() = %d; want 0", q.Len())
+	}
+}

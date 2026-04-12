@@ -55,3 +55,26 @@ func TestMergeSort(t *testing.T) {
 		t.Errorf("MergeSort = %v; want %v", a, sortExpected)
 	}
 }
+
+func TestShellSort(t *testing.T) {
+	a := copySlice(sortInput)
+	chapter06.ShellSort(a)
+	if !reflect.DeepEqual(a, sortExpected) {
+		t.Errorf("ShellSort = %v; want %v", a, sortExpected)
+	}
+}
+
+func TestHeapSort(t *testing.T) {
+	a := copySlice(sortInput)
+	chapter06.HeapSort(a)
+	if !reflect.DeepEqual(a, sortExpected) {
+		t.Errorf("HeapSort = %v; want %v", a, sortExpected)
+	}
+}
+
+func TestCountingSort(t *testing.T) {
+	got := chapter06.CountingSort(sortInput)
+	if !reflect.DeepEqual(got, sortExpected) {
+		t.Errorf("CountingSort = %v; want %v", got, sortExpected)
+	}
+}

@@ -89,3 +89,26 @@ func BmMatch(text, pattern string) int {
 	}
 	return -1
 }
+
+// CountChars 文字列中の各文字の出現回数を map で返す
+func CountChars(s string) map[rune]int {
+	result := make(map[rune]int)
+	for _, c := range s {
+		result[c]++
+	}
+	return result
+}
+
+// ReverseString 文字列を逆順にして返す
+func ReverseString(s string) string {
+	runes := []rune(s)
+	for i, j := 0, len(runes)-1; i < j; i, j = i+1, j-1 {
+		runes[i], runes[j] = runes[j], runes[i]
+	}
+	return string(runes)
+}
+
+// IsPalindrome 文字列が回文かどうかを判定する
+func IsPalindrome(s string) bool {
+	return s == ReverseString(s)
+}

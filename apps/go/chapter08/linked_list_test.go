@@ -60,3 +60,51 @@ func TestDoublyLinkedList(t *testing.T) {
 		t.Errorf("after RemoveFirst Len() = %d; want 2", dll.Len())
 	}
 }
+
+func TestLinkedListClear(t *testing.T) {
+	ll := chapter08.NewLinkedList()
+	ll.AddFirst(1)
+	ll.AddLast(2)
+	ll.Clear()
+	if ll.Len() != 0 {
+		t.Errorf("after Clear Len() = %d; want 0", ll.Len())
+	}
+}
+
+func TestDoublyLinkedListClear(t *testing.T) {
+	dll := chapter08.NewDoublyLinkedList()
+	dll.AddFirst(1)
+	dll.AddLast(2)
+	dll.Clear()
+	if dll.Len() != 0 {
+		t.Errorf("after Clear Len() = %d; want 0", dll.Len())
+	}
+}
+
+func TestArrayLinkedList(t *testing.T) {
+	al := chapter08.NewArrayLinkedList(10)
+
+	al.AddFirst(1)
+	al.AddFirst(2)
+	al.AddLast(3)
+
+	// 2 -> 1 -> 3
+	if al.Len() != 3 {
+		t.Errorf("ArrayLinkedList Len() = %d; want 3", al.Len())
+	}
+
+	idx := al.Search(1)
+	if idx == -1 {
+		t.Error("Search(1) should find node")
+	}
+
+	idx = al.Search(99)
+	if idx != -1 {
+		t.Error("Search(99) should return -1")
+	}
+
+	al.RemoveFirst()
+	if al.Len() != 2 {
+		t.Errorf("after RemoveFirst Len() = %d; want 2", al.Len())
+	}
+}

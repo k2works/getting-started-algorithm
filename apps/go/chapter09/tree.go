@@ -72,6 +72,78 @@ func (t *BST) Remove(key int) {
 	t.root = removeNode(t.root, key, &t.no)
 }
 
+// Min 最小キーを返す
+func (t *BST) Min() (int, error) {
+	if t.root == nil {
+		return 0, errors.New("BST is empty")
+	}
+	ptr := t.root
+	for ptr.left != nil {
+		ptr = ptr.left
+	}
+	return ptr.key, nil
+}
+
+// Max 最大キーを返す
+func (t *BST) Max() (int, error) {
+	if t.root == nil {
+		return 0, errors.New("BST is empty")
+	}
+	ptr := t.root
+	for ptr.right != nil {
+		ptr = ptr.right
+	}
+	return ptr.key, nil
+}
+
+// Inorder 中順探索（昇順）でキーのスライスを返す
+func (t *BST) Inorder() []int {
+	result := []int{}
+	inorderTraversal(t.root, &result)
+	return result
+}
+
+func inorderTraversal(n *bstNode, result *[]int) {
+	if n == nil {
+		return
+	}
+	inorderTraversal(n.left, result)
+	*result = append(*result, n.key)
+	inorderTraversal(n.right, result)
+}
+
+// Preorder 前順探索でキーのスライスを返す
+func (t *BST) Preorder() []int {
+	result := []int{}
+	preorderTraversal(t.root, &result)
+	return result
+}
+
+func preorderTraversal(n *bstNode, result *[]int) {
+	if n == nil {
+		return
+	}
+	*result = append(*result, n.key)
+	preorderTraversal(n.left, result)
+	preorderTraversal(n.right, result)
+}
+
+// Postorder 後順探索でキーのスライスを返す
+func (t *BST) Postorder() []int {
+	result := []int{}
+	postorderTraversal(t.root, &result)
+	return result
+}
+
+func postorderTraversal(n *bstNode, result *[]int) {
+	if n == nil {
+		return
+	}
+	postorderTraversal(n.left, result)
+	postorderTraversal(n.right, result)
+	*result = append(*result, n.key)
+}
+
 func removeNode(n *bstNode, key int, count *int) *bstNode {
 	if n == nil {
 		return nil

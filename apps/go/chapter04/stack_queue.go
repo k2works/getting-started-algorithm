@@ -66,6 +66,30 @@ func (s *Stack) Contains(v int) bool {
 	return false
 }
 
+// Find スタック内のvを探索してインデックスを返す（底からのインデックス、見つからなければ-1）
+func (s *Stack) Find(v int) int {
+	for i := s.ptr - 1; i >= 0; i-- {
+		if s.data[i] == v {
+			return i
+		}
+	}
+	return -1
+}
+
+// Count スタック内のvの個数を返す
+func (s *Stack) Count(v int) int {
+	c := 0
+	for i := 0; i < s.ptr; i++ {
+		if s.data[i] == v {
+			c++
+		}
+	}
+	return c
+}
+
+// Clear スタックを空にする
+func (s *Stack) Clear() { s.ptr = 0 }
+
 // Queue 固定長キュー（リングバッファ）
 type Queue struct {
 	data     []int
@@ -110,3 +134,37 @@ func (q *Queue) Dequeue() (int, error) {
 	q.num--
 	return v, nil
 }
+
+// Peek キューの先頭要素を参照する（取り出さない）
+func (q *Queue) Peek() (int, error) {
+	if q.IsEmpty() {
+		return 0, errEmpty
+	}
+	return q.data[q.front], nil
+}
+
+// Find キュー内のvを探索して先頭からのインデックスを返す（見つからなければ-1）
+func (q *Queue) Find(v int) int {
+	for i := 0; i < q.num; i++ {
+		idx := (i + q.front) % q.capacity
+		if q.data[idx] == v {
+			return i
+		}
+	}
+	return -1
+}
+
+// Count キュー内のvの個数を返す
+func (q *Queue) Count(v int) int {
+	c := 0
+	for i := 0; i < q.num; i++ {
+		idx := (i + q.front) % q.capacity
+		if q.data[idx] == v {
+			c++
+		}
+	}
+	return c
+}
+
+// Clear キューを空にする
+func (q *Queue) Clear() { q.front, q.rear, q.num = 0, 0, 0 }

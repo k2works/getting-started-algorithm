@@ -59,3 +59,91 @@ func MazeSolve(maze [][]int, row, col, goalRow, goalCol int, visited map[[2]int]
 	}
 	return false
 }
+
+// EightQueen 8 王妃問題（全組み合わせ列挙）
+// 各列に 1 個の王妃を配置する組み合わせを全列挙する（行・対角線制約なし）
+type EightQueen struct {
+	Result [][]int
+	pos    [8]int
+}
+
+func (q *EightQueen) put() {
+	tmp := make([]int, 8)
+	copy(tmp, q.pos[:])
+	q.Result = append(q.Result, tmp)
+}
+
+func (q *EightQueen) Set(i int) {
+	for j := 0; j < 8; j++ {
+		q.pos[i] = j
+		if i == 7 {
+			q.put()
+		} else {
+			q.Set(i + 1)
+		}
+	}
+}
+
+// EightQueen2 8 王妃問題（行制約あり）
+// 各行・各列に 1 個の王妃を配置する組み合わせを列挙する（対角線制約なし）
+type EightQueen2 struct {
+	Result [][]int
+	pos    [8]int
+	flag   [8]bool
+}
+
+func (q *EightQueen2) put() {
+	tmp := make([]int, 8)
+	copy(tmp, q.pos[:])
+	q.Result = append(q.Result, tmp)
+}
+
+func (q *EightQueen2) Set(i int) {
+	for j := 0; j < 8; j++ {
+		if !q.flag[j] {
+			q.pos[i] = j
+			if i == 7 {
+				q.put()
+			} else {
+				q.flag[j] = true
+				q.Set(i + 1)
+				q.flag[j] = false
+			}
+		}
+	}
+}
+
+// EightQueen3 8 王妃問題（行・対角線制約あり）
+// 各行・各列・各対角線に 1 個の王妃を配置する完全な 8 王妃問題。92 通りの解を求める。
+type EightQueen3 struct {
+	Result [][]int
+	pos    [8]int
+	flagA  [8]bool  // 各行のフラグ
+	flagB  [15]bool // 右上がり対角線のフラグ
+	flagC  [15]bool // 右下がり対角線のフラグ
+}
+
+func (q *EightQueen3) put() {
+	tmp := make([]int, 8)
+	copy(tmp, q.pos[:])
+	q.Result = append(q.Result, tmp)
+}
+
+func (q *EightQueen3) Set(i int) {
+	for j := 0; j < 8; j++ {
+		if !q.flagA[j] && !q.flagB[i+j] && !q.flagC[i-j+7] {
+			q.pos[i] = j
+			if i == 7 {
+				q.put()
+			} else {
+				q.flagA[j] = true
+				q.flagB[i+j] = true
+				q.flagC[i-j+7] = true
+				q.Set(i + 1)
+				q.flagA[j] = false
+				q.flagB[i+j] = false
+				q.flagC[i-j+7] = false
+			}
+		}
+	}
+}

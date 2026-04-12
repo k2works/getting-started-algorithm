@@ -64,3 +64,38 @@ func TestHeapEmpty(t *testing.T) {
 		t.Error("Pop on empty heap should return error")
 	}
 }
+
+func TestBSTTraversal(t *testing.T) {
+	bst := chapter09.NewBST()
+	for _, v := range []int{5, 3, 7, 1, 4} {
+		bst.Insert(v)
+	}
+
+	inorder := bst.Inorder()
+	expected := []int{1, 3, 4, 5, 7}
+	for i, v := range expected {
+		if inorder[i] != v {
+			t.Errorf("Inorder[%d] = %d; want %d", i, inorder[i], v)
+		}
+	}
+
+	min, err := bst.Min()
+	if err != nil || min != 1 {
+		t.Errorf("Min() = %v, %v; want 1, nil", min, err)
+	}
+
+	max, err := bst.Max()
+	if err != nil || max != 7 {
+		t.Errorf("Max() = %v, %v; want 7, nil", max, err)
+	}
+
+	preorder := bst.Preorder()
+	if preorder[0] != 5 {
+		t.Errorf("Preorder[0] = %d; want 5 (root)", preorder[0])
+	}
+
+	postorder := bst.Postorder()
+	if postorder[len(postorder)-1] != 5 {
+		t.Errorf("Postorder last = %d; want 5 (root)", postorder[len(postorder)-1])
+	}
+}

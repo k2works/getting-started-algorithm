@@ -53,3 +53,10 @@ func TestPrime2(t *testing.T) {
 		t.Errorf("Prime2(1000) = %d; want 14622", got)
 	}
 }
+
+func TestPrime3(t *testing.T) {
+	got := chapter02.Prime3(1000)
+	if got != 3774 {
+		t.Errorf("Prime3(1000) = %d; want 3774", got)
+	}
+}

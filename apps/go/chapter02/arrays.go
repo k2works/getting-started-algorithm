@@ -73,3 +73,34 @@ func Prime2(x int) int {
 	}
 	return counter
 }
+
+// Prime3 x以下の素数を列挙する（第3版）— 除算回数を返す
+// 平方根以下の素数でのみ割り切れるか確認することで効率化する。
+func Prime3(x int) int {
+	counter := 0
+	prime := make([]int, 500)
+	ptr := 0
+	prime[ptr] = 2
+	ptr++
+	prime[ptr] = 3
+	ptr++
+
+	for n := 5; n <= 1000; n += 2 {
+		i := 1
+		found := false
+		for prime[i]*prime[i] <= n {
+			counter += 2
+			if n%prime[i] == 0 {
+				found = true
+				break
+			}
+			i++
+		}
+		if !found {
+			prime[ptr] = n
+			ptr++
+			counter++
+		}
+	}
+	return counter
+}
