@@ -138,6 +138,17 @@ nav:
           - 第 7 章 文字列処理: article/csharp/07-strings.md
           - 第 8 章 リスト: article/csharp/08-linked-lists.md
           - 第 9 章 木構造: article/csharp/09-trees.md
+      - Ruby 版:
+          - 概要: article/ruby/index.md
+          - 第 1 章 基本的なアルゴリズム: article/ruby/01-basic-algorithms.md
+          - 第 2 章 配列: article/ruby/02-arrays.md
+          - 第 3 章 探索アルゴリズム: article/ruby/03-search-algorithms.md
+          - 第 4 章 スタックとキュー: article/ruby/04-stacks-and-queues.md
+          - 第 5 章 再帰アルゴリズム: article/ruby/05-recursion.md
+          - 第 6 章 ソートアルゴリズム: article/ruby/06-sort-algorithms.md
+          - 第 7 章 文字列処理: article/ruby/07-string-processing.md
+          - 第 8 章 リスト: article/ruby/08-linked-lists.md
+          - 第 9 章 木構造: article/ruby/09-trees.md
   - リファレンス:
       - 概要: reference/index.md
       - よいソフトウェアとは: reference/よいソフトウェアとは.md

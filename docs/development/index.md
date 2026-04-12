@@ -18,7 +18,7 @@
 | IT2 | [計画](iteration_plan-2.md) | [ふりかえり](retrospective-2.md) | [完了報告書](iteration_report-2.md) | ✅ 完了 |
 | IT3 | [計画](iteration_plan-3.md) | [ふりかえり](retrospective-3.md) | [完了報告書](iteration_report-3.md) | ✅ 完了 |
 | IT4 | [計画](iteration_plan-4.md) | [ふりかえり](retrospective-4.md) | [完了報告書](iteration_report-4.md) | ✅ 完了 |
-| IT5 | - | - | - | 未着手 |
+| IT5 | [計画](iteration_plan-5.md) | [ふりかえり](retrospective-5.md) | [完了報告書](iteration_report-5.md) | ✅ 完了 |
 | IT6 | - | - | - | 未着手 |
 | IT7 | - | - | - | 未着手 |
 | IT8 | - | - | - | 未着手 |
@@ -37,7 +37,7 @@
 | IT2 | TypeScript | 3 | 3 | 100% |
 | IT3 | Java | 3 | 3 | 100% |
 | IT4 | C# | 3 | 3 | 100% |
-| IT5 | Ruby | 3 | - | - |
+| IT5 | Ruby | 3 | 3 | 100% |
 | IT6 | PHP | 3 | - | - |
 | IT7 | Go | 3 | - | - |
 | IT8 | Rust | 5 | - | - |
@@ -47,13 +47,13 @@
 | IT12 | Haskell | 5 | - | - |
 | IT13 | Elixir | 5 | - | - |
 | IT14 | 統合解説 | 8 | - | - |
-| **累計** | | **61** | **14** | **23%** |
+| **累計** | | **61** | **17** | **28%** |
 
 ### フェーズ進捗
 
 | フェーズ | 内容 | SP | 完了 SP | 状態 |
 |---------|------|-----|---------|------|
-| Phase 1 | Python 原本 + OOP 言語展開（6 言語） | 20 | 14 | 進行中 |
+| Phase 1 | Python 原本 + OOP 言語展開（6 言語） | 20 | 17 | 進行中 |
 | Phase 2 | システム言語 + 関数型言語展開（7 言語） | 33 | 0 | 未着手 |
 | Phase 3 | 多言語統合解説 | 8 | 0 | 未着手 |
 
