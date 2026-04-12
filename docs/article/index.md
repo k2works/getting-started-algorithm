@@ -23,8 +23,8 @@
 | [F#](fsharp/index.md) | 関数型 | 判別共用体、パイプライン、パターンマッチング |
 | [Scala](scala/index.md) | OOP + FP | sealed trait、case class、関数型コレクション |
 | [Clojure](clojure/index.md) | 関数型 | 永続データ構造、REPL 駆動、マルチメソッド |
-| [Haskell](haskell/index.md) | 純粋関数型 | 代数的データ型、型クラス、遅延評価 |
 | [Elixir](elixir/index.md) | 関数型 | パターンマッチング、パイプ演算子、BEAM 並行処理、イミュータブル |
+| [Haskell](haskell/index.md) | 純粋関数型 | 代数的データ型、型クラス、遅延評価 |
 
 ## 目次
 
