@@ -1,0 +1,22 @@
+{
+    "name": "k2works/getting-started-algorithm-php",
+    "description": "Algorithm and Data Structure in PHP",
+    "type": "project",
+    "require-dev": {
+        "phpunit/phpunit": "^11"
+    },
+    "authors": [
+        {
+            "name": "k2works"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "classmap": ["src/"]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    }
+}
