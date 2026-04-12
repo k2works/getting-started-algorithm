@@ -23,7 +23,7 @@
 | IT7 | [計画](iteration_plan-7.md) | [ふりかえり](retrospective-7.md) | [完了報告書](iteration_report-7.md) | ✅ 完了 |
 | IT8 | [計画](iteration_plan-8.md) | [ふりかえり](retrospective-8.md) | [完了報告書](iteration_report-8.md) | ✅ 完了 |
 | IT9 | [計画](iteration_plan-9.md) | [ふりかえり](retrospective-9.md) | [完了報告書](iteration_report-9.md) | ✅ 完了 |
-| IT10 | - | - | - | 未着手 |
+| IT10 | [計画](iteration_plan-10.md) | - | - | 🔄 進行中 |
 | IT11 | - | - | - | 未着手 |
 | IT12 | - | - | - | 未着手 |
 | IT13 | - | - | - | 未着手 |
