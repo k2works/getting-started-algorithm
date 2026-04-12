@@ -22,7 +22,7 @@
 | IT6 | [計画](iteration_plan-6.md) | [ふりかえり](retrospective-6.md) | [完了報告書](iteration_report-6.md) | ✅ 完了 |
 | IT7 | [計画](iteration_plan-7.md) | [ふりかえり](retrospective-7.md) | [完了報告書](iteration_report-7.md) | ✅ 完了 |
 | IT8 | [計画](iteration_plan-8.md) | [ふりかえり](retrospective-8.md) | [完了報告書](iteration_report-8.md) | ✅ 完了 |
-| IT9 | [計画](iteration_plan-9.md) | - | - | 🔄 進行中 |
+| IT9 | [計画](iteration_plan-9.md) | [ふりかえり](retrospective-9.md) | - | ✅ 完了 |
 | IT10 | - | - | - | 未着手 |
 | IT11 | - | - | - | 未着手 |
 | IT12 | - | - | - | 未着手 |
@@ -41,21 +41,21 @@
 | IT6 | PHP | 3 | 3 | 100% |
 | IT7 | Go | 3 | 3 | 100% |
 | IT8 | C | 5 | 5 | 100% |
-| IT9 | Rust | 5 | - | - |
+| IT9 | Rust | 5 | 5 | 100% |
 | IT10 | F# | 5 | - | - |
 | IT11 | Scala | 5 | - | - |
 | IT12 | Clojure | 5 | - | - |
 | IT13 | Elixir | 5 | - | - |
 | IT14 | Haskell | 5 | - | - |
 | IT15 | 統合解説 | 8 | - | - |
-| **累計** | | **66** | **28** | **42%** |
+| **累計** | | **66** | **33** | **50%** |
 
 ### フェーズ進捗
 
 | フェーズ | 内容 | SP | 完了 SP | 状態 |
 |---------|------|-----|---------|------|
 | Phase 1 | Python 原本 + OOP 言語展開（6 言語） | 20 | 20 | ✅ 完了 |
-| Phase 2 | システム言語 + 関数型言語展開（8 言語） | 38 | 8 | 🔄 進行中 |
+| Phase 2 | システム言語 + 関数型言語展開（8 言語） | 38 | 13 | 🔄 進行中 |
 | Phase 3 | 多言語統合解説 | 8 | 0 | 未着手 |
 
 ### リリース完了報告書
