@@ -303,15 +303,61 @@ stop
 
 ### 真に再帰的な関数
 
-「真に再帰的な関数」とは、複数の再帰呼び出しを含む関数のことです。
+「真に再帰的な関数」とは、複数の再帰呼び出しを含む関数のことです。C# では `RecursiveSum` が再帰的な加算の典型例です。
 
-C# の実装では、Recursion クラスには基本的な再帰関数として `RecursiveSum` も含まれています：
+#### Red — 失敗するテストを書く
+
+```csharp
+public class RecursiveSumTest
+{
+    [Fact] public void sum_1() => Assert.Equal(1, Recursion.RecursiveSum(1));
+    [Fact] public void sum_5() => Assert.Equal(15, Recursion.RecursiveSum(5));
+    [Fact] public void sum_10() => Assert.Equal(55, Recursion.RecursiveSum(10));
+}
+```
+
+#### Green — テストを通す実装
 
 ```csharp
 public static int RecursiveSum(int n) => n <= 0 ? 0 : n + RecursiveSum(n - 1);
 ```
 
 この関数は 1 から n までの合計を再帰的に計算します。
+
+#### フローチャート
+
+```plantuml
+@startuml
+title 真に再帰的な関数 (RecursiveSum)
+
+start
+:入力: 整数 n;
+
+if (n <= 0) then (はい)
+  :return 0;
+  stop
+endif
+
+:return n + RecursiveSum(n - 1);
+note right
+  再帰呼び出し
+end note
+stop
+@enduml
+```
+
+例えば、`RecursiveSum(5)` を実行すると：
+- `RecursiveSum(5)` = 5 + `RecursiveSum(4)`
+  - `RecursiveSum(4)` = 4 + `RecursiveSum(3)`
+    - `RecursiveSum(3)` = 3 + `RecursiveSum(2)`
+      - `RecursiveSum(2)` = 2 + `RecursiveSum(1)`
+        - `RecursiveSum(1)` = 1 + `RecursiveSum(0)` = 1 + 0 = 1
+      - = 2 + 1 = 3
+    - = 3 + 3 = 6
+  - = 4 + 6 = 10
+- = 5 + 10 = 15
+
+最終的に `RecursiveSum(5)` = 15 となります。
 
 ### 再帰アルゴリズムの非再帰表現
 

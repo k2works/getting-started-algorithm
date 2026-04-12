@@ -26,6 +26,20 @@ public class SortTest
         [Fact] public void 重複() { int[] a = [3,1,2,1,3]; Sort.BubbleSort(a); Assert.Equal([1,1,2,3,3], a); }
     }
 
+    public class BubbleSort2Test
+    {
+        [Fact] public void 基本() { int[] a = [6,4,3,7,1,9,8]; Sort.BubbleSort2(a); Assert.Equal([1,3,4,6,7,8,9], a); }
+        [Fact] public void 整列済み() { int[] a = [1,3,4,6,7,8,9]; Sort.BubbleSort2(a); Assert.Equal([1,3,4,6,7,8,9], a); }
+        [Fact] public void 重複() { int[] a = [3,1,2,1,3]; Sort.BubbleSort2(a); Assert.Equal([1,1,2,3,3], a); }
+    }
+
+    public class ShakerSortTest
+    {
+        [Fact] public void 基本() { int[] a = [6,4,3,7,1,9,8]; Sort.ShakerSort(a); Assert.Equal([1,3,4,6,7,8,9], a); }
+        [Fact] public void 整列済み() { int[] a = [1,3,4,6,7,8,9]; Sort.ShakerSort(a); Assert.Equal([1,3,4,6,7,8,9], a); }
+        [Fact] public void 重複() { int[] a = [3,1,2,1,3]; Sort.ShakerSort(a); Assert.Equal([1,1,2,3,3], a); }
+    }
+
     public class SelectionSortTest
     {
         [Fact] public void 基本() { int[] a = [6,4,3,7,1,9,8]; Sort.SelectionSort(a); Assert.Equal([1,3,4,6,7,8,9], a); }
@@ -40,6 +54,13 @@ public class SortTest
         [Fact] public void 整列済み() { int[] a = [1,3,4,6,7,8,9]; Sort.InsertionSort(a); Assert.Equal([1,3,4,6,7,8,9], a); }
         [Fact] public void 単一要素() { int[] a = [7]; Sort.InsertionSort(a); Assert.Equal([7], a); }
         [Fact] public void 重複() { int[] a = [3,1,2,1,3]; Sort.InsertionSort(a); Assert.Equal([1,1,2,3,3], a); }
+    }
+
+    public class BinaryInsertionSortTest
+    {
+        [Fact] public void 基本() { int[] a = [6,4,3,7,1,9,8]; Sort.BinaryInsertionSort(a); Assert.Equal([1,3,4,6,7,8,9], a); }
+        [Fact] public void 整列済み() { int[] a = [1,3,4,6,7,8,9]; Sort.BinaryInsertionSort(a); Assert.Equal([1,3,4,6,7,8,9], a); }
+        [Fact] public void 重複() { int[] a = [3,1,2,1,3]; Sort.BinaryInsertionSort(a); Assert.Equal([1,1,2,3,3], a); }
     }
 
     public class ShellSortTest
@@ -71,6 +92,20 @@ public class SortTest
             Sort.QuickSort(shuffled);
             Assert.Equal(a, shuffled);
         }
+    }
+
+    public class QuickSortNonRecursiveTest
+    {
+        [Fact] public void 基本() { int[] a = [6,4,3,7,1,9,8]; Sort.QuickSortNonRecursive(a); Assert.Equal([1,3,4,6,7,8,9], a); }
+        [Fact] public void 整列済み() { int[] a = [1,3,4,6,7,8,9]; Sort.QuickSortNonRecursive(a); Assert.Equal([1,3,4,6,7,8,9], a); }
+        [Fact] public void 重複() { int[] a = [3,1,2,1,3]; Sort.QuickSortNonRecursive(a); Assert.Equal([1,1,2,3,3], a); }
+    }
+
+    public class MergeSortedArraysTest
+    {
+        [Fact] public void 基本() => Assert.Equal([1,2,3,4,5,6], Sort.MergeSortedArrays([1,3,5],[2,4,6]));
+        [Fact] public void 一方が空() => Assert.Equal([1,2,3], Sort.MergeSortedArrays([],[1,2,3]));
+        [Fact] public void 重複あり() => Assert.Equal([1,2,2,3,4], Sort.MergeSortedArrays([1,2,4],[2,3]));
     }
 
     public class MergeSortTest

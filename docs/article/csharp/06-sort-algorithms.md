@@ -119,9 +119,68 @@ stop
 
 各パスが終わるごとに、最大の要素が配列の末尾に移動します。そのため、i 回目のパスでは、配列の末尾の i 個の要素は既にソート済みとなり、次のパスでは考慮する必要がありません。
 
+### バブルソートの最適化
+
+#### 走査範囲の限定
+
+各走査で、最後に交換が行われた位置より先は既にソート済みです。次の走査ではその位置までしか見る必要がありません。
+
+```csharp
+// Algorithm.Tests/SortTest.cs
+public class BubbleSort2Test
+{
+    [Fact] public void 基本() { int[] a = [6,4,3,7,1,9,8]; Sort.BubbleSort2(a); Assert.Equal([1,3,4,6,7,8,9], a); }
+    [Fact] public void 整列済み() { int[] a = [1,3,4,6,7,8,9]; Sort.BubbleSort2(a); Assert.Equal([1,3,4,6,7,8,9], a); }
+}
+```
+
+```csharp
+// Algorithm/Sort.cs
+public static void BubbleSort2(int[] a)
+{
+    int n = a.Length, k = 0;
+    while (k < n - 1)
+    {
+        int last = n - 1;
+        for (int j = n - 1; j > k; j--)
+            if (a[j - 1] > a[j]) { (a[j - 1], a[j]) = (a[j], a[j - 1]); last = j; }
+        k = last;
+    }
+}
+```
+
+### シェーカーソート
+
+シェーカーソート（双方向バブルソート）は、走査を交互に下向き・上向きに行います。これにより、小さな値が先頭に、大きな値が末尾に同時に移動します。
+
+```csharp
+// Algorithm.Tests/SortTest.cs
+public class ShakerSortTest
+{
+    [Fact] public void 基本() { int[] a = [6,4,3,7,1,9,8]; Sort.ShakerSort(a); Assert.Equal([1,3,4,6,7,8,9], a); }
+}
+```
+
+```csharp
+// Algorithm/Sort.cs
+public static void ShakerSort(int[] a)
+{
+    int left = 0, right = a.Length - 1, last = right;
+    while (left < right)
+    {
+        for (int j = right; j > left; j--)
+            if (a[j - 1] > a[j]) { (a[j - 1], a[j]) = (a[j], a[j - 1]); last = j; }
+        left = last;
+        for (int j = left; j < right; j++)
+            if (a[j] > a[j + 1]) { (a[j], a[j + 1]) = (a[j + 1], a[j]); last = j; }
+        right = last;
+    }
+}
+```
+
 ### 解説
 
-**計算量**: 最悪 O(n^2)、最良 O(n)（整列済みの場合、最適化版）
+**計算量**: 最悪 O(n²)、最良 O(n)（整列済みの場合、最適化版）
 
 バブルソートは単純で理解しやすいですが、大きなデータセットに対しては非効率です。しかし、データがほぼソート済みの場合は、最適化版が効率的に動作します。
 
@@ -298,11 +357,47 @@ stop
    - a[j] に tmp を代入します（退避した要素を挿入）
 4. ソート済みの配列 a を出力します
 
+### 二分挿入ソート
+
+挿入ソートの改良版として、二分探索を使って挿入位置を効率的に見つける「二分挿入ソート」があります：
+
+```csharp
+// Algorithm.Tests/SortTest.cs
+public class BinaryInsertionSortTest
+{
+    [Fact] public void 基本() { int[] a = [6,4,3,7,1,9,8]; Sort.BinaryInsertionSort(a); Assert.Equal([1,3,4,6,7,8,9], a); }
+}
+```
+
+```csharp
+// Algorithm/Sort.cs
+public static void BinaryInsertionSort(int[] a)
+{
+    int n = a.Length;
+    for (int i = 1; i < n; i++)
+    {
+        int key = a[i], pl = 0, pr = i - 1, pc = 0;
+        while (pl <= pr)
+        {
+            pc = (pl + pr) / 2;
+            if (a[pc] == key) break;
+            else if (a[pc] < key) pl = pc + 1;
+            else pr = pc - 1;
+        }
+        int pd = (pl <= pr) ? pc + 1 : pr + 1;
+        for (int j = i; j > pd; j--) a[j] = a[j - 1];
+        a[pd] = key;
+    }
+}
+```
+
 ### 解説
 
-**計算量**: 最悪 O(n^2)、最良 O(n)（整列済みの場合）
+**計算量**: 最悪 O(n²)、最良 O(n)（整列済みの場合）
 
 挿入ソートは、小さなデータセットや、ほぼソート済みのデータに対して効率的です。また、安定なソートアルゴリズムであり、オンラインアルゴリズム（データが逐次的に到着する場合に適用可能）としても使用できます。
+
+二分挿入ソートは、挿入位置の探索を O(log n) で行いますが、要素の移動コストは変わらないため、全体の時間計算量は依然として O(n²) です。
 
 ---
 
@@ -424,6 +519,31 @@ stop
 
 ピボットを基準に配列を 2 分割し、再帰的にソートします。「分割統治法」に基づく効率的なソートアルゴリズムで、実用的に最も高速なアルゴリズムの一つです。
 
+### 分割手順
+
+クイックソートの核心は、配列をピボットを中心に分割する手順です。
+
+例として `[5, 1, 4, 6, 3, 2, 7]` を分割します（ピボット = 中央値 = 6）：
+
+```
+初期状態: [5, 1, 4, 6, 3, 2, 7]  pl=0, pr=6, pivot=6
+  a[pl]=5 < 6 → pl++ → pl=1
+  a[pl]=1 < 6 → pl++ → pl=2
+  a[pl]=4 < 6 → pl++ → pl=3
+  a[pl]=6 == 6 → stop
+  a[pr]=7 > 6 → pr-- → pr=5
+  a[pr]=2 < 6 → stop
+  pl(3) <= pr(5): swap a[3]↔a[5] → [5, 1, 4, 2, 3, 6, 7]
+  pl=4, pr=4
+  a[pl]=3 < 6 → pl++ → pl=5
+  a[pr]=3 < 6 → stop
+  pl(5) > pr(4): 終了
+
+分割結果:
+  左グループ: [5, 1, 4, 2, 3]  (a[0..pr])
+  右グループ: [6, 7]           (a[pl..n-1])
+```
+
 ### Red — 失敗するテストを書く
 
 ```csharp
@@ -532,17 +652,84 @@ stop
 5. left が pr より小さい場合、左グループ（left から pr まで）を再帰的にソートします
 6. pl が right より小さい場合、右グループ（pl から right まで）を再帰的にソートします
 
+### 非再帰的クイックソート
+
+再帰の代わりに明示的なスタックを使って実装できます：
+
+```csharp
+// Algorithm.Tests/SortTest.cs
+public class QuickSortNonRecursiveTest
+{
+    [Fact] public void 基本() { int[] a = [6,4,3,7,1,9,8]; Sort.QuickSortNonRecursive(a); Assert.Equal([1,3,4,6,7,8,9], a); }
+    [Fact] public void 重複() { int[] a = [3,1,2,1,3]; Sort.QuickSortNonRecursive(a); Assert.Equal([1,1,2,3,3], a); }
+}
+```
+
+```csharp
+// Algorithm/Sort.cs
+public static void QuickSortNonRecursive(int[] a)
+{
+    if (a.Length <= 1) return;
+    var stack = new Stack<(int, int)>();
+    stack.Push((0, a.Length - 1));
+    while (stack.Count > 0)
+    {
+        var (left, right) = stack.Pop();
+        if (left >= right) continue;
+        int pivot = a[(left + right) / 2], i = left, j = right;
+        while (i <= j)
+        {
+            while (a[i] < pivot) i++;
+            while (a[j] > pivot) j--;
+            if (i <= j) { (a[i], a[j]) = (a[j], a[i]); i++; j--; }
+        }
+        if (left < j) stack.Push((left, j));
+        if (i < right) stack.Push((i, right));
+    }
+}
+```
+
 ### 解説
 
-**計算量**: 平均 O(n log n)、最悪 O(n^2)
+**計算量**: 平均 O(n log n)、最悪 O(n²)
 
-クイックソートは、平均的には非常に効率的なアルゴリズムですが、最悪の場合（例えば、既にソート済みの配列や、すべての要素が同じ値の配列）では効率が悪くなることがあります。また、不安定なソートアルゴリズムです。しかし、適切な枢軸選択や小さな配列に対する挿入ソートへの切り替えなどの最適化により、実用的には非常に高速に動作します。
+クイックソートは、平均的には非常に効率的なアルゴリズムですが、最悪の場合（既にソート済みの配列や同一値のみの配列）では効率が悪くなることがあります。また、不安定なソートアルゴリズムです。
 
 ---
 
 ## 6. マージソート
 
 配列を半分に分割し、再帰的にソートして結合します。「分割統治法」に基づくもう一つの効率的なソートアルゴリズムです。
+
+### ソート済み配列のマージ
+
+マージソートの核心操作は、2 つのソート済み配列を 1 つのソート済み配列にマージすることです。
+
+```csharp
+// Algorithm.Tests/SortTest.cs
+public class MergeSortedArraysTest
+{
+    [Fact] public void 基本() => Assert.Equal([1,2,3,4,5,6], Sort.MergeSortedArrays([1,3,5],[2,4,6]));
+    [Fact] public void 一方が空() => Assert.Equal([1,2,3], Sort.MergeSortedArrays([],[1,2,3]));
+    [Fact] public void 重複あり() => Assert.Equal([1,2,2,3,4], Sort.MergeSortedArrays([1,2,4],[2,3]));
+}
+```
+
+```csharp
+// Algorithm/Sort.cs
+public static int[] MergeSortedArrays(int[] a, int[] b)
+{
+    int[] result = new int[a.Length + b.Length];
+    int i = 0, j = 0, k = 0;
+    while (i < a.Length && j < b.Length)
+        result[k++] = a[i] <= b[j] ? a[i++] : b[j++];
+    while (i < a.Length) result[k++] = a[i++];
+    while (j < b.Length) result[k++] = b[j++];
+    return result;
+}
+```
+
+2 つのポインタ i, j を先頭から進めながら小さい方を選んで結果配列に格納します。一方が尽きたらもう一方の残りをそのままコピーします。
 
 ### Red — 失敗するテストを書く
 

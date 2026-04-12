@@ -15,6 +15,34 @@ public static class Sort
         }
     }
 
+    /// <summary>バブルソート第2版：走査範囲の限定</summary>
+    public static void BubbleSort2(int[] a)
+    {
+        int n = a.Length, k = 0;
+        while (k < n - 1)
+        {
+            int last = n - 1;
+            for (int j = n - 1; j > k; j--)
+                if (a[j - 1] > a[j]) { (a[j - 1], a[j]) = (a[j], a[j - 1]); last = j; }
+            k = last;
+        }
+    }
+
+    /// <summary>シェーカーソート（双方向バブルソート）</summary>
+    public static void ShakerSort(int[] a)
+    {
+        int left = 0, right = a.Length - 1, last = right;
+        while (left < right)
+        {
+            for (int j = right; j > left; j--)
+                if (a[j - 1] > a[j]) { (a[j - 1], a[j]) = (a[j], a[j - 1]); last = j; }
+            left = last;
+            for (int j = left; j < right; j++)
+                if (a[j] > a[j + 1]) { (a[j], a[j + 1]) = (a[j + 1], a[j]); last = j; }
+            right = last;
+        }
+    }
+
     public static void SelectionSort(int[] a)
     {
         int n = a.Length;
@@ -34,6 +62,26 @@ public static class Sort
             int key = a[i], j = i - 1;
             while (j >= 0 && a[j] > key) { a[j + 1] = a[j]; j--; }
             a[j + 1] = key;
+        }
+    }
+
+    /// <summary>二分挿入ソート</summary>
+    public static void BinaryInsertionSort(int[] a)
+    {
+        int n = a.Length;
+        for (int i = 1; i < n; i++)
+        {
+            int key = a[i], pl = 0, pr = i - 1, pc = 0;
+            while (pl <= pr)
+            {
+                pc = (pl + pr) / 2;
+                if (a[pc] == key) break;
+                else if (a[pc] < key) pl = pc + 1;
+                else pr = pc - 1;
+            }
+            int pd = (pl <= pr) ? pc + 1 : pr + 1;
+            for (int j = i; j > pd; j--) a[j] = a[j - 1];
+            a[pd] = key;
         }
     }
 
@@ -68,6 +116,40 @@ public static class Sort
     }
 
     public static void QuickSort(int[] a) { if (a.Length > 1) QuickSort(a, 0, a.Length - 1); }
+
+    /// <summary>非再帰的クイックソート</summary>
+    public static void QuickSortNonRecursive(int[] a)
+    {
+        if (a.Length <= 1) return;
+        var stack = new Stack<(int, int)>();
+        stack.Push((0, a.Length - 1));
+        while (stack.Count > 0)
+        {
+            var (left, right) = stack.Pop();
+            if (left >= right) continue;
+            int pivot = a[(left + right) / 2], i = left, j = right;
+            while (i <= j)
+            {
+                while (a[i] < pivot) i++;
+                while (a[j] > pivot) j--;
+                if (i <= j) { (a[i], a[j]) = (a[j], a[i]); i++; j--; }
+            }
+            if (left < j) stack.Push((left, j));
+            if (i < right) stack.Push((i, right));
+        }
+    }
+
+    /// <summary>ソート済み配列のマージ</summary>
+    public static int[] MergeSortedArrays(int[] a, int[] b)
+    {
+        int[] result = new int[a.Length + b.Length];
+        int i = 0, j = 0, k = 0;
+        while (i < a.Length && j < b.Length)
+            result[k++] = a[i] <= b[j] ? a[i++] : b[j++];
+        while (i < a.Length) result[k++] = a[i++];
+        while (j < b.Length) result[k++] = b[j++];
+        return result;
+    }
 
     public static int[] MergeSort(int[] a)
     {
