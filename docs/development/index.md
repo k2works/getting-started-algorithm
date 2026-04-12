@@ -19,7 +19,7 @@
 | IT3 | [計画](iteration_plan-3.md) | [ふりかえり](retrospective-3.md) | [完了報告書](iteration_report-3.md) | ✅ 完了 |
 | IT4 | [計画](iteration_plan-4.md) | [ふりかえり](retrospective-4.md) | [完了報告書](iteration_report-4.md) | ✅ 完了 |
 | IT5 | [計画](iteration_plan-5.md) | [ふりかえり](retrospective-5.md) | [完了報告書](iteration_report-5.md) | ✅ 完了 |
-| IT6 | - | - | - | 未着手 |
+| IT6 | [計画](iteration_plan-6.md) | - | - | 進行中 |
 | IT7 | - | - | - | 未着手 |
 | IT8 | - | - | - | 未着手 |
 | IT9 | - | - | - | 未着手 |
@@ -53,7 +53,7 @@
 
 | フェーズ | 内容 | SP | 完了 SP | 状態 |
 |---------|------|-----|---------|------|
-| Phase 1 | Python 原本 + OOP 言語展開（6 言語） | 20 | 17 | 進行中 |
+| Phase 1 | Python 原本 + OOP 言語展開（6 言語） | 20 | 17 | 進行中（IT-6 開始） |
 | Phase 2 | システム言語 + 関数型言語展開（7 言語） | 33 | 0 | 未着手 |
 | Phase 3 | 多言語統合解説 | 8 | 0 | 未着手 |
 
