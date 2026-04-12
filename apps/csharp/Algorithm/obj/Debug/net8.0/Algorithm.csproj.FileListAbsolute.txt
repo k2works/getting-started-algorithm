@@ -1,0 +1,12 @@
+/Users/k2works/IdeaProjects/getting-started-algorithm/apps/csharp/Algorithm/bin/Debug/net8.0/Algorithm.deps.json
+/Users/k2works/IdeaProjects/getting-started-algorithm/apps/csharp/Algorithm/bin/Debug/net8.0/Algorithm.dll
+/Users/k2works/IdeaProjects/getting-started-algorithm/apps/csharp/Algorithm/bin/Debug/net8.0/Algorithm.pdb
+/Users/k2works/IdeaProjects/getting-started-algorithm/apps/csharp/Algorithm/obj/Debug/net8.0/Algorithm.GeneratedMSBuildEditorConfig.editorconfig
+/Users/k2works/IdeaProjects/getting-started-algorithm/apps/csharp/Algorithm/obj/Debug/net8.0/Algorithm.AssemblyInfoInputs.cache
+/Users/k2works/IdeaProjects/getting-started-algorithm/apps/csharp/Algorithm/obj/Debug/net8.0/Algorithm.AssemblyInfo.cs
+/Users/k2works/IdeaProjects/getting-started-algorithm/apps/csharp/Algorithm/obj/Debug/net8.0/Algorithm.csproj.CoreCompileInputs.cache
+/Users/k2works/IdeaProjects/getting-started-algorithm/apps/csharp/Algorithm/obj/Debug/net8.0/Algorithm.sourcelink.json
+/Users/k2works/IdeaProjects/getting-started-algorithm/apps/csharp/Algorithm/obj/Debug/net8.0/Algorithm.dll
+/Users/k2works/IdeaProjects/getting-started-algorithm/apps/csharp/Algorithm/obj/Debug/net8.0/refint/Algorithm.dll
+/Users/k2works/IdeaProjects/getting-started-algorithm/apps/csharp/Algorithm/obj/Debug/net8.0/Algorithm.pdb
+/Users/k2works/IdeaProjects/getting-started-algorithm/apps/csharp/Algorithm/obj/Debug/net8.0/ref/Algorithm.dll
