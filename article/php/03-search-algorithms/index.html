@@ -1,0 +1,6384 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="アルゴリズムとデータ構造を 13 言語で TDD しながら学ぶ">
+      
+      
+        <meta name="author" content="k2works">
+      
+      
+      
+        <link rel="prev" href="../02-arrays/">
+      
+      
+        <link rel="next" href="../04-stacks-and-queues/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>第 3 章 探索アルゴリズム - アルゴリズムからはじめるプログラミング入門</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/css/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#3" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="アルゴリズムからはじめるプログラミング入門" class="md-header__button md-logo" aria-label="アルゴリズムからはじめるプログラミング入門" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            アルゴリズムからはじめるプログラミング入門
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              第 3 章 探索アルゴリズム
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/k2works/getting-started-algorithm" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    getting-started-algorithm
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../strategy/" class="md-tabs__link">
+          
+  
+  
+  戦略
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../requirements/" class="md-tabs__link">
+          
+  
+  
+  要件
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../design/" class="md-tabs__link">
+          
+  
+  
+  設計
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../development/" class="md-tabs__link">
+          
+  
+  
+  開発
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../operation/" class="md-tabs__link">
+          
+  
+  
+  運用
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../review/" class="md-tabs__link">
+          
+  
+  
+  レビュー
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../adr/" class="md-tabs__link">
+          
+  
+  
+  ADR
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+  記事
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../reference/" class="md-tabs__link">
+          
+  
+  
+  リファレンス
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../template/" class="md-tabs__link">
+          
+  
+  
+  テンプレート
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="アルゴリズムからはじめるプログラミング入門" class="md-nav__button md-logo" aria-label="アルゴリズムからはじめるプログラミング入門" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    アルゴリズムからはじめるプログラミング入門
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/k2works/getting-started-algorithm" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    getting-started-algorithm
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    戦略
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    戦略
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../strategy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概要
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    要件
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    要件
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../requirements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概要
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    設計
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    設計
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概要
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    開発
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    開発
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概要
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/release_plan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    リリース計画
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/iteration_plan-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    イテレーション 1 計画
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/retrospective-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    イテレーション 1 ふりかえり
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/iteration_report-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    イテレーション 1 完了報告書
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/iteration_plan-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    イテレーション 2 計画
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/retrospective-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    イテレーション 2 ふりかえり
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/iteration_report-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    イテレーション 2 完了報告書
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/iteration_plan-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    イテレーション 3 計画
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/retrospective-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    イテレーション 3 ふりかえり
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/iteration_report-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    イテレーション 3 完了報告書
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/iteration_plan-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    イテレーション 4 計画
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/retrospective-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    イテレーション 4 ふりかえり
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/iteration_report-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    イテレーション 4 完了報告書
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/iteration_plan-5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    イテレーション 5 計画
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/retrospective-5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    イテレーション 5 ふりかえり
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/iteration_report-5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    イテレーション 5 完了報告書
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/iteration_plan-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    イテレーション 6 計画
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/retrospective-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    イテレーション 6 ふりかえり
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/iteration_report-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    イテレーション 6 完了報告書
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/release_report-0_1_0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Release 0.1.0 完了報告書
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    運用
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    運用
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../operation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概要
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    レビュー
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    レビュー
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../review/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概要
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ADR
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../adr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概要
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    記事
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    記事
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概要
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../outline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    執筆計画
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    執筆ワークフロー
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_9_4" id="__nav_9_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python 版
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Python 版
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概要
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/01-basic-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 1 章 基本的なアルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/02-arrays/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 2 章 配列
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/03-search-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 3 章 探索アルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/04-stacks-and-queues/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 4 章 スタックとキュー
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/05-recursion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 5 章 再帰アルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/06-sort-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 6 章 ソートアルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/07-string-processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 7 章 文字列処理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/08-linked-lists/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 8 章 リスト
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/09-trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 9 章 木構造
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_9_5" id="__nav_9_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TypeScript 版
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    TypeScript 版
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../node/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概要
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../node/01-basic-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 1 章 基本的なアルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../node/02-arrays/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 2 章 配列
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../node/03-search-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 3 章 探索アルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../node/04-stacks-and-queues/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 4 章 スタックとキュー
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../node/05-recursion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 5 章 再帰アルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../node/06-sort-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 6 章 ソートアルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../node/07-strings/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 7 章 文字列処理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../node/08-linked-lists/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 8 章 リスト
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../node/09-trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 9 章 木構造
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_9_6" id="__nav_9_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java 版
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Java 版
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概要
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../java/01-basic-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 1 章 基本的なアルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../java/02-arrays/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 2 章 配列
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../java/03-search-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 3 章 探索アルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../java/04-stacks-and-queues/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 4 章 スタックとキュー
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../java/05-recursion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 5 章 再帰アルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../java/06-sort-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 6 章 ソートアルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../java/07-strings/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 7 章 文字列処理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../java/08-linked-lists/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 8 章 リスト
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../java/09-trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 9 章 木構造
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_9_7" id="__nav_9_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C# 版
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    C# 版
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../csharp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概要
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../csharp/01-basic-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 1 章 基本的なアルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../csharp/02-arrays/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 2 章 配列
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../csharp/03-search-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 3 章 探索アルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../csharp/04-stacks-and-queues/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 4 章 スタックとキュー
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../csharp/05-recursion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 5 章 再帰アルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../csharp/06-sort-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 6 章 ソートアルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../csharp/07-strings/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 7 章 文字列処理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../csharp/08-linked-lists/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 8 章 リスト
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../csharp/09-trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 9 章 木構造
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_9_8" id="__nav_9_8_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ruby 版
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Ruby 版
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ruby/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概要
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ruby/01-basic-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 1 章 基本的なアルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ruby/02-arrays/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 2 章 配列
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ruby/03-search-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 3 章 探索アルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ruby/04-stacks-and-queues/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 4 章 スタックとキュー
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ruby/05-recursion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 5 章 再帰アルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ruby/06-sort-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 6 章 ソートアルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ruby/07-string-processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 7 章 文字列処理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ruby/08-linked-lists/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 8 章 リスト
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ruby/09-trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 9 章 木構造
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_9" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_9_9" id="__nav_9_9_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PHP 版
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_9_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    PHP 版
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概要
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-basic-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 1 章 基本的なアルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-arrays/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 2 章 配列
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 3 章 探索アルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 3 章 探索アルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        はじめに
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        探索アルゴリズムとは
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 線形探索
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 線形探索">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#red" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Red — 失敗するテストを書く
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#green" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Green — テストを通す実装
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        アルゴリズムの考え方
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="アルゴリズムの考え方">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#while" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        while 文による線形探索のフローチャート
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        for 文による線形探索のフローチャート
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        番兵法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        番兵法の解説
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 二分探索
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 二分探索">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#red_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Red — 失敗するテストを書く
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#green_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Green — テストを通す実装
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        アルゴリズムの考え方
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        解説
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. ハッシュ法
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. ハッシュ法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        チェイン法
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="チェイン法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#red_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Red — 失敗するテストを書く
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#green_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Green — テストを通す実装
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        オープンアドレス法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        テスト実行結果
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python 版との違い
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        探索アルゴリズムの比較
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        まとめ
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        参考文献
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-stacks-and-queues/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 4 章 スタックとキュー
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-recursion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 5 章 再帰アルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-sort-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 6 章 ソートアルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-string-processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 7 章 文字列処理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-linked-lists/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 8 章 リスト
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 9 章 木構造
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    リファレンス
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    リファレンス
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概要
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/%E3%82%88%E3%81%84%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E3%81%A8%E3%81%AF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    よいソフトウェアとは
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/%E3%83%AD%E3%82%B8%E3%82%AB%E3%83%AB%E3%82%B7%E3%83%B3%E3%82%AD%E3%83%B3%E3%82%B0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ロジカルシンキング
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/%E9%96%8B%E7%99%BA%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    開発ガイド
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/%E7%B5%8C%E5%96%B6%E6%88%A6%E7%95%A5%E5%88%86%E6%9E%90%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    経営戦略分析ガイド
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/%E3%83%93%E3%82%B8%E3%83%8D%E3%82%B9%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3%E5%88%86%E6%9E%90%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ビジネスアーキテクチャ分析ガイド
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/%E8%A6%81%E4%BB%B6%E5%AE%9A%E7%BE%A9%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    要件定義ガイド
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/%E3%83%A6%E3%83%BC%E3%82%B9%E3%82%B1%E3%83%BC%E3%82%B9%E4%BD%9C%E6%88%90%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ユースケース作成ガイド
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3%E8%A8%AD%E8%A8%88%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    アーキテクチャ設計ガイド
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/%E3%83%87%E3%83%BC%E3%82%BF%E3%83%A2%E3%83%87%E3%83%AB%E8%A8%AD%E8%A8%88%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    データモデル設計ガイド
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E3%83%A2%E3%83%87%E3%83%AB%E8%A8%AD%E8%A8%88%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ドメインモデル設計ガイド
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/UI%E8%A8%AD%E8%A8%88%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UI 設計ガイド
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/%E3%83%86%E3%82%B9%E3%83%88%E6%88%A6%E7%95%A5%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    テスト戦略ガイド
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/%E9%9D%9E%E6%A9%9F%E8%83%BD%E8%A6%81%E4%BB%B6%E5%AE%9A%E7%BE%A9%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    非機能要件定義ガイド
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/%E9%81%8B%E7%94%A8%E8%A6%81%E4%BB%B6%E5%AE%9A%E7%BE%A9%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    運用要件定義ガイド
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/%E3%82%A4%E3%83%B3%E3%83%95%E3%83%A9%E8%A8%AD%E8%A8%88%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    インフラ設計ガイド
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/%E3%82%B3%E3%83%BC%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0%E3%81%A8%E3%83%86%E3%82%B9%E3%83%88%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    コーディングとテストガイド
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/%E3%82%A8%E3%82%AF%E3%82%B9%E3%83%88%E3%83%AA%E3%83%BC%E3%83%A0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    エクストリームプログラミング
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    リリースガイド
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E3%83%BB%E3%82%A4%E3%83%86%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E8%A8%88%E7%94%BB%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    リリース・イテレーション計画ガイド
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/%E7%92%B0%E5%A2%83%E5%A4%89%E6%95%B0%E7%AE%A1%E7%90%86%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    環境変数管理ガイド
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/%E8%A8%80%E8%AA%9E%E5%88%A5%E9%96%8B%E7%99%BA%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    言語別開発ガイド
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/Java%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java アプリケーション環境構築ガイド
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/TypeScript%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TypeScript アプリケーション環境構築ガイド
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/%E9%81%8B%E7%94%A8%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88%E4%BD%9C%E6%88%90%E3%82%AC%E3%82%A4%E3%83%89/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    運用スクリプト作成ガイド
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/CodexCLIMCP%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E9%96%8B%E7%99%BA%E3%83%95%E3%83%AD%E3%83%BC/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Codex CLI MCP アプリケーション開発フロー
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/CodexCLIMCP%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E8%A8%AD%E5%AE%9A%E6%89%8B%E9%A0%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Codex CLI MCP サーバー設定手順
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/SonarQube%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E7%92%B0%E5%A2%83%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E6%89%8B%E9%A0%86%E6%9B%B8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SonarQube ローカル環境セットアップ手順書
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/Vim%E6%93%8D%E4%BD%9C%E3%83%9E%E3%83%8B%E3%83%A5%E3%82%A2%E3%83%AB/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vim 操作マニュアル
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/%E4%BC%81%E6%A5%AD%E7%B5%8C%E5%96%B6%E8%AB%96/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    企業経営論
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/%E9%81%8B%E5%96%B6%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    運営管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    テンプレート
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    テンプレート
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../template/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概要
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../template/%E3%81%BE%E3%81%9A%E3%81%93%E3%82%8C%E3%82%92%E8%AA%AD%E3%82%82%E3%81%86%E3%83%AA%E3%82%B9%E3%83%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    まずこれを読もうリスト
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../template/%E3%83%93%E3%82%B8%E3%83%8D%E3%82%B9%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ビジネスアーキテクチャ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../template/%E8%A6%81%E4%BB%B6%E5%AE%9A%E7%BE%A9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    要件定義
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../template/%E5%AE%8C%E5%85%A8%E5%BD%A2%E5%BC%8F%E3%81%AE%E3%83%A6%E3%83%BC%E3%82%B9%E3%82%B1%E3%83%BC%E3%82%B9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    完全形式のユースケース
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../template/%E8%A8%AD%E8%A8%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    設計
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../template/ADR/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../template/%E3%82%A4%E3%83%B3%E3%82%BB%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3%E3%83%87%E3%83%83%E3%82%AD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    インセプションデッキ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../template/%E3%82%A4%E3%83%86%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E8%A8%88%E7%94%BB/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    イテレーション計画
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../template/%E3%82%A4%E3%83%86%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E5%AE%8C%E4%BA%86%E5%A0%B1%E5%91%8A%E6%9B%B8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    イテレーション完了報告書
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../template/%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E8%A8%88%E7%94%BB/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    リリース計画
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../template/%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E5%AE%8C%E4%BA%86%E5%A0%B1%E5%91%8A%E6%9B%B8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    リリース完了報告書
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../template/%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E9%96%8B%E7%99%BA%E7%92%B0%E5%A2%83%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E6%89%8B%E9%A0%86%E6%9B%B8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    アプリケーション開発環境セットアップ手順書
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../template/%E9%96%8B%E7%99%BA%E7%92%B0%E5%A2%83%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E6%89%8B%E9%A0%86%E6%9B%B8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    開発環境セットアップ手順書
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../template/AWS%E3%82%B9%E3%83%86%E3%83%BC%E3%82%B8%E3%83%B3%E3%82%B0%E7%92%B0%E5%A2%83%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E6%89%8B%E9%A0%86%E6%9B%B8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AWS ステージング環境セットアップ手順書
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../template/AWS%E3%83%97%E3%83%AD%E3%83%80%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3%E7%92%B0%E5%A2%83%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E6%89%8B%E9%A0%86%E6%9B%B8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AWS プロダクション環境セットアップ手順書
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../template/%E4%BC%81%E6%A5%AD%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    企業分析
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../template/%E4%BA%8B%E4%BE%8B%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    事例分析
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../template/README.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    README
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="3">第 3 章 探索アルゴリズム<a class="headerlink" href="#3" title="Permanent link">&para;</a></h1>
+<h2 id="_1">はじめに<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>前章では配列とデータ構造について学びました。この章では、データの中から特定の値を見つけ出す「探索アルゴリズム」について学んでいきます。</p>
+<p>主に以下の 3 つの方法を TDD で実装します：</p>
+<ol>
+<li>線形探索（シーケンシャルサーチ）</li>
+<li>二分探索（バイナリサーチ）</li>
+<li>ハッシュ法</li>
+</ol>
+<hr />
+<h2 id="_2">探索アルゴリズムとは<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>探索アルゴリズムとは、データの集合から特定の条件を満たす要素を見つけ出すための手順です。探索の対象となるデータは「キー」と呼ばれ、探索の結果は通常、キーが見つかった位置（インデックス）または見つからなかったことを示す特別な値（多くの場合は -1）となります。</p>
+<p>探索アルゴリズムの性能は、主に以下の要素によって評価されます：</p>
+<ul>
+<li>時間効率（計算量）：探索にかかる時間</li>
+<li>空間効率：使用するメモリ量</li>
+<li>前提条件：データが整列されている必要があるかなど</li>
+</ul>
+<hr />
+<h2 id="1">1. 線形探索<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<p>配列の先頭から順に各要素を調べ、目的のキーと一致する要素を探します。</p>
+<h3 id="red">Red — 失敗するテストを書く<a class="headerlink" href="#red" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+<span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
+<span class="k">namespace</span> <span class="nx">Tests</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">Algorithm\Search</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Algorithm\ChainedHash</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Algorithm\OpenHash</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">PHPUnit\Framework\TestCase</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">SearchTest</span> <span class="k">extends</span> <span class="nx">TestCase</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="k">array</span> <span class="nv">$arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">];</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">test線形探索_whileキーが見つかる</span><span class="p">()</span><span class="o">:</span> <span class="nx">void</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">assertSame</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="nx">Search</span><span class="o">::</span><span class="na">ssearchWhile</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">arr</span><span class="p">,</span> <span class="mi">2</span><span class="p">));</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">test線形探索_whileキーが見つからない</span><span class="p">()</span><span class="o">:</span> <span class="nx">void</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">assertSame</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nx">Search</span><span class="o">::</span><span class="na">ssearchWhile</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">arr</span><span class="p">,</span> <span class="mi">99</span><span class="p">));</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">test線形探索_forキーが見つかる</span><span class="p">()</span><span class="o">:</span> <span class="nx">void</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">assertSame</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="nx">Search</span><span class="o">::</span><span class="na">ssearchFor</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">arr</span><span class="p">,</span> <span class="mi">2</span><span class="p">));</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">test線形探索_forキーが見つからない</span><span class="p">()</span><span class="o">:</span> <span class="nx">void</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">assertSame</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nx">Search</span><span class="o">::</span><span class="na">ssearchFor</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">arr</span><span class="p">,</span> <span class="mi">99</span><span class="p">));</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="green">Green — テストを通す実装<a class="headerlink" href="#green" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+<span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
+<span class="k">namespace</span> <span class="nx">Algorithm</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">Search</span>
+<span class="p">{</span>
+    <span class="sd">/** 配列 $a から $key と等価な要素を線形探索（while 文） */</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">ssearchWhile</span><span class="p">(</span><span class="k">array</span> <span class="nv">$a</span><span class="p">,</span> <span class="nx">mixed</span> <span class="nv">$key</span><span class="p">)</span><span class="o">:</span> <span class="nx">int</span>
+    <span class="p">{</span>
+        <span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="nv">$n</span> <span class="o">=</span> <span class="nb">count</span><span class="p">(</span><span class="nv">$a</span><span class="p">);</span>
+        <span class="k">while</span> <span class="p">(</span><span class="k">true</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">===</span> <span class="nv">$n</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nv">$a</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span> <span class="o">===</span> <span class="nv">$key</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="nv">$i</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="nv">$i</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="sd">/** 配列 $a から $key と等価な要素を線形探索（for 文） */</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">ssearchFor</span><span class="p">(</span><span class="k">array</span> <span class="nv">$a</span><span class="p">,</span> <span class="nx">mixed</span> <span class="nv">$key</span><span class="p">)</span><span class="o">:</span> <span class="nx">int</span>
+    <span class="p">{</span>
+        <span class="k">foreach</span> <span class="p">(</span><span class="nv">$a</span> <span class="k">as</span> <span class="nv">$i</span> <span class="o">=&gt;</span> <span class="nv">$val</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nv">$val</span> <span class="o">===</span> <span class="nv">$key</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="nv">$i</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="_3">アルゴリズムの考え方<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>線形探索は、配列が整列されているかどうかに関わらず使用できる汎用的なアルゴリズムです。</p>
+<p>計算量：
+- 最良の場合：O(1)（最初の要素がキーと一致する場合）
+- 最悪の場合：O(n)（キーが見つからないか、最後の要素である場合）
+- 平均の場合：O(n/2) = O(n)</p>
+<h4 id="while">while 文による線形探索のフローチャート<a class="headerlink" href="#while" title="Permanent link">&para;</a></h4>
+<p><img src="data:image/svg+xml;base64,PD9wbGFudHVtbCAxLjIwMjYuMj8+PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiBjb250ZW50U3R5bGVUeXBlPSJ0ZXh0L2NzcyIgZGF0YS1kaWFncmFtLXR5cGU9IkFDVElWSVRZIiBoZWlnaHQ9IjcyN3B4IiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBzdHlsZT0id2lkdGg6MjcwcHg7aGVpZ2h0OjcyN3B4O2JhY2tncm91bmQ6I0ZGRkZGRjsiIHZlcnNpb249IjEuMSIgdmlld0JveD0iMCAwIDI3MCA3MjciIHdpZHRoPSIyNzBweCIgem9vbUFuZFBhbj0ibWFnbmlmeSI+PHRpdGxlPiYjMzIyMTg7JiMyNDQxODsmIzI1NTA2OyYjMzIwMzQ7JiMxMjQ1MDsmIzEyNTIzOyYjMTI0Njg7JiMxMjUyMjsmIzEyNDc0OyYjMTI1MTI7ICh3aGlsZSYjMjU5OTE7JiMyOTI1NjspPC90aXRsZT48ZGVmcy8+PGc+PGcgY2xhc3M9InRpdGxlIiBkYXRhLXNvdXJjZS1saW5lPSIxIj48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZm9udC13ZWlnaHQ9ImJvbGQiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMjI3LjY2MzMiIHg9IjIwIiB5PSIzMi45OTUxIj4mIzMyMjE4OyYjMjQ0MTg7JiMyNTUwNjsmIzMyMDM0OyYjMTI0NTA7JiMxMjUyMzsmIzEyNDY4OyYjMTI1MjI7JiMxMjQ3NDsmIzEyNTEyOyAod2hpbGUmIzI1OTkxOyYjMjkyNTY7KTwvdGV4dD48L2c+PGVsbGlwc2UgY3g9IjEzNS4zMzE3IiBjeT0iNTcuMjk2OSIgZmlsbD0iIzIyMjIyMiIgcng9IjEwIiByeT0iMTAiIHN0eWxlPSJzdHJva2U6IzIyMjIyMjtzdHJva2Utd2lkdGg6MTsiLz48cmVjdCBmaWxsPSIjRjFGMUYxIiBoZWlnaHQ9IjMzLjk2ODgiIHJ4PSIxMi41IiByeT0iMTIuNSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7IiB3aWR0aD0iMTkxLjkwMzMiIHg9IjM5LjM4IiB5PSI4Ny4yOTY5Ii8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTIiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMTcxLjkwMzMiIHg9IjQ5LjM4IiB5PSIxMDguNDM1NSI+JiMyMDgzNzsmIzIxMTQ3OzogJiMzNzE5NzsmIzIxMDE1OyBhLCAmIzI1NTA2OyYjMzIwMzQ7JiMxMjM3NzsmIzEyNDI3OyYjMTI0NjE7JiMxMjU0MDsga2V5PC90ZXh0PjxyZWN0IGZpbGw9IiNGMUYxRjEiIGhlaWdodD0iMzMuOTY4OCIgcng9IjEyLjUiIHJ5PSIxMi41IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjAuNTsiIHdpZHRoPSI0OC42NTIzIiB4PSIxMTEuMDA1NSIgeT0iMTQxLjI2NTYiLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMiIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSIyOC42NTIzIiB4PSIxMjEuMDA1NSIgeT0iMTYyLjQwNDMiPmkgPSAwPC90ZXh0PjxyZWN0IGZpbGw9IiNGMUYxRjEiIGhlaWdodD0iMzMuOTY4OCIgcng9IjEyLjUiIHJ5PSIxMi41IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjAuNTsiIHdpZHRoPSI5NS44NjEzIiB4PSI4Ny40MDEiIHk9IjE5NS4yMzQ0Ii8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTIiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iNzUuODYxMyIgeD0iOTcuNDAxIiB5PSIyMTYuMzczIj5uID0gY291bnQoYSk8L3RleHQ+PHJlY3QgZmlsbD0iI0YxRjFGMSIgaGVpZ2h0PSIzMy45Njg4IiByeD0iMTIuNSIgcnk9IjEyLjUiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MC41OyIgd2lkdGg9IjcyLjk0NTMiIHg9Ijk4Ljg1OSIgeT0iMzU4LjQxMDIiLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMiIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSI1Mi45NDUzIiB4PSIxMDguODU5IiB5PSIzNzkuNTQ4OCI+cmV0dXJuIC0xPC90ZXh0PjxlbGxpcHNlIGN4PSIxMzUuMzMxNyIgY3k9IjQzMS44OTQ1IiBmaWxsPSJub25lIiByeD0iMTEiIHJ5PSIxMSIgc3R5bGU9InN0cm9rZTojMjIyMjIyO3N0cm9rZS13aWR0aDoxOyIvPjxlbGxpcHNlIGN4PSIxMzUuMzMxNyIgY3k9IjQzMS44OTQ1IiBmaWxsPSIjMjIyMjIyIiByeD0iNiIgcnk9IjYiIHN0eWxlPSJzdHJva2U6IzIyMjIyMjtzdHJva2Utd2lkdGg6MTsiLz48cG9seWdvbiBmaWxsPSIjRjFGMUYxIiBwb2ludHM9IjExMi45OTYsMzEwLjAwNzgsMTU3LjY2NzQsMzEwLjAwNzgsMTY5LjY2NzQsMzIyLjAwNzgsMTU3LjY2NzQsMzM0LjAwNzgsMTEyLjk5NiwzMzQuMDA3OCwxMDAuOTk2LDMyMi4wMDc4LDExMi45OTYsMzEwLjAwNzgiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MC41OyIvPjx0ZXh0IGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjExIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjIxLjk5OTgiIHg9IjEzOS4zMzE3IiB5PSIzNDQuMjE4MyI+JiMxMjM5OTsmIzEyMzU2OzwvdGV4dD48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMSIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSI0NC42NzE0IiB4PSIxMTIuOTk2IiB5PSIzMjUuODE1OSI+aSA9PT0gbjwvdGV4dD48cmVjdCBmaWxsPSIjRjFGMUYxIiBoZWlnaHQ9IjMzLjk2ODgiIHJ4PSIxMi41IiByeT0iMTIuNSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7IiB3aWR0aD0iNjQuMzE0NSIgeD0iMTAzLjE3NDQiIHk9IjUzMy4yOTY5Ii8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTIiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iNDQuMzE0NSIgeD0iMTEzLjE3NDQiIHk9IjU1NC40MzU1Ij5yZXR1cm4gaTwvdGV4dD48ZWxsaXBzZSBjeD0iMTM1LjMzMTciIGN5PSI2MDYuNzgxMyIgZmlsbD0ibm9uZSIgcng9IjExIiByeT0iMTEiIHN0eWxlPSJzdHJva2U6IzIyMjIyMjtzdHJva2Utd2lkdGg6MTsiLz48ZWxsaXBzZSBjeD0iMTM1LjMzMTciIGN5PSI2MDYuNzgxMyIgZmlsbD0iIzIyMjIyMiIgcng9IjYiIHJ5PSI2IiBzdHlsZT0ic3Ryb2tlOiMyMjIyMjI7c3Ryb2tlLXdpZHRoOjE7Ii8+PHBvbHlnb24gZmlsbD0iI0YxRjFGMSIgcG9pbnRzPSI5OC45OTYyLDQ4NC44OTQ1LDE3MS42NjcxLDQ4NC44OTQ1LDE4My42NjcxLDQ5Ni44OTQ1LDE3MS42NjcxLDUwOC44OTQ1LDk4Ljk5NjIsNTA4Ljg5NDUsODYuOTk2Miw0OTYuODk0NSw5OC45OTYyLDQ4NC44OTQ1IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjAuNTsiLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMSIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSIyMS45OTk4IiB4PSIxMzkuMzMxNyIgeT0iNTE5LjEwNSI+JiMxMjM5OTsmIzEyMzU2OzwvdGV4dD48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMSIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSI3Mi42NzA5IiB4PSI5OC45OTYyIiB5PSI1MDAuNzAyNiI+YVtpXSA9PT0ga2V5PC90ZXh0PjxyZWN0IGZpbGw9IiNGMUYxRjEiIGhlaWdodD0iMzMuOTY4OCIgcng9IjEyLjUiIHJ5PSIxMi41IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjAuNTsiIHdpZHRoPSI0My40NDM0IiB4PSIxMTMuNjEiIHk9IjY1OS43ODEzIi8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTIiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMjMuNDQzNCIgeD0iMTIzLjYxIiB5PSI2ODAuOTE5OSI+aSsrPC90ZXh0Pjxwb2x5Z29uIGZpbGw9IiNGMUYxRjEiIHBvaW50cz0iMTIzLjMzMTcsMjQ5LjIwMzEsMTQ3LjMzMTcsMjQ5LjIwMzEsMTU5LjMzMTcsMjYxLjIwMzEsMTQ3LjMzMTcsMjczLjIwMzEsMTIzLjMzMTcsMjczLjIwMzEsMTExLjMzMTcsMjYxLjIwMzEsMTIzLjMzMTcsMjQ5LjIwMzEiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MC41OyIvPjx0ZXh0IGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjExIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjMyLjk5OTgiIHg9IjEzOS4zMzE3IiB5PSIyODMuNDEzNiI+JiMxMjUyMzsmIzEyNTQwOyYjMTI1MDM7PC90ZXh0Pjx0ZXh0IGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjExIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjIyLjU3NDciIHg9IjEyNC4wNDQzIiB5PSIyNjUuMDExMiI+dHJ1ZTwvdGV4dD48ZWxsaXBzZSBjeD0iNjMuOTk2MiIgY3k9IjMwOC4yMDMxIiBmaWxsPSJub25lIiByeD0iMTEiIHJ5PSIxMSIgc3R5bGU9InN0cm9rZTojMjIyMjIyO3N0cm9rZS13aWR0aDoxOyIvPjxlbGxpcHNlIGN4PSI2My45OTYyIiBjeT0iMzA4LjIwMzEiIGZpbGw9IiMyMjIyMjIiIHJ4PSI2IiByeT0iNiIgc3R5bGU9InN0cm9rZTojMjIyMjIyO3N0cm9rZS13aWR0aDoxOyIvPjxsaW5lIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiIHgxPSIxMzUuMzMxNyIgeDI9IjEzNS4zMzE3IiB5MT0iNjcuMjk2OSIgeTI9Ijg3LjI5NjkiLz48cG9seWdvbiBmaWxsPSIjMTgxODE4IiBwb2ludHM9IjEzMS4zMzE3LDc3LjI5NjksMTM1LjMzMTcsODcuMjk2OSwxMzkuMzMxNyw3Ny4yOTY5LDEzNS4zMzE3LDgxLjI5NjkiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiLz48bGluZSBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7IiB4MT0iMTM1LjMzMTciIHgyPSIxMzUuMzMxNyIgeTE9IjEyMS4yNjU2IiB5Mj0iMTQxLjI2NTYiLz48cG9seWdvbiBmaWxsPSIjMTgxODE4IiBwb2ludHM9IjEzMS4zMzE3LDEzMS4yNjU2LDEzNS4zMzE3LDE0MS4yNjU2LDEzOS4zMzE3LDEzMS4yNjU2LDEzNS4zMzE3LDEzNS4yNjU2IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7Ii8+PGxpbmUgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIgeDE9IjEzNS4zMzE3IiB4Mj0iMTM1LjMzMTciIHkxPSIxNzUuMjM0NCIgeTI9IjE5NS4yMzQ0Ii8+PHBvbHlnb24gZmlsbD0iIzE4MTgxOCIgcG9pbnRzPSIxMzEuMzMxNywxODUuMjM0NCwxMzUuMzMxNywxOTUuMjM0NCwxMzkuMzMxNywxODUuMjM0NCwxMzUuMzMxNywxODkuMjM0NCIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIvPjxsaW5lIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiIHgxPSIxMzUuMzMxNyIgeDI9IjEzNS4zMzE3IiB5MT0iMzkyLjM3ODkiIHkyPSI0MjAuODk0NSIvPjxwb2x5Z29uIGZpbGw9IiMxODE4MTgiIHBvaW50cz0iMTMxLjMzMTcsNDEwLjg5NDUsMTM1LjMzMTcsNDIwLjg5NDUsMTM5LjMzMTcsNDEwLjg5NDUsMTM1LjMzMTcsNDE0Ljg5NDUiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiLz48bGluZSBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7IiB4MT0iMTM1LjMzMTciIHgyPSIxMzUuMzMxNyIgeTE9IjMzNC4wMDc4IiB5Mj0iMzU4LjQxMDIiLz48cG9seWdvbiBmaWxsPSIjMTgxODE4IiBwb2ludHM9IjEzMS4zMzE3LDM0OC40MTAyLDEzNS4zMzE3LDM1OC40MTAyLDEzOS4zMzE3LDM0OC40MTAyLDEzNS4zMzE3LDM1Mi40MTAyIiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7Ii8+PGxpbmUgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIgeDE9IjE2OS42Njc0IiB4Mj0iMTgxLjgwNDMiIHkxPSIzMjIuMDA3OCIgeTI9IjMyMi4wMDc4Ii8+PHBvbHlnb24gZmlsbD0iIzE4MTgxOCIgcG9pbnRzPSIxNzcuODA0MywzOTAuODk0NSwxODEuODA0Myw0MDAuODk0NSwxODUuODA0MywzOTAuODk0NSwxODEuODA0MywzOTQuODk0NSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIvPjxsaW5lIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiIHgxPSIxODEuODA0MyIgeDI9IjE4MS44MDQzIiB5MT0iMzIyLjAwNzgiIHkyPSI0NjQuODk0NSIvPjxsaW5lIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiIHgxPSIxODEuODA0MyIgeDI9IjEzNS4zMzE3IiB5MT0iNDY0Ljg5NDUiIHkyPSI0NjQuODk0NSIvPjxsaW5lIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiIHgxPSIxMzUuMzMxNyIgeDI9IjEzNS4zMzE3IiB5MT0iNDY0Ljg5NDUiIHkyPSI0ODQuODk0NSIvPjxwb2x5Z29uIGZpbGw9IiMxODE4MTgiIHBvaW50cz0iMTMxLjMzMTcsNDc0Ljg5NDUsMTM1LjMzMTcsNDg0Ljg5NDUsMTM5LjMzMTcsNDc0Ljg5NDUsMTM1LjMzMTcsNDc4Ljg5NDUiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiLz48bGluZSBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7IiB4MT0iMTM1LjMzMTciIHgyPSIxMzUuMzMxNyIgeTE9IjU2Ny4yNjU2IiB5Mj0iNTk1Ljc4MTMiLz48cG9seWdvbiBmaWxsPSIjMTgxODE4IiBwb2ludHM9IjEzMS4zMzE3LDU4NS43ODEzLDEzNS4zMzE3LDU5NS43ODEzLDEzOS4zMzE3LDU4NS43ODEzLDEzNS4zMzE3LDU4OS43ODEzIiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7Ii8+PGxpbmUgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIgeDE9IjEzNS4zMzE3IiB4Mj0iMTM1LjMzMTciIHkxPSI1MDguODk0NSIgeTI9IjUzMy4yOTY5Ii8+PHBvbHlnb24gZmlsbD0iIzE4MTgxOCIgcG9pbnRzPSIxMzEuMzMxNyw1MjMuMjk2OSwxMzUuMzMxNyw1MzMuMjk2OSwxMzkuMzMxNyw1MjMuMjk2OSwxMzUuMzMxNyw1MjcuMjk2OSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIvPjxsaW5lIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiIHgxPSIxODMuNjY3MSIgeDI9IjE5NS42NjcxIiB5MT0iNDk2Ljg5NDUiIHkyPSI0OTYuODk0NSIvPjxwb2x5Z29uIGZpbGw9IiMxODE4MTgiIHBvaW50cz0iMTkxLjY2NzEsNTY1Ljc4MTMsMTk1LjY2NzEsNTc1Ljc4MTMsMTk5LjY2NzEsNTY1Ljc4MTMsMTk1LjY2NzEsNTY5Ljc4MTMiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiLz48bGluZSBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7IiB4MT0iMTk1LjY2NzEiIHgyPSIxOTUuNjY3MSIgeTE9IjQ5Ni44OTQ1IiB5Mj0iNjM5Ljc4MTMiLz48bGluZSBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7IiB4MT0iMTk1LjY2NzEiIHgyPSIxMzUuMzMxNyIgeTE9IjYzOS43ODEzIiB5Mj0iNjM5Ljc4MTMiLz48bGluZSBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7IiB4MT0iMTM1LjMzMTciIHgyPSIxMzUuMzMxNyIgeTE9IjYzOS43ODEzIiB5Mj0iNjU5Ljc4MTMiLz48cG9seWdvbiBmaWxsPSIjMTgxODE4IiBwb2ludHM9IjEzMS4zMzE3LDY0OS43ODEzLDEzNS4zMzE3LDY1OS43ODEzLDEzOS4zMzE3LDY0OS43ODEzLDEzNS4zMzE3LDY1My43ODEzIiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7Ii8+PGxpbmUgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIgeDE9IjEzNS4zMzE3IiB4Mj0iMTM1LjMzMTciIHkxPSIyNzMuMjAzMSIgeTI9IjMxMC4wMDc4Ii8+PHBvbHlnb24gZmlsbD0iIzE4MTgxOCIgcG9pbnRzPSIxMzEuMzMxNywzMDAuMDA3OCwxMzUuMzMxNywzMTAuMDA3OCwxMzkuMzMxNywzMDAuMDA3OCwxMzUuMzMxNywzMDQuMDA3OCIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIvPjxsaW5lIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiIHgxPSIxMzUuMzMxNyIgeDI9IjEzNS4zMzE3IiB5MT0iNjkzLjc1IiB5Mj0iNzAzLjc1Ii8+PGxpbmUgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIgeDE9IjEzNS4zMzE3IiB4Mj0iMjA3LjY2NzEiIHkxPSI3MDMuNzUiIHkyPSI3MDMuNzUiLz48cG9seWdvbiBmaWxsPSIjMTgxODE4IiBwb2ludHM9IjIwMy42NjcxLDQ5My40NzY2LDIwNy42NjcxLDQ4My40NzY2LDIxMS42NjcxLDQ5My40NzY2LDIwNy42NjcxLDQ4OS40NzY2IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7Ii8+PGxpbmUgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIgeDE9IjIwNy42NjcxIiB4Mj0iMjA3LjY2NzEiIHkxPSIyNjEuMjAzMSIgeTI9IjcwMy43NSIvPjxsaW5lIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiIHgxPSIyMDcuNjY3MSIgeDI9IjE1OS4zMzE3IiB5MT0iMjYxLjIwMzEiIHkyPSIyNjEuMjAzMSIvPjxwb2x5Z29uIGZpbGw9IiMxODE4MTgiIHBvaW50cz0iMTY5LjMzMTcsMjU3LjIwMzEsMTU5LjMzMTcsMjYxLjIwMzEsMTY5LjMzMTcsMjY1LjIwMzEsMTY1LjMzMTcsMjYxLjIwMzEiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiLz48bGluZSBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7IiB4MT0iMTExLjMzMTciIHgyPSI2My45OTYyIiB5MT0iMjYxLjIwMzEiIHkyPSIyNjEuMjAzMSIvPjxsaW5lIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiIHgxPSI2My45OTYyIiB4Mj0iNjMuOTk2MiIgeTE9IjI2MS4yMDMxIiB5Mj0iMjk3LjIwMzEiLz48cG9seWdvbiBmaWxsPSIjMTgxODE4IiBwb2ludHM9IjU5Ljk5NjIsMjg3LjIwMzEsNjMuOTk2MiwyOTcuMjAzMSw2Ny45OTYyLDI4Ny4yMDMxLDYzLjk5NjIsMjkxLjIwMzEiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiLz48bGluZSBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7IiB4MT0iMTM1LjMzMTciIHgyPSIxMzUuMzMxNyIgeTE9IjIyOS4yMDMxIiB5Mj0iMjQ5LjIwMzEiLz48cG9seWdvbiBmaWxsPSIjMTgxODE4IiBwb2ludHM9IjEzMS4zMzE3LDIzOS4yMDMxLDEzNS4zMzE3LDI0OS4yMDMxLDEzOS4zMzE3LDIzOS4yMDMxLDEzNS4zMzE3LDI0My4yMDMxIiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7Ii8+PD9wbGFudHVtbC1zcmMgVE93eklXRDE1OE54LW5JdGQyNEFmZnJiZHFHaWJaV1g1eUNhUjZRSGIzalpDM3plUUtYaVAyNURINm0yV2lJZGtNb01sNEtjV3VzNXJVNW0tQ3V2YmNuVk9fRXJoZC1nbXRGTHgyZnM1Vmp0VFpsc010UlZ4RHpHdEZVZWhteWxaeXJpQVc1NkRpaWpnN2dvZ1VVbDJlLUpmdGd3bkVtMlZtbEE1Umk1a21fc1V4cEp1bUdLT09mTkdLdEdwZzBtTGNHbzBPWXJBNm5VUThhcUdkNFV6ZGxzSW1kS0hINm1ENEtacVZRcTJNZHZvVU0zMTlMaE0tRzZCemo5LTM4T1daUXRyOE04UERUcTR3YW1fMXo3VnA1NWhMUG9EbDRFbkVtND8+PC9nPjwvc3ZnPg==" class="uml" alt="uml diagram" title="" /></p>
+<p>この図は、while 文を使った線形探索アルゴリズム（ssearchWhile メソッド）のフローチャートです。</p>
+<p>アルゴリズムの流れ：
+1. 配列 a と探索するキー key を入力として受け取ります
+2. 変数 i を 0 で初期化します（現在の検索位置）
+3. 無限ループ内で以下の処理を繰り返します：
+   - i が a の長さに達した場合（配列の末尾を超えた場合）、-1 を返して終了します（探索失敗）
+   - a[i] が key と一致する場合、i を返して終了します（探索成功）
+   - i を 1 増やします（次の要素へ）</p>
+<h4 id="for">for 文による線形探索のフローチャート<a class="headerlink" href="#for" title="Permanent link">&para;</a></h4>
+<p><img src="data:image/svg+xml;base64,PD9wbGFudHVtbCAxLjIwMjYuMj8+PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiBjb250ZW50U3R5bGVUeXBlPSJ0ZXh0L2NzcyIgZGF0YS1kaWFncmFtLXR5cGU9IkFDVElWSVRZIiBoZWlnaHQ9IjUwMnB4IiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBzdHlsZT0id2lkdGg6Mjc0cHg7aGVpZ2h0OjUwMnB4O2JhY2tncm91bmQ6I0ZGRkZGRjsiIHZlcnNpb249IjEuMSIgdmlld0JveD0iMCAwIDI3NCA1MDIiIHdpZHRoPSIyNzRweCIgem9vbUFuZFBhbj0ibWFnbmlmeSI+PHRpdGxlPiYjMzIyMTg7JiMyNDQxODsmIzI1NTA2OyYjMzIwMzQ7JiMxMjQ1MDsmIzEyNTIzOyYjMTI0Njg7JiMxMjUyMjsmIzEyNDc0OyYjMTI1MTI7IChmb3JlYWNoJiMyOTI1NjspPC90aXRsZT48ZGVmcy8+PGc+PGcgY2xhc3M9InRpdGxlIiBkYXRhLXNvdXJjZS1saW5lPSIxIj48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZm9udC13ZWlnaHQ9ImJvbGQiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMjMxLjQ5MTUiIHg9IjIwIiB5PSIzMi45OTUxIj4mIzMyMjE4OyYjMjQ0MTg7JiMyNTUwNjsmIzMyMDM0OyYjMTI0NTA7JiMxMjUyMzsmIzEyNDY4OyYjMTI1MjI7JiMxMjQ3NDsmIzEyNTEyOyAoZm9yZWFjaCYjMjkyNTY7KTwvdGV4dD48L2c+PGVsbGlwc2UgY3g9IjEyNS44MDY4IiBjeT0iNTcuMjk2OSIgZmlsbD0iIzIyMjIyMiIgcng9IjEwIiByeT0iMTAiIHN0eWxlPSJzdHJva2U6IzIyMjIyMjtzdHJva2Utd2lkdGg6MTsiLz48cmVjdCBmaWxsPSIjRjFGMUYxIiBoZWlnaHQ9IjMzLjk2ODgiIHJ4PSIxMi41IiByeT0iMTIuNSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7IiB3aWR0aD0iMTkxLjkwMzMiIHg9IjI5Ljg1NTIiIHk9Ijg3LjI5NjkiLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMiIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSIxNzEuOTAzMyIgeD0iMzkuODU1MiIgeT0iMTA4LjQzNTUiPiYjMjA4Mzc7JiMyMTE0Nzs6ICYjMzcxOTc7JiMyMTAxNTsgYSwgJiMyNTUwNjsmIzMyMDM0OyYjMTIzNzc7JiMxMjQyNzsmIzEyNDYxOyYjMTI1NDA7IGtleTwvdGV4dD48cmVjdCBmaWxsPSIjRjFGMUYxIiBoZWlnaHQ9IjMzLjk2ODgiIHJ4PSIxMi41IiByeT0iMTIuNSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7IiB3aWR0aD0iNjQuMzE0NSIgeD0iOTMuNjQ5NiIgeT0iMjQzLjYzNjciLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMiIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSI0NC4zMTQ1IiB4PSIxMDMuNjQ5NiIgeT0iMjY0Ljc3NTQiPnJldHVybiBpPC90ZXh0PjxlbGxpcHNlIGN4PSIxMjUuODA2OCIgY3k9IjMxOC42Mjg5IiBmaWxsPSJub25lIiByeD0iMTEiIHJ5PSIxMSIgc3R5bGU9InN0cm9rZTojMjIyMjIyO3N0cm9rZS13aWR0aDoxOyIvPjxlbGxpcHNlIGN4PSIxMjUuODA2OCIgY3k9IjMxOC42Mjg5IiBmaWxsPSIjMjIyMjIyIiByeD0iNiIgcnk9IjYiIHN0eWxlPSJzdHJva2U6IzIyMjIyMjtzdHJva2Utd2lkdGg6MTsiLz48cG9seWdvbiBmaWxsPSIjRjFGMUYxIiBwb2ludHM9IjkwLjUwOCwxOTUuMjM0NCwxNjEuMTA1NywxOTUuMjM0NCwxNzMuMTA1NywyMDcuMjM0NCwxNjEuMTA1NywyMTkuMjM0NCw5MC41MDgsMjE5LjIzNDQsNzguNTA4LDIwNy4yMzQ0LDkwLjUwOCwxOTUuMjM0NCIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7Ii8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTEiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMjEuOTk5OCIgeD0iMTI5LjgwNjgiIHk9IjIyOS40NDQ4Ij4mIzEyMzk5OyYjMTIzNTY7PC90ZXh0Pjx0ZXh0IGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjExIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjcwLjU5NzciIHg9IjkwLjUwOCIgeT0iMjExLjA0MjUiPnZhbCA9PT0ga2V5PC90ZXh0PjxyZWN0IGZpbGw9IiNGMUYxRjEiIGhlaWdodD0iMzMuOTY4OCIgcng9IjEyLjUiIHJ5PSIxMi41IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjAuNTsiIHdpZHRoPSIxODMuNjU4OSIgeD0iMzMuOTc3NCIgeT0iMTQxLjI2NTYiLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMiIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSIxNjMuNjU4OSIgeD0iNDMuOTc3NCIgeT0iMTYyLjQwNDMiPmEgJiMxMjM5ODsmIzIxNTA4OyYjMzUyMDE7JiMzMjAzMjsmIzEyNDM0OyBpID0mZ3Q7IHZhbCAmIzEyMzkxOyYjMzYyMDg7JiMyNjYxOTs8L3RleHQ+PHBvbHlnb24gZmlsbD0iI0YxRjFGMSIgcG9pbnRzPSI4Ny4zMDcxLDM3MS42Mjg5LDE2NC4zMDY2LDM3MS42Mjg5LDE3Ni4zMDY2LDM4My42Mjg5LDE2NC4zMDY2LDM5NS42Mjg5LDg3LjMwNzEsMzk1LjYyODksNzUuMzA3MSwzODMuNjI4OSw4Ny4zMDcxLDM3MS42Mjg5IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjAuNTsiLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMSIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSI3Ni45OTk1IiB4PSI4Ny4zMDcxIiB5PSIzODcuNDM3Ij4mIzI3NDI1OyYjMTIzOTg7JiMzNTIwMTsmIzMyMDMyOyYjMTIzNjQ7JiMxMjM1NDsmIzEyNDI3OzwvdGV4dD48cmVjdCBmaWxsPSIjRjFGMUYxIiBoZWlnaHQ9IjMzLjk2ODgiIHJ4PSIxMi41IiByeT0iMTIuNSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7IiB3aWR0aD0iNzIuOTQ1MyIgeD0iODkuMzM0MiIgeT0iNDE1LjYyODkiLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMiIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSI1Mi45NDUzIiB4PSI5OS4zMzQyIiB5PSI0MzYuNzY3NiI+cmV0dXJuIC0xPC90ZXh0PjxlbGxpcHNlIGN4PSIxMjUuODA2OCIgY3k9IjQ4MC41OTc3IiBmaWxsPSJub25lIiByeD0iMTEiIHJ5PSIxMSIgc3R5bGU9InN0cm9rZTojMjIyMjIyO3N0cm9rZS13aWR0aDoxOyIvPjxlbGxpcHNlIGN4PSIxMjUuODA2OCIgY3k9IjQ4MC41OTc3IiBmaWxsPSIjMjIyMjIyIiByeD0iNiIgcnk9IjYiIHN0eWxlPSJzdHJva2U6IzIyMjIyMjtzdHJva2Utd2lkdGg6MTsiLz48bGluZSBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7IiB4MT0iMTI1LjgwNjgiIHgyPSIxMjUuODA2OCIgeTE9IjY3LjI5NjkiIHkyPSI4Ny4yOTY5Ii8+PHBvbHlnb24gZmlsbD0iIzE4MTgxOCIgcG9pbnRzPSIxMjEuODA2OCw3Ny4yOTY5LDEyNS44MDY4LDg3LjI5NjksMTI5LjgwNjgsNzcuMjk2OSwxMjUuODA2OCw4MS4yOTY5IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7Ii8+PGxpbmUgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIgeDE9IjEyNS44MDY4IiB4Mj0iMTI1LjgwNjgiIHkxPSIyNzcuNjA1NSIgeTI9IjMwNy42Mjg5Ii8+PHBvbHlnb24gZmlsbD0iIzE4MTgxOCIgcG9pbnRzPSIxMjEuODA2OCwyOTcuNjI4OSwxMjUuODA2OCwzMDcuNjI4OSwxMjkuODA2OCwyOTcuNjI4OSwxMjUuODA2OCwzMDEuNjI4OSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIvPjxsaW5lIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiIHgxPSIxMjUuODA2OCIgeDI9IjEyNS44MDY4IiB5MT0iMjE5LjIzNDQiIHkyPSIyNDMuNjM2NyIvPjxwb2x5Z29uIGZpbGw9IiMxODE4MTgiIHBvaW50cz0iMTIxLjgwNjgsMjMzLjYzNjcsMTI1LjgwNjgsMjQzLjYzNjcsMTI5LjgwNjgsMjMzLjYzNjcsMTI1LjgwNjgsMjM3LjYzNjciIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiLz48bGluZSBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7IiB4MT0iMTczLjEwNTciIHgyPSIxODUuMTA1NyIgeTE9IjIwNy4yMzQ0IiB5Mj0iMjA3LjIzNDQiLz48cG9seWdvbiBmaWxsPSIjMTgxODE4IiBwb2ludHM9IjE4MS4xMDU3LDI3Ni4xMjExLDE4NS4xMDU3LDI4Ni4xMjExLDE4OS4xMDU3LDI3Ni4xMjExLDE4NS4xMDU3LDI4MC4xMjExIiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7Ii8+PGxpbmUgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIgeDE9IjE4NS4xMDU3IiB4Mj0iMTg1LjEwNTciIHkxPSIyMDcuMjM0NCIgeTI9IjM1MS42Mjg5Ii8+PGxpbmUgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIgeDE9IjE4NS4xMDU3IiB4Mj0iMTI1LjgwNjgiIHkxPSIzNTEuNjI4OSIgeTI9IjM1MS42Mjg5Ii8+PGxpbmUgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIgeDE9IjEyNS44MDY4IiB4Mj0iMTI1LjgwNjgiIHkxPSIzNTEuNjI4OSIgeTI9IjM3MS42Mjg5Ii8+PHBvbHlnb24gZmlsbD0iIzE4MTgxOCIgcG9pbnRzPSIxMjEuODA2OCwzNjEuNjI4OSwxMjUuODA2OCwzNzEuNjI4OSwxMjkuODA2OCwzNjEuNjI4OSwxMjUuODA2OCwzNjUuNjI4OSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIvPjxsaW5lIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiIHgxPSIxMjUuODA2OCIgeDI9IjEyNS44MDY4IiB5MT0iMTc1LjIzNDQiIHkyPSIxOTUuMjM0NCIvPjxwb2x5Z29uIGZpbGw9IiMxODE4MTgiIHBvaW50cz0iMTIxLjgwNjgsMTg1LjIzNDQsMTI1LjgwNjgsMTk1LjIzNDQsMTI5LjgwNjgsMTg1LjIzNDQsMTI1LjgwNjgsMTg5LjIzNDQiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiLz48bGluZSBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7IiB4MT0iMTc2LjMwNjYiIHgyPSIyMjkuNjM2MyIgeTE9IjM4My42Mjg5IiB5Mj0iMzgzLjYyODkiLz48cG9seWdvbiBmaWxsPSIjMTgxODE4IiBwb2ludHM9IjIyNS42MzYzLDI4Ny42Mjg5LDIyOS42MzYzLDI3Ny42Mjg5LDIzMy42MzYzLDI4Ny42Mjg5LDIyOS42MzYzLDI4My42Mjg5IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7Ii8+PGxpbmUgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIgeDE9IjIyOS42MzYzIiB4Mj0iMjI5LjYzNjMiIHkxPSIxNTguMjUiIHkyPSIzODMuNjI4OSIvPjxsaW5lIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiIHgxPSIyMjkuNjM2MyIgeDI9IjIxNy42MzYzIiB5MT0iMTU4LjI1IiB5Mj0iMTU4LjI1Ii8+PHBvbHlnb24gZmlsbD0iIzE4MTgxOCIgcG9pbnRzPSIyMjcuNjM2MywxNTQuMjUsMjE3LjYzNjMsMTU4LjI1LDIyNy42MzYzLDE2Mi4yNSwyMjMuNjM2MywxNTguMjUiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiLz48bGluZSBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7IiB4MT0iMTI1LjgwNjgiIHgyPSIxMjUuODA2OCIgeTE9IjEyMS4yNjU2IiB5Mj0iMTQxLjI2NTYiLz48cG9seWdvbiBmaWxsPSIjMTgxODE4IiBwb2ludHM9IjEyMS44MDY4LDEzMS4yNjU2LDEyNS44MDY4LDE0MS4yNjU2LDEyOS44MDY4LDEzMS4yNjU2LDEyNS44MDY4LDEzNS4yNjU2IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7Ii8+PGxpbmUgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIgeDE9IjEyNS44MDY4IiB4Mj0iMTI1LjgwNjgiIHkxPSIzOTUuNjI4OSIgeTI9IjQxNS42Mjg5Ii8+PHBvbHlnb24gZmlsbD0iIzE4MTgxOCIgcG9pbnRzPSIxMjEuODA2OCw0MDUuNjI4OSwxMjUuODA2OCw0MTUuNjI4OSwxMjkuODA2OCw0MDUuNjI4OSwxMjUuODA2OCw0MDkuNjI4OSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIvPjxsaW5lIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiIHgxPSIxMjUuODA2OCIgeDI9IjEyNS44MDY4IiB5MT0iNDQ5LjU5NzciIHkyPSI0NjkuNTk3NyIvPjxwb2x5Z29uIGZpbGw9IiMxODE4MTgiIHBvaW50cz0iMTIxLjgwNjgsNDU5LjU5NzcsMTI1LjgwNjgsNDY5LjU5NzcsMTI5LjgwNjgsNDU5LjU5NzcsMTI1LjgwNjgsNDYzLjU5NzciIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiLz48P3BsYW50dW1sLXNyYyBET18xUWk5MDU0TnR5bkxsY08wa2thczhfcEJlWDBuQWJFYk9TSmFKMVRrZ2I2dkFUUTQ2c2U5TXhJOTVxRlBoN2ZGT2x0MmFrZHNObXBiRlNqYldLRW1jdlpWRG5zY0hmUVhKSjVRZUNxb01nRlVPcEM0OWN1QkhRYkpTM3JuMlJZS0xhZFljX3NPVWZYeHl6S1RjeTBBcTExVFVsUTktSEJ0NnYwVmdoRWlKOGJZQktHYVUxTEdSeXpHeGxnaVljd0QtMVd2MTFVdmVtbXVWbi0tbFY3Um0yR18xRVAtMjgzWnBCaVk4blUyV3NnQmdrU0dKSkJQNTNEb3Q5U3FNT042RFhyVDU5LUJzN0lWX041WkpIUUU2Z0JIRGlrYk5qZHBwM3Z5MD8+PC9nPjwvc3ZnPg==" class="uml" alt="uml diagram" title="" /></p>
+<p>この図は、foreach を使った線形探索アルゴリズム（ssearchFor メソッド）のフローチャートです。</p>
+<p>アルゴリズムの流れ：
+1. 配列 a と探索するキー key を入力として受け取ります
+2. a の各要素を i =&gt; val で走査し、以下の処理を繰り返します：
+   - val が key と一致する場合、i を返して終了します（探索成功）
+3. ループが終了した場合（一致する要素が見つからなかった場合）、-1 を返します（探索失敗）</p>
+<p><strong>計算量</strong>: 最悪 O(n)、平均 O(n/2)</p>
+<h3 id="_4">番兵法<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>末尾にキーを追加（番兵）することで、ループ内の終了判定を省略します。</p>
+<div class="highlight"><pre><span></span><code><span class="x">/** 配列 $a から $key と一致する要素を線形探索（番兵法） */</span>
+<span class="x">public static function ssearchSentinel(array $a, mixed $key): int</span>
+<span class="x">{</span>
+<span class="x">    $n = count($a);</span>
+<span class="x">    $arr = $a;</span>
+<span class="x">    $arr[] = $key; // 番兵を追加</span>
+<span class="x">    $i = 0;</span>
+<span class="x">    while ($arr[$i] !== $key) {</span>
+<span class="x">        $i++;</span>
+<span class="x">    }</span>
+<span class="x">    return $i === $n ? -1 : $i;</span>
+<span class="x">}</span>
+</code></pre></div>
+<h3 id="_5">番兵法の解説<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>番兵法では、探索対象の配列の末尾に探索するキーを追加（番兵として配置）することで、ループ内での終了判定を簡略化します。</p>
+<p><img src="data:image/svg+xml;base64,PD9wbGFudHVtbCAxLjIwMjYuMj8+PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiBjb250ZW50U3R5bGVUeXBlPSJ0ZXh0L2NzcyIgZGF0YS1kaWFncmFtLXR5cGU9IkFDVElWSVRZIiBoZWlnaHQ9Ijc5MHB4IiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBzdHlsZT0id2lkdGg6MjQycHg7aGVpZ2h0Ojc5MHB4O2JhY2tncm91bmQ6I0ZGRkZGRjsiIHZlcnNpb249IjEuMSIgdmlld0JveD0iMCAwIDI0MiA3OTAiIHdpZHRoPSIyNDJweCIgem9vbUFuZFBhbj0ibWFnbmlmeSI+PHRpdGxlPiYjMzIyMTg7JiMyNDQxODsmIzI1NTA2OyYjMzIwMzQ7JiMxMjQ1MDsmIzEyNTIzOyYjMTI0Njg7JiMxMjUyMjsmIzEyNDc0OyYjMTI1MTI7ICgmIzMwMDU4OyYjMjA4NTM7JiMyNzg2MTspPC90aXRsZT48ZGVmcy8+PGc+PGcgY2xhc3M9InRpdGxlIiBkYXRhLXNvdXJjZS1saW5lPSIxIj48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZm9udC13ZWlnaHQ9ImJvbGQiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMTk5LjY3MDEiIHg9IjIwIiB5PSIzMi45OTUxIj4mIzMyMjE4OyYjMjQ0MTg7JiMyNTUwNjsmIzMyMDM0OyYjMTI0NTA7JiMxMjUyMzsmIzEyNDY4OyYjMTI1MjI7JiMxMjQ3NDsmIzEyNTEyOyAoJiMzMDA1ODsmIzIwODUzOyYjMjc4NjE7KTwvdGV4dD48L2c+PGVsbGlwc2UgY3g9IjEyMS4zMzUxIiBjeT0iNTcuMjk2OSIgZmlsbD0iIzIyMjIyMiIgcng9IjEwIiByeT0iMTAiIHN0eWxlPSJzdHJva2U6IzIyMjIyMjtzdHJva2Utd2lkdGg6MTsiLz48cmVjdCBmaWxsPSIjRjFGMUYxIiBoZWlnaHQ9IjMzLjk2ODgiIHJ4PSIxMi41IiByeT0iMTIuNSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7IiB3aWR0aD0iMTkxLjkwMzMiIHg9IjI1LjM4MzQiIHk9Ijg3LjI5NjkiLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMiIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSIxNzEuOTAzMyIgeD0iMzUuMzgzNCIgeT0iMTA4LjQzNTUiPiYjMjA4Mzc7JiMyMTE0Nzs6ICYjMzcxOTc7JiMyMTAxNTsgYSwgJiMyNTUwNjsmIzMyMDM0OyYjMTIzNzc7JiMxMjQyNzsmIzEyNDYxOyYjMTI1NDA7IGtleTwvdGV4dD48cmVjdCBmaWxsPSIjRjFGMUYxIiBoZWlnaHQ9IjMzLjk2ODgiIHJ4PSIxMi41IiByeT0iMTIuNSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7IiB3aWR0aD0iOTUuODYxMyIgeD0iNzMuNDA0NCIgeT0iMTQxLjI2NTYiLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMiIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSI3NS44NjEzIiB4PSI4My40MDQ0IiB5PSIxNjIuNDA0MyI+biA9IGNvdW50KGEpPC90ZXh0PjxyZWN0IGZpbGw9IiNGMUYxRjEiIGhlaWdodD0iMzMuOTY4OCIgcng9IjEyLjUiIHJ5PSIxMi41IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjAuNTsiIHdpZHRoPSIxMTQuMDcyNiIgeD0iNjQuMjk4NyIgeT0iMTk1LjIzNDQiLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMiIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSI5NC4wNzI2IiB4PSI3NC4yOTg3IiB5PSIyMTYuMzczIj5hcnIgPSBhICYjMTIzOTg7JiMxMjQ2NzsmIzEyNTAwOyYjMTI1NDA7PC90ZXh0PjxyZWN0IGZpbGw9IiNGMUYxRjEiIGhlaWdodD0iMzMuOTY4OCIgcng9IjEyLjUiIHJ5PSIxMi41IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjAuNTsiIHdpZHRoPSIyMDIuMDk4NyIgeD0iMjAuMjg1NyIgeT0iMjQ5LjIwMzEiLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMiIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSIxODIuMDk4NyIgeD0iMzAuMjg1NyIgeT0iMjcwLjM0MTgiPmFyciAmIzEyMzk4OyYjMjY0MTE7JiMyMzYxNDsmIzEyMzk1OyBrZXkgJiMxMjQzNDsmIzM2ODYxOyYjMjExNTI7JiM2NTI4ODsmIzMwMDU4OyYjMjA4NTM7JiM2NTI4OTs8L3RleHQ+PHJlY3QgZmlsbD0iI0YxRjFGMSIgaGVpZ2h0PSIzMy45Njg4IiByeD0iMTIuNSIgcnk9IjEyLjUiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MC41OyIgd2lkdGg9IjQ4LjY1MjMiIHg9Ijk3LjAwODkiIHk9IjMwMy4xNzE5Ii8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTIiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMjguNjUyMyIgeD0iMTA3LjAwODkiIHk9IjMyNC4zMTA1Ij5pID0gMDwvdGV4dD48cmVjdCBmaWxsPSIjRjFGMUYxIiBoZWlnaHQ9IjMzLjk2ODgiIHJ4PSIxMi41IiByeT0iMTIuNSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7IiB3aWR0aD0iNTQuMjM2MyIgeD0iOTQuMjE2OSIgeT0iNDYxLjI1MzQiLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMiIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSIzNC4yMzYzIiB4PSIxMDQuMjE2OSIgeT0iNDgyLjM5MjEiPmJyZWFrPC90ZXh0Pjxwb2x5Z29uIGZpbGw9IiNGMUYxRjEiIHBvaW50cz0iODAuNDc3MSw0MTIuODUxMSwxNjIuMTkzLDQxMi44NTExLDE3NC4xOTMsNDI0Ljg1MTEsMTYyLjE5Myw0MzYuODUxMSw4MC40NzcxLDQzNi44NTExLDY4LjQ3NzEsNDI0Ljg1MTEsODAuNDc3MSw0MTIuODUxMSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7Ii8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTEiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMjEuOTk5OCIgeD0iMTI1LjMzNTEiIHk9IjQ0Ny4wNjE1Ij4mIzEyMzk5OyYjMTIzNTY7PC90ZXh0Pjx0ZXh0IGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjExIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjgxLjcxNTgiIHg9IjgwLjQ3NzEiIHk9IjQyOC42NTkyIj5hcnJbaV0gPT09IGtleTwvdGV4dD48cG9seWdvbiBmaWxsPSIjRjFGMUYxIiBwb2ludHM9IjEyMS4zMzUxLDUxOS42MjQ1LDEzMy4zMzUxLDUzMS42MjQ1LDEyMS4zMzUxLDU0My42MjQ1LDEwOS4zMzUxLDUzMS42MjQ1LDEyMS4zMzUxLDUxOS42MjQ1IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjAuNTsiLz48cmVjdCBmaWxsPSIjRjFGMUYxIiBoZWlnaHQ9IjMzLjk2ODgiIHJ4PSIxMi41IiByeT0iMTIuNSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7IiB3aWR0aD0iNDMuNDQzNCIgeD0iOTkuNjEzNCIgeT0iNTYzLjYyNDUiLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMiIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSIyMy40NDM0IiB4PSIxMDkuNjEzNCIgeT0iNTg0Ljc2MzIiPmkrKzwvdGV4dD48cG9seWdvbiBmaWxsPSIjRjFGMUYxIiBwb2ludHM9IjEwOS4zMzUxLDM1Ny4xNDA2LDEzMy4zMzUxLDM1Ny4xNDA2LDE0NS4zMzUxLDM2OS4xNDA2LDEzMy4zMzUxLDM4MS4xNDA2LDEwOS4zMzUxLDM4MS4xNDA2LDk3LjMzNTEsMzY5LjE0MDYsMTA5LjMzNTEsMzU3LjE0MDYiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MC41OyIvPjx0ZXh0IGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjExIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjMyLjk5OTgiIHg9IjEyNS4zMzUxIiB5PSIzOTEuMzUxMSI+JiMxMjUyMzsmIzEyNTQwOyYjMTI1MDM7PC90ZXh0Pjx0ZXh0IGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjExIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjIyLjU3NDciIHg9IjExMC4wNDc3IiB5PSIzNzIuOTQ4NyI+dHJ1ZTwvdGV4dD48cG9seWdvbiBmaWxsPSIjRjFGMUYxIiBwb2ludHM9Ijk4Ljk5OTQsNjM5LjU5MzMsMTQzLjY3MDcsNjM5LjU5MzMsMTU1LjY3MDcsNjUxLjU5MzMsMTQzLjY3MDcsNjYzLjU5MzMsOTguOTk5NCw2NjMuNTkzMyw4Ni45OTk0LDY1MS41OTMzLDk4Ljk5OTQsNjM5LjU5MzMiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MC41OyIvPjx0ZXh0IGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjExIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjQ0LjY3MTQiIHg9Ijk4Ljk5OTQiIHk9IjY1NS40MDE0Ij5pID09PSBuPC90ZXh0Pjx0ZXh0IGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjExIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjIxLjk5OTgiIHg9IjY0Ljk5OTUiIHk9IjY0OC45OTkiPiYjMTIzOTk7JiMxMjM1Njs8L3RleHQ+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTEiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMzIuOTk5OCIgeD0iMTU1LjY3MDciIHk9IjY0OC45OTkiPiYjMTIzNTY7JiMxMjM1NjsmIzEyMzYwOzwvdGV4dD48cmVjdCBmaWxsPSIjRjFGMUYxIiBoZWlnaHQ9IjMzLjk2ODgiIHJ4PSIxMi41IiByeT0iMTIuNSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7IiB3aWR0aD0iNzIuOTQ1MyIgeD0iNDAuNTI2NyIgeT0iNjczLjU5MzMiLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMiIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSI1Mi45NDUzIiB4PSI1MC41MjY3IiB5PSI2OTQuNzMxOSI+cmV0dXJuIC0xPC90ZXh0PjxyZWN0IGZpbGw9IiNGMUYxRjEiIGhlaWdodD0iMzMuOTY4OCIgcng9IjEyLjUiIHJ5PSIxMi41IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjAuNTsiIHdpZHRoPSI2NC4zMTQ1IiB4PSIxMzMuNTEzNSIgeT0iNjczLjU5MzMiLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMiIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSI0NC4zMTQ1IiB4PSIxNDMuNTEzNSIgeT0iNjk0LjczMTkiPnJldHVybiBpPC90ZXh0Pjxwb2x5Z29uIGZpbGw9IiNGMUYxRjEiIHBvaW50cz0iMTIxLjMzNTEsNzEzLjU2MiwxMzMuMzM1MSw3MjUuNTYyLDEyMS4zMzUxLDczNy41NjIsMTA5LjMzNTEsNzI1LjU2MiwxMjEuMzM1MSw3MTMuNTYyIiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjAuNTsiLz48ZWxsaXBzZSBjeD0iMTIxLjMzNTEiIGN5PSI3NjguNTYyIiBmaWxsPSJub25lIiByeD0iMTEiIHJ5PSIxMSIgc3R5bGU9InN0cm9rZTojMjIyMjIyO3N0cm9rZS13aWR0aDoxOyIvPjxlbGxpcHNlIGN4PSIxMjEuMzM1MSIgY3k9Ijc2OC41NjIiIGZpbGw9IiMyMjIyMjIiIHJ4PSI2IiByeT0iNiIgc3R5bGU9InN0cm9rZTojMjIyMjIyO3N0cm9rZS13aWR0aDoxOyIvPjxsaW5lIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiIHgxPSIxMjEuMzM1MSIgeDI9IjEyMS4zMzUxIiB5MT0iNjcuMjk2OSIgeTI9Ijg3LjI5NjkiLz48cG9seWdvbiBmaWxsPSIjMTgxODE4IiBwb2ludHM9IjExNy4zMzUxLDc3LjI5NjksMTIxLjMzNTEsODcuMjk2OSwxMjUuMzM1MSw3Ny4yOTY5LDEyMS4zMzUxLDgxLjI5NjkiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiLz48bGluZSBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7IiB4MT0iMTIxLjMzNTEiIHgyPSIxMjEuMzM1MSIgeTE9IjEyMS4yNjU2IiB5Mj0iMTQxLjI2NTYiLz48cG9seWdvbiBmaWxsPSIjMTgxODE4IiBwb2ludHM9IjExNy4zMzUxLDEzMS4yNjU2LDEyMS4zMzUxLDE0MS4yNjU2LDEyNS4zMzUxLDEzMS4yNjU2LDEyMS4zMzUxLDEzNS4yNjU2IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7Ii8+PGxpbmUgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIgeDE9IjEyMS4zMzUxIiB4Mj0iMTIxLjMzNTEiIHkxPSIxNzUuMjM0NCIgeTI9IjE5NS4yMzQ0Ii8+PHBvbHlnb24gZmlsbD0iIzE4MTgxOCIgcG9pbnRzPSIxMTcuMzM1MSwxODUuMjM0NCwxMjEuMzM1MSwxOTUuMjM0NCwxMjUuMzM1MSwxODUuMjM0NCwxMjEuMzM1MSwxODkuMjM0NCIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIvPjxsaW5lIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiIHgxPSIxMjEuMzM1MSIgeDI9IjEyMS4zMzUxIiB5MT0iMjI5LjIwMzEiIHkyPSIyNDkuMjAzMSIvPjxwb2x5Z29uIGZpbGw9IiMxODE4MTgiIHBvaW50cz0iMTE3LjMzNTEsMjM5LjIwMzEsMTIxLjMzNTEsMjQ5LjIwMzEsMTI1LjMzNTEsMjM5LjIwMzEsMTIxLjMzNTEsMjQzLjIwMzEiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiLz48bGluZSBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7IiB4MT0iMTIxLjMzNTEiIHgyPSIxMjEuMzM1MSIgeTE9IjI4My4xNzE5IiB5Mj0iMzAzLjE3MTkiLz48cG9seWdvbiBmaWxsPSIjMTgxODE4IiBwb2ludHM9IjExNy4zMzUxLDI5My4xNzE5LDEyMS4zMzUxLDMwMy4xNzE5LDEyNS4zMzUxLDI5My4xNzE5LDEyMS4zMzUxLDI5Ny4xNzE5IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7Ii8+PGxpbmUgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIgeDE9IjEyMS4zMzUxIiB4Mj0iMTIxLjMzNTEiIHkxPSI0MzYuODUxMSIgeTI9IjQ2MS4yNTM0Ii8+PHBvbHlnb24gZmlsbD0iIzE4MTgxOCIgcG9pbnRzPSIxMTcuMzM1MSw0NTEuMjUzNCwxMjEuMzM1MSw0NjEuMjUzNCwxMjUuMzM1MSw0NTEuMjUzNCwxMjEuMzM1MSw0NTUuMjUzNCIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIvPjxsaW5lIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiIHgxPSIxNzQuMTkzIiB4Mj0iMTg2LjE5MyIgeTE9IjQyNC44NTExIiB5Mj0iNDI0Ljg1MTEiLz48cG9seWdvbiBmaWxsPSIjMTgxODE4IiBwb2ludHM9IjE4Mi4xOTMsNDY4LjIzNzgsMTg2LjE5Myw0NzguMjM3OCwxOTAuMTkzLDQ2OC4yMzc4LDE4Ni4xOTMsNDcyLjIzNzgiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiLz48bGluZSBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7IiB4MT0iMTg2LjE5MyIgeDI9IjE4Ni4xOTMiIHkxPSI0MjQuODUxMSIgeTI9IjUzMS42MjQ1Ii8+PGxpbmUgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIgeDE9IjE4Ni4xOTMiIHgyPSIxMzMuMzM1MSIgeTE9IjUzMS42MjQ1IiB5Mj0iNTMxLjYyNDUiLz48cG9seWdvbiBmaWxsPSIjMTgxODE4IiBwb2ludHM9IjE0My4zMzUxLDUyNy42MjQ1LDEzMy4zMzUxLDUzMS42MjQ1LDE0My4zMzUxLDUzNS42MjQ1LDEzOS4zMzUxLDUzMS42MjQ1IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7Ii8+PGxpbmUgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIgeDE9IjEyMS4zMzUxIiB4Mj0iMTIxLjMzNTEiIHkxPSI0OTUuMjIyMiIgeTI9IjUxOS42MjQ1Ii8+PHBvbHlnb24gZmlsbD0iIzE4MTgxOCIgcG9pbnRzPSIxMTcuMzM1MSw1MDkuNjI0NSwxMjEuMzM1MSw1MTkuNjI0NSwxMjUuMzM1MSw1MDkuNjI0NSwxMjEuMzM1MSw1MTMuNjI0NSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIvPjxsaW5lIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiIHgxPSIxMjEuMzM1MSIgeDI9IjEyMS4zMzUxIiB5MT0iNTQzLjYyNDUiIHkyPSI1NjMuNjI0NSIvPjxwb2x5Z29uIGZpbGw9IiMxODE4MTgiIHBvaW50cz0iMTE3LjMzNTEsNTUzLjYyNDUsMTIxLjMzNTEsNTYzLjYyNDUsMTI1LjMzNTEsNTUzLjYyNDUsMTIxLjMzNTEsNTU3LjYyNDUiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiLz48bGluZSBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7IiB4MT0iMTIxLjMzNTEiIHgyPSIxMjEuMzM1MSIgeTE9IjM4MS4xNDA2IiB5Mj0iNDEyLjg1MTEiLz48cG9seWdvbiBmaWxsPSIjMTgxODE4IiBwb2ludHM9IjExNy4zMzUxLDQwMi44NTExLDEyMS4zMzUxLDQxMi44NTExLDEyNS4zMzUxLDQwMi44NTExLDEyMS4zMzUxLDQwNi44NTExIiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7Ii8+PGxpbmUgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIgeDE9IjEyMS4zMzUxIiB4Mj0iMTIxLjMzNTEiIHkxPSI1OTcuNTkzMyIgeTI9IjYwNy41OTMzIi8+PGxpbmUgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIgeDE9IjEyMS4zMzUxIiB4Mj0iMTk4LjE5MyIgeTE9IjYwNy41OTMzIiB5Mj0iNjA3LjU5MzMiLz48cG9seWdvbiBmaWxsPSIjMTgxODE4IiBwb2ludHM9IjE5NC4xOTMsNTA0LjMxOTgsMTk4LjE5Myw0OTQuMzE5OCwyMDIuMTkzLDUwNC4zMTk4LDE5OC4xOTMsNTAwLjMxOTgiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiLz48bGluZSBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7IiB4MT0iMTk4LjE5MyIgeDI9IjE5OC4xOTMiIHkxPSIzNjkuMTQwNiIgeTI9IjYwNy41OTMzIi8+PGxpbmUgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIgeDE9IjE5OC4xOTMiIHgyPSIxNDUuMzM1MSIgeTE9IjM2OS4xNDA2IiB5Mj0iMzY5LjE0MDYiLz48cG9seWdvbiBmaWxsPSIjMTgxODE4IiBwb2ludHM9IjE1NS4zMzUxLDM2NS4xNDA2LDE0NS4zMzUxLDM2OS4xNDA2LDE1NS4zMzUxLDM3My4xNDA2LDE1MS4zMzUxLDM2OS4xNDA2IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7Ii8+PGxpbmUgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIgeDE9Ijk3LjMzNTEiIHgyPSI1Ni40NzcxIiB5MT0iMzY5LjE0MDYiIHkyPSIzNjkuMTQwNiIvPjxwb2x5Z29uIGZpbGw9IiMxODE4MTgiIHBvaW50cz0iNTIuNDc3MSw0OTAuMzE5OCw1Ni40NzcxLDUwMC4zMTk4LDYwLjQ3NzEsNDkwLjMxOTgsNTYuNDc3MSw0OTQuMzE5OCIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIvPjxsaW5lIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiIHgxPSI1Ni40NzcxIiB4Mj0iNTYuNDc3MSIgeTE9IjM2OS4xNDA2IiB5Mj0iNjE5LjU5MzMiLz48bGluZSBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7IiB4MT0iNTYuNDc3MSIgeDI9IjEyMS4zMzUxIiB5MT0iNjE5LjU5MzMiIHkyPSI2MTkuNTkzMyIvPjxsaW5lIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiIHgxPSIxMjEuMzM1MSIgeDI9IjEyMS4zMzUxIiB5MT0iNjE5LjU5MzMiIHkyPSI2MzkuNTkzMyIvPjxwb2x5Z29uIGZpbGw9IiMxODE4MTgiIHBvaW50cz0iMTE3LjMzNTEsNjI5LjU5MzMsMTIxLjMzNTEsNjM5LjU5MzMsMTI1LjMzNTEsNjI5LjU5MzMsMTIxLjMzNTEsNjMzLjU5MzMiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiLz48bGluZSBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7IiB4MT0iMTIxLjMzNTEiIHgyPSIxMjEuMzM1MSIgeTE9IjMzNy4xNDA2IiB5Mj0iMzU3LjE0MDYiLz48cG9seWdvbiBmaWxsPSIjMTgxODE4IiBwb2ludHM9IjExNy4zMzUxLDM0Ny4xNDA2LDEyMS4zMzUxLDM1Ny4xNDA2LDEyNS4zMzUxLDM0Ny4xNDA2LDEyMS4zMzUxLDM1MS4xNDA2IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7Ii8+PGxpbmUgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIgeDE9Ijg2Ljk5OTQiIHgyPSI3Ni45OTk0IiB5MT0iNjUxLjU5MzMiIHkyPSI2NTEuNTkzMyIvPjxsaW5lIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiIHgxPSI3Ni45OTk0IiB4Mj0iNzYuOTk5NCIgeTE9IjY1MS41OTMzIiB5Mj0iNjczLjU5MzMiLz48cG9seWdvbiBmaWxsPSIjMTgxODE4IiBwb2ludHM9IjcyLjk5OTQsNjYzLjU5MzMsNzYuOTk5NCw2NzMuNTkzMyw4MC45OTk0LDY2My41OTMzLDc2Ljk5OTQsNjY3LjU5MzMiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiLz48bGluZSBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7IiB4MT0iMTU1LjY3MDciIHgyPSIxNjUuNjcwNyIgeTE9IjY1MS41OTMzIiB5Mj0iNjUxLjU5MzMiLz48bGluZSBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7IiB4MT0iMTY1LjY3MDciIHgyPSIxNjUuNjcwNyIgeTE9IjY1MS41OTMzIiB5Mj0iNjczLjU5MzMiLz48cG9seWdvbiBmaWxsPSIjMTgxODE4IiBwb2ludHM9IjE2MS42NzA3LDY2My41OTMzLDE2NS42NzA3LDY3My41OTMzLDE2OS42NzA3LDY2My41OTMzLDE2NS42NzA3LDY2Ny41OTMzIiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7Ii8+PGxpbmUgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIgeDE9Ijc2Ljk5OTQiIHgyPSI3Ni45OTk0IiB5MT0iNzA3LjU2MiIgeTI9IjcyNS41NjIiLz48bGluZSBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7IiB4MT0iNzYuOTk5NCIgeDI9IjEwOS4zMzUxIiB5MT0iNzI1LjU2MiIgeTI9IjcyNS41NjIiLz48cG9seWdvbiBmaWxsPSIjMTgxODE4IiBwb2ludHM9Ijk5LjMzNTEsNzIxLjU2MiwxMDkuMzM1MSw3MjUuNTYyLDk5LjMzNTEsNzI5LjU2MiwxMDMuMzM1MSw3MjUuNTYyIiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7Ii8+PGxpbmUgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIgeDE9IjE2NS42NzA3IiB4Mj0iMTY1LjY3MDciIHkxPSI3MDcuNTYyIiB5Mj0iNzI1LjU2MiIvPjxsaW5lIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiIHgxPSIxNjUuNjcwNyIgeDI9IjEzMy4zMzUxIiB5MT0iNzI1LjU2MiIgeTI9IjcyNS41NjIiLz48cG9seWdvbiBmaWxsPSIjMTgxODE4IiBwb2ludHM9IjE0My4zMzUxLDcyMS41NjIsMTMzLjMzNTEsNzI1LjU2MiwxNDMuMzM1MSw3MjkuNTYyLDEzOS4zMzUxLDcyNS41NjIiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiLz48bGluZSBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7IiB4MT0iMTIxLjMzNTEiIHgyPSIxMjEuMzM1MSIgeTE9IjczNy41NjIiIHkyPSI3NTcuNTYyIi8+PHBvbHlnb24gZmlsbD0iIzE4MTgxOCIgcG9pbnRzPSIxMTcuMzM1MSw3NDcuNTYyLDEyMS4zMzUxLDc1Ny41NjIsMTI1LjMzNTEsNzQ3LjU2MiwxMjEuMzM1MSw3NTEuNTYyIiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7Ii8+PD9wbGFudHVtbC1zcmMgUFAzQklpRDA1OFJ0eW5IZGNMMDV0SVJhSVNINXIyYVRNZ09vY0k4a0N6RDBoRVgyQkNOQmVXSlNEN1kxaldZSXdpQ1M5ajVMTnk1OWhCV0dQWjdwZF9Eel84bmFpYVVYVWhxcmd3b3lwQWY1WFlmM2RRRFFlOXdYVWFDejFRU1FwcW9vQkVUWmJ2MThYYThJcG9HRlBkSmRtTFRvT1Q4OVg1a21tVUNSTEVVZTdiNE5xQU1kRmw0dTE3M083dDNmWEF2elhhQk84MElDZHIzREtMX1JwS3JpZV84LURvX2w2RVNyM0FZa0Zaek1QWkhUNS1iRllOTG5QZlVQRFVwdVg5bnFjQXRsSTM2V0JoMDhkQmd3QmIxRk5DQlF1NVpmN2prNzgwWGdkR2tvR3hiVFlmeW43aGg0RW4wcXhGZzR5WUZNamo5TWd4YXRLakJtaDQ3dkZyMUdFSDBTamRTanE4amVGSGFzOV9xUmliLW5fUkIteUpTMD8+PC9nPjwvc3ZnPg==" class="uml" alt="uml diagram" title="" /></p>
+<p>番兵法の利点：ループ内での終了判定（i === n）を省略できるため、わずかながら効率が向上します。番兵に到達した場合でも arr[i] === key の条件は真になるため、ループから抜けることができます。その後、番兵に到達したかどうかを判定することで、探索の成功/失敗を決定します。</p>
+<p>PHP では <code>$arr[] = $key</code> で配列の末尾に要素を追加できます。また、配列は値渡しがデフォルトなので、<code>$arr = $a</code> で自然にコピーが作られます（Python の <code>copy.deepcopy</code> に相当する処理が不要です）。</p>
+<hr />
+<h2 id="2">2. 二分探索<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<p><strong>前提</strong>: 配列が整列されていること。</p>
+<p>中央の要素とキーを比較し、探索範囲を半分に絞り込むことを繰り返します。</p>
+<h3 id="red_1">Red — 失敗するテストを書く<a class="headerlink" href="#red_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="x">public function test二分探索_キーが見つかる(): void</span>
+<span class="x">{</span>
+<span class="x">    $sorted = [1, 2, 3, 5, 7, 8, 9];</span>
+<span class="x">    $this-&gt;assertSame(3, Search::bsearch($sorted, 5));</span>
+<span class="x">}</span>
+
+<span class="x">public function test二分探索_キーが見つからない(): void</span>
+<span class="x">{</span>
+<span class="x">    $sorted = [1, 2, 3, 5, 7, 8, 9];</span>
+<span class="x">    $this-&gt;assertSame(-1, Search::bsearch($sorted, 4));</span>
+<span class="x">}</span>
+</code></pre></div>
+<h3 id="green_1">Green — テストを通す実装<a class="headerlink" href="#green_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="x">/** 配列 $a から $key と一致する要素を二分探索（昇順配列前提） */</span>
+<span class="x">public static function bsearch(array $a, mixed $key): int</span>
+<span class="x">{</span>
+<span class="x">    $pl = 0;</span>
+<span class="x">    $pr = count($a) - 1;</span>
+<span class="x">    while (true) {</span>
+<span class="x">        $pc = intdiv($pl + $pr, 2);</span>
+<span class="x">        if ($a[$pc] === $key) {</span>
+<span class="x">            return $pc;</span>
+<span class="x">        } elseif ($a[$pc] &lt; $key) {</span>
+<span class="x">            $pl = $pc + 1;</span>
+<span class="x">        } else {</span>
+<span class="x">            $pr = $pc - 1;</span>
+<span class="x">        }</span>
+<span class="x">        if ($pl &gt; $pr) {</span>
+<span class="x">            return -1;</span>
+<span class="x">        }</span>
+<span class="x">    }</span>
+<span class="x">}</span>
+</code></pre></div>
+<h3 id="_6">アルゴリズムの考え方<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p><img src="data:image/svg+xml;base64,PD9wbGFudHVtbCAxLjIwMjYuMj8+PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiBjb250ZW50U3R5bGVUeXBlPSJ0ZXh0L2NzcyIgZGF0YS1kaWFncmFtLXR5cGU9IkFDVElWSVRZIiBoZWlnaHQ9IjczMXB4IiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBzdHlsZT0id2lkdGg6Mzg3cHg7aGVpZ2h0OjczMXB4O2JhY2tncm91bmQ6I0ZGRkZGRjsiIHZlcnNpb249IjEuMSIgdmlld0JveD0iMCAwIDM4NyA3MzEiIHdpZHRoPSIzODdweCIgem9vbUFuZFBhbj0ibWFnbmlmeSI+PHRpdGxlPiYjMjAxMDg7JiMyMDk5ODsmIzI1NTA2OyYjMzIwMzQ7JiMxMjQ1MDsmIzEyNTIzOyYjMTI0Njg7JiMxMjUyMjsmIzEyNDc0OyYjMTI1MTI7IChic2VhcmNoKTwvdGl0bGU+PGRlZnMvPjxnPjxnIGNsYXNzPSJ0aXRsZSIgZGF0YS1zb3VyY2UtbGluZT0iMSI+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGZvbnQtd2VpZ2h0PSJib2xkIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjIyMC4xMzcxIiB4PSI4Mi4zODEyIiB5PSIzMi45OTUxIj4mIzIwMTA4OyYjMjA5OTg7JiMyNTUwNjsmIzMyMDM0OyYjMTI0NTA7JiMxMjUyMzsmIzEyNDY4OyYjMTI1MjI7JiMxMjQ3NDsmIzEyNTEyOyAoYnNlYXJjaCk8L3RleHQ+PC9nPjxlbGxpcHNlIGN4PSIyMDQuNDQ5NyIgY3k9IjU3LjI5NjkiIGZpbGw9IiMyMjIyMjIiIHJ4PSIxMCIgcnk9IjEwIiBzdHlsZT0ic3Ryb2tlOiMyMjIyMjI7c3Ryb2tlLXdpZHRoOjE7Ii8+PHJlY3QgZmlsbD0iI0YxRjFGMSIgaGVpZ2h0PSIzMy45Njg4IiByeD0iMTIuNSIgcnk9IjEyLjUiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MC41OyIgd2lkdGg9IjE5MS45MDMzIiB4PSIxMDguNDk4MSIgeT0iODcuMjk2OSIvPjx0ZXh0IGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjEyIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjE3MS45MDMzIiB4PSIxMTguNDk4MSIgeT0iMTA4LjQzNTUiPiYjMjA4Mzc7JiMyMTE0Nzs6ICYjMzcxOTc7JiMyMTAxNTsgYSwgJiMyNTUwNjsmIzMyMDM0OyYjMTIzNzc7JiMxMjQyNzsmIzEyNDYxOyYjMTI1NDA7IGtleTwvdGV4dD48cmVjdCBmaWxsPSIjRjFGMUYxIiBoZWlnaHQ9IjMzLjk2ODgiIHJ4PSIxMi41IiByeT0iMTIuNSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7IiB3aWR0aD0iNTYuMjY5NSIgeD0iMTc2LjMxNDkiIHk9IjE0MS4yNjU2Ii8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTIiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMzYuMjY5NSIgeD0iMTg2LjMxNDkiIHk9IjE2Mi40MDQzIj5wbCA9IDA8L3RleHQ+PHJlY3QgZmlsbD0iI0YxRjFGMSIgaGVpZ2h0PSIzMy45Njg4IiByeD0iMTIuNSIgcnk9IjEyLjUiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MC41OyIgd2lkdGg9IjEyMC40MDA0IiB4PSIxNDQuMjQ5NSIgeT0iMTk1LjIzNDQiLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMiIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSIxMDAuNDAwNCIgeD0iMTU0LjI0OTUiIHk9IjIxNi4zNzMiPnByID0gY291bnQoYSkgLSAxPC90ZXh0PjxyZWN0IGZpbGw9IiNGMUYxRjEiIGhlaWdodD0iMzMuOTY4OCIgcng9IjEyLjUiIHJ5PSIxMi41IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjAuNTsiIHdpZHRoPSIxNTEuNDA4MiIgeD0iMTI4Ljc0NTYiIHk9IjMxMC4wMDc4Ii8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTIiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMTMxLjQwODIiIHg9IjEzOC43NDU2IiB5PSIzMzEuMTQ2NSI+cGMgPSBpbnRkaXYocGwgKyBwciwgMik8L3RleHQ+PHBvbHlnb24gZmlsbD0iI0YxRjFGMSIgcG9pbnRzPSI1NywzNjMuOTc2NiwxMzkuNjQ1LDM2My45NzY2LDE1MS42NDUsMzc1Ljk3NjYsMTM5LjY0NSwzODcuOTc2Niw1NywzODcuOTc2Niw0NSwzNzUuOTc2Niw1NywzNjMuOTc2NiIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7Ii8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTEiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMjEuOTk5OCIgeD0iMTAyLjMyMjUiIHk9IjM5OC4xODciPiYjMTIzOTk7JiMxMjM1Njs8L3RleHQ+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTEiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iODIuNjQ1IiB4PSI1NyIgeT0iMzc5Ljc4NDciPmFbcGNdID09PSBrZXk8L3RleHQ+PHJlY3QgZmlsbD0iI0YxRjFGMSIgaGVpZ2h0PSIzMy45Njg4IiByeD0iMTIuNSIgcnk9IjEyLjUiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MC41OyIgd2lkdGg9Ijc1LjE5NTMiIHg9IjYwLjcyNDkiIHk9IjQxOS42ODciLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMiIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSI1NS4xOTUzIiB4PSI3MC43MjQ5IiB5PSI0NDAuODI1NyI+cmV0dXJuIHBjPC90ZXh0PjxlbGxpcHNlIGN4PSI5OC4zMjI1IiBjeT0iNDk5LjY1NTgiIGZpbGw9Im5vbmUiIHJ4PSIxMSIgcnk9IjExIiBzdHlsZT0ic3Ryb2tlOiMyMjIyMjI7c3Ryb2tlLXdpZHRoOjE7Ii8+PGVsbGlwc2UgY3g9Ijk4LjMyMjUiIGN5PSI0OTkuNjU1OCIgZmlsbD0iIzIyMjIyMiIgcng9IjYiIHJ5PSI2IiBzdHlsZT0ic3Ryb2tlOiMyMjIyMjI7c3Ryb2tlLXdpZHRoOjE7Ii8+PHBvbHlnb24gZmlsbD0iI0YxRjFGMSIgcG9pbnRzPSIxODMuNjQ1LDM2My45NzY2LDI0Ny44NTY0LDM2My45NzY2LDI1OS44NTY0LDM3NS45NzY2LDI0Ny44NTY0LDM4Ny45NzY2LDE4My42NDUsMzg3Ljk3NjYsMTcxLjY0NSwzNzUuOTc2NiwxODMuNjQ1LDM2My45NzY2IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjAuNTsiLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMSIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSIyMS45OTk4IiB4PSIyMTkuNzUwNyIgeT0iMzk4LjE4NyI+JiMxMjM5OTsmIzEyMzU2OzwvdGV4dD48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMSIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSI2NC4yMTE0IiB4PSIxODMuNjQ1IiB5PSIzNzkuNzg0NyI+YVtwY10gJmx0OyBrZXk8L3RleHQ+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTEiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMzIuOTk5OCIgeD0iMjU5Ljg1NjQiIHk9IjM3My4zODIzIj4mIzEyMzU2OyYjMTIzNTY7JiMxMjM2MDs8L3RleHQ+PHJlY3QgZmlsbD0iI0YxRjFGMSIgaGVpZ2h0PSIzMy45Njg4IiByeD0iMTIuNSIgcnk9IjEyLjUiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MC41OyIgd2lkdGg9Ijg4LjE2OCIgeD0iMTcxLjY2NjciIHk9IjQxOS42ODciLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMiIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSI2OC4xNjgiIHg9IjE4MS42NjY3IiB5PSI0NDAuODI1NyI+cGwgPSBwYyArIDE8L3RleHQ+PHJlY3QgZmlsbD0iI0YxRjFGMSIgaGVpZ2h0PSIzMy45Njg4IiByeD0iMTIuNSIgcnk9IjEyLjUiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MC41OyIgd2lkdGg9Ijg0LjA0MyIgeD0iMjc5Ljg1NjQiIHk9IjQ0NC43ODQ3Ii8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTIiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iNjQuMDQzIiB4PSIyODkuODU2NCIgeT0iNDY1LjkyMzMiPnByID0gcGMgLSAxPC90ZXh0PjxyZWN0IGZpbGw9IiNGMUYxRjEiIGhlaWdodD0iMzMuOTY4OCIgcng9IjEyLjUiIHJ5PSIxMi41IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjAuNTsiIHdpZHRoPSI3Mi45NDUzIiB4PSIxNjcuOTc3MSIgeT0iNTk5LjA1ODEiLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMiIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSI1Mi45NDUzIiB4PSIxNzcuOTc3MSIgeT0iNjIwLjE5NjgiPnJldHVybiAtMTwvdGV4dD48ZWxsaXBzZSBjeD0iMjA0LjQ0OTciIGN5PSI2NjQuMDI2OSIgZmlsbD0ibm9uZSIgcng9IjExIiByeT0iMTEiIHN0eWxlPSJzdHJva2U6IzIyMjIyMjtzdHJva2Utd2lkdGg6MTsiLz48ZWxsaXBzZSBjeD0iMjA0LjQ0OTciIGN5PSI2NjQuMDI2OSIgZmlsbD0iIzIyMjIyMiIgcng9IjYiIHJ5PSI2IiBzdHlsZT0ic3Ryb2tlOiMyMjIyMjI7c3Ryb2tlLXdpZHRoOjE7Ii8+PHBvbHlnb24gZmlsbD0iI0YxRjFGMSIgcG9pbnRzPSIxODUuNTczLDU1MC42NTU4LDIyMy4zMjY0LDU1MC42NTU4LDIzNS4zMjY0LDU2Mi42NTU4LDIyMy4zMjY0LDU3NC42NTU4LDE4NS41NzMsNTc0LjY1NTgsMTczLjU3Myw1NjIuNjU1OCwxODUuNTczLDU1MC42NTU4IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjAuNTsiLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMSIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSIyMS45OTk4IiB4PSIyMDguNDQ5NyIgeT0iNTg0Ljg2NjIiPiYjMTIzOTk7JiMxMjM1Njs8L3RleHQ+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTEiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMzcuNzUzNCIgeD0iMTg1LjU3MyIgeT0iNTY2LjQ2MzkiPnBsICZndDsgcHI8L3RleHQ+PHBvbHlnb24gZmlsbD0iI0YxRjFGMSIgcG9pbnRzPSIxOTIuNDQ5NywyNDkuMjAzMSwyMTYuNDQ5NywyNDkuMjAzMSwyMjguNDQ5NywyNjEuMjAzMSwyMTYuNDQ5NywyNzMuMjAzMSwxOTIuNDQ5NywyNzMuMjAzMSwxODAuNDQ5NywyNjEuMjAzMSwxOTIuNDQ5NywyNDkuMjAzMSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7Ii8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTEiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMzIuOTk5OCIgeD0iMjA4LjQ0OTciIHk9IjI4My40MTM2Ij4mIzEyNTIzOyYjMTI1NDA7JiMxMjUwMzs8L3RleHQ+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTEiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMjIuNTc0NyIgeD0iMTkzLjE2MjQiIHk9IjI2NS4wMTEyIj50cnVlPC90ZXh0PjxlbGxpcHNlIGN4PSIyNCIgY3k9IjMwOC4yMDMxIiBmaWxsPSJub25lIiByeD0iMTEiIHJ5PSIxMSIgc3R5bGU9InN0cm9rZTojMjIyMjIyO3N0cm9rZS13aWR0aDoxOyIvPjxlbGxpcHNlIGN4PSIyNCIgY3k9IjMwOC4yMDMxIiBmaWxsPSIjMjIyMjIyIiByeD0iNiIgcnk9IjYiIHN0eWxlPSJzdHJva2U6IzIyMjIyMjtzdHJva2Utd2lkdGg6MTsiLz48bGluZSBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7IiB4MT0iMjA0LjQ0OTciIHgyPSIyMDQuNDQ5NyIgeTE9IjY3LjI5NjkiIHkyPSI4Ny4yOTY5Ii8+PHBvbHlnb24gZmlsbD0iIzE4MTgxOCIgcG9pbnRzPSIyMDAuNDQ5Nyw3Ny4yOTY5LDIwNC40NDk3LDg3LjI5NjksMjA4LjQ0OTcsNzcuMjk2OSwyMDQuNDQ5Nyw4MS4yOTY5IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7Ii8+PGxpbmUgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIgeDE9IjIwNC40NDk3IiB4Mj0iMjA0LjQ0OTciIHkxPSIxMjEuMjY1NiIgeTI9IjE0MS4yNjU2Ii8+PHBvbHlnb24gZmlsbD0iIzE4MTgxOCIgcG9pbnRzPSIyMDAuNDQ5NywxMzEuMjY1NiwyMDQuNDQ5NywxNDEuMjY1NiwyMDguNDQ5NywxMzEuMjY1NiwyMDQuNDQ5NywxMzUuMjY1NiIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIvPjxsaW5lIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiIHgxPSIyMDQuNDQ5NyIgeDI9IjIwNC40NDk3IiB5MT0iMTc1LjIzNDQiIHkyPSIxOTUuMjM0NCIvPjxwb2x5Z29uIGZpbGw9IiMxODE4MTgiIHBvaW50cz0iMjAwLjQ0OTcsMTg1LjIzNDQsMjA0LjQ0OTcsMTk1LjIzNDQsMjA4LjQ0OTcsMTg1LjIzNDQsMjA0LjQ0OTcsMTg5LjIzNDQiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiLz48bGluZSBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7IiB4MT0iOTguMzIyNSIgeDI9Ijk4LjMyMjUiIHkxPSI0NTMuNjU1OCIgeTI9IjQ4OC42NTU4Ii8+PHBvbHlnb24gZmlsbD0iIzE4MTgxOCIgcG9pbnRzPSI5NC4zMjI1LDQ3OC42NTU4LDk4LjMyMjUsNDg4LjY1NTgsMTAyLjMyMjUsNDc4LjY1NTgsOTguMzIyNSw0ODIuNjU1OCIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIvPjxsaW5lIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiIHgxPSI5OC4zMjI1IiB4Mj0iOTguMzIyNSIgeTE9IjM4Ny45NzY2IiB5Mj0iNDE5LjY4NyIvPjxwb2x5Z29uIGZpbGw9IiMxODE4MTgiIHBvaW50cz0iOTQuMzIyNSw0MDkuNjg3LDk4LjMyMjUsNDE5LjY4NywxMDIuMzIyNSw0MDkuNjg3LDk4LjMyMjUsNDEzLjY4NyIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIvPjxsaW5lIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiIHgxPSIyMTUuNzUwNyIgeDI9IjIxNS43NTA3IiB5MT0iMzg3Ljk3NjYiIHkyPSI0MTkuNjg3Ii8+PHBvbHlnb24gZmlsbD0iIzE4MTgxOCIgcG9pbnRzPSIyMTEuNzUwNyw0MDkuNjg3LDIxNS43NTA3LDQxOS42ODcsMjE5Ljc1MDcsNDA5LjY4NywyMTUuNzUwNyw0MTMuNjg3IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7Ii8+PGxpbmUgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIgeDE9IjIxNS43NTA3IiB4Mj0iMjE1Ljc1MDciIHkxPSI0NTMuNjU1OCIgeTI9IjUzMC42NTU4Ii8+PHBvbHlnb24gZmlsbD0iIzE4MTgxOCIgcG9pbnRzPSIyMTEuNzUwNyw1MjAuNjU1OCwyMTUuNzUwNyw1MzAuNjU1OCwyMTkuNzUwNyw1MjAuNjU1OCwyMTUuNzUwNyw1MjQuNjU1OCIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIvPjxsaW5lIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiIHgxPSIxNTEuNjQ1IiB4Mj0iMTcxLjY0NSIgeTE9IjM3NS45NzY2IiB5Mj0iMzc1Ljk3NjYiLz48cG9seWdvbiBmaWxsPSIjMTgxODE4IiBwb2ludHM9IjE2MS42NDUsMzcxLjk3NjYsMTcxLjY0NSwzNzUuOTc2NiwxNjEuNjQ1LDM3OS45NzY2LDE2NS42NDUsMzc1Ljk3NjYiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiLz48bGluZSBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7IiB4MT0iMjA0LjQ0OTciIHgyPSIyMDQuNDQ5NyIgeTE9IjM0My45NzY2IiB5Mj0iMzQ4Ljk3NjYiLz48bGluZSBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7IiB4MT0iMjA0LjQ0OTciIHgyPSI5OC4zMjI1IiB5MT0iMzQ4Ljk3NjYiIHkyPSIzNDguOTc2NiIvPjxsaW5lIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiIHgxPSI5OC4zMjI1IiB4Mj0iOTguMzIyNSIgeTE9IjM0OC45NzY2IiB5Mj0iMzYzLjk3NjYiLz48cG9seWdvbiBmaWxsPSIjMTgxODE4IiBwb2ludHM9Ijk0LjMyMjUsMzUzLjk3NjYsOTguMzIyNSwzNjMuOTc2NiwxMDIuMzIyNSwzNTMuOTc2Niw5OC4zMjI1LDM1Ny45NzY2IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7Ii8+PGxpbmUgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIgeDE9IjI1OS44NTY0IiB4Mj0iMzIxLjg3NzkiIHkxPSIzNzUuOTc2NiIgeTI9IjM3NS45NzY2Ii8+PGxpbmUgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIgeDE9IjMyMS44Nzc5IiB4Mj0iMzIxLjg3NzkiIHkxPSIzNzUuOTc2NiIgeTI9IjQ0NC43ODQ3Ii8+PHBvbHlnb24gZmlsbD0iIzE4MTgxOCIgcG9pbnRzPSIzMTcuODc3OSw0MzQuNzg0NywzMjEuODc3OSw0NDQuNzg0NywzMjUuODc3OSw0MzQuNzg0NywzMjEuODc3OSw0MzguNzg0NyIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIvPjxsaW5lIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiIHgxPSIzMjEuODc3OSIgeDI9IjMyMS44Nzc5IiB5MT0iNDc4Ljc1MzQiIHkyPSI1MzAuNjU1OCIvPjxwb2x5Z29uIGZpbGw9IiMxODE4MTgiIHBvaW50cz0iMzE3Ljg3NzksNTIwLjY1NTgsMzIxLjg3NzksNTMwLjY1NTgsMzI1Ljg3NzksNTIwLjY1NTgsMzIxLjg3NzksNTI0LjY1NTgiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiLz48bGluZSBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7IiB4MT0iMjA0LjQ0OTciIHgyPSIzMjEuODc3OSIgeTE9IjUzMC42NTU4IiB5Mj0iNTMwLjY1NTgiLz48bGluZSBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7IiB4MT0iMjA0LjQ0OTciIHgyPSIyMDQuNDQ5NyIgeTE9IjYzMy4wMjY5IiB5Mj0iNjUzLjAyNjkiLz48cG9seWdvbiBmaWxsPSIjMTgxODE4IiBwb2ludHM9IjIwMC40NDk3LDY0My4wMjY5LDIwNC40NDk3LDY1My4wMjY5LDIwOC40NDk3LDY0My4wMjY5LDIwNC40NDk3LDY0Ny4wMjY5IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7Ii8+PGxpbmUgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIgeDE9IjIwNC40NDk3IiB4Mj0iMjA0LjQ0OTciIHkxPSI1NzQuNjU1OCIgeTI9IjU5OS4wNTgxIi8+PHBvbHlnb24gZmlsbD0iIzE4MTgxOCIgcG9pbnRzPSIyMDAuNDQ5Nyw1ODkuMDU4MSwyMDQuNDQ5Nyw1OTkuMDU4MSwyMDguNDQ5Nyw1ODkuMDU4MSwyMDQuNDQ5Nyw1OTMuMDU4MSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIvPjxsaW5lIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiIHgxPSIyMzUuMzI2NCIgeDI9IjM3NS44OTk0IiB5MT0iNTYyLjY1NTgiIHkyPSI1NjIuNjU1OCIvPjxsaW5lIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiIHgxPSIzNzUuODk5NCIgeDI9IjM3NS44OTk0IiB5MT0iMjYxLjIwMzEiIHkyPSI1NjIuNjU1OCIvPjxsaW5lIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiIHgxPSIzNzUuODk5NCIgeDI9IjIyOC40NDk3IiB5MT0iMjYxLjIwMzEiIHkyPSIyNjEuMjAzMSIvPjxwb2x5Z29uIGZpbGw9IiMxODE4MTgiIHBvaW50cz0iMjM4LjQ0OTcsMjU3LjIwMzEsMjI4LjQ0OTcsMjYxLjIwMzEsMjM4LjQ0OTcsMjY1LjIwMzEsMjM0LjQ0OTcsMjYxLjIwMzEiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiLz48bGluZSBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7IiB4MT0iMjA0LjQ0OTciIHgyPSIyMDQuNDQ5NyIgeTE9IjUzMC42NTU4IiB5Mj0iNTUwLjY1NTgiLz48cG9seWdvbiBmaWxsPSIjMTgxODE4IiBwb2ludHM9IjIwMC40NDk3LDU0MC42NTU4LDIwNC40NDk3LDU1MC42NTU4LDIwOC40NDk3LDU0MC42NTU4LDIwNC40NDk3LDU0NC42NTU4IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7Ii8+PGxpbmUgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIgeDE9IjIwNC40NDk3IiB4Mj0iMjA0LjQ0OTciIHkxPSIyNzMuMjAzMSIgeTI9IjMxMC4wMDc4Ii8+PHBvbHlnb24gZmlsbD0iIzE4MTgxOCIgcG9pbnRzPSIyMDAuNDQ5NywzMDAuMDA3OCwyMDQuNDQ5NywzMTAuMDA3OCwyMDguNDQ5NywzMDAuMDA3OCwyMDQuNDQ5NywzMDQuMDA3OCIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIvPjxsaW5lIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiIHgxPSIxODAuNDQ5NyIgeDI9IjI0IiB5MT0iMjYxLjIwMzEiIHkyPSIyNjEuMjAzMSIvPjxsaW5lIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiIHgxPSIyNCIgeDI9IjI0IiB5MT0iMjYxLjIwMzEiIHkyPSIyOTcuMjAzMSIvPjxwb2x5Z29uIGZpbGw9IiMxODE4MTgiIHBvaW50cz0iMjAsMjg3LjIwMzEsMjQsMjk3LjIwMzEsMjgsMjg3LjIwMzEsMjQsMjkxLjIwMzEiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiLz48bGluZSBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7IiB4MT0iMjA0LjQ0OTciIHgyPSIyMDQuNDQ5NyIgeTE9IjIyOS4yMDMxIiB5Mj0iMjQ5LjIwMzEiLz48cG9seWdvbiBmaWxsPSIjMTgxODE4IiBwb2ludHM9IjIwMC40NDk3LDIzOS4yMDMxLDIwNC40NDk3LDI0OS4yMDMxLDIwOC40NDk3LDIzOS4yMDMxLDIwNC40NDk3LDI0My4yMDMxIiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7Ii8+PD9wbGFudHVtbC1zcmMgVE9fRklpRDA0OFZsLW5IcHRBS2pNOC05eUtONEdxb3RQMzZhT1JESEYyUlJJbDNWak9XTjJOWEhuNGpGZk15cFpVOVJFQmpNbDJXQ29wMzNEeHpsWkpBUFhFdHdmY3lsdC0td1pyTTdKT1ZzMVBpTHNjVGlyY1dWV1AtS0NqUDlBWFdoSlFtRDJfaDVLdF9yNEMzZHVoUGxibjBGT0dWTnp6WFNPX0VBVFdFZHlZOWFHUDUxMTdra3FUR2Fpb2V0RjFPbVdkNzhzN2NnQTl1Uk5LYTFnV0prZWtxNnhMOEdhMTJXU1pESFB2b2szQTNHR3pXTlhBYWZ5RlllSTh1WFlZQU44eTJhQ1lVeVZpRHdKZ29NZmo4djU0YjhvaEUyb1FvS2x6SjFkdW10ZlQyMUt0RTBzeXJ6ak1CZEpzamxCbEU5Y2R3QjQ3UDhRbHlmWkNPXzJYd1hydC1RLVU0Tj8+PC9nPjwvc3ZnPg==" class="uml" alt="uml diagram" title="" /></p>
+<p><strong>計算量</strong>: O(log n)</p>
+<h3 id="_7">解説<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p>二分探索は、線形探索よりも効率的ですが、配列が整列されていることが前提条件となります。</p>
+<p>二分探索の計算量：
+- 最良の場合：O(1)（最初の中央要素がキーと一致する場合）
+- 最悪の場合：O(log n)（キーが見つからないか、最後の絞り込みで見つかる場合）
+- 平均の場合：O(log n)</p>
+<p>例えば、1,000,000 要素の配列では、線形探索は最悪の場合 1,000,000 回の比較が必要ですが、二分探索では約 20 回（log2 1,000,000 ≈ 20）の比較で済みます。</p>
+<p>フローチャートの詳細説明：
+1. 配列 a と探索するキー key を入力として受け取ります
+2. 変数 pl を 0 で初期化します（探索範囲の先頭要素のインデックス）
+3. 変数 pr を count(a) - 1 で初期化します（探索範囲の末尾要素のインデックス）
+4. 無限ループ内で以下の処理を繰り返します：
+   - 変数 pc に intdiv(pl + pr, 2) を代入します（中央要素のインデックス）
+   - a[pc] が key と一致する場合、pc を返して終了します（探索成功）
+   - a[pc] が key より小さい場合、pl を pc + 1 に更新します（探索範囲を後半に絞り込む）
+   - a[pc] が key より大きい場合、pr を pc - 1 に更新します（探索範囲を前半に絞り込む）
+   - pl が pr より大きくなった場合、-1 を返します（探索範囲がなくなった）</p>
+<table>
+<thead>
+<tr>
+<th>要素数</th>
+<th>線形探索（最悪）</th>
+<th>二分探索（最悪）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>100</td>
+<td>100回</td>
+<td>7回</td>
+</tr>
+<tr>
+<td>1,000</td>
+<td>1,000回</td>
+<td>10回</td>
+</tr>
+<tr>
+<td>1,000,000</td>
+<td>1,000,000回</td>
+<td>20回</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="3_1">3. ハッシュ法<a class="headerlink" href="#3_1" title="Permanent link">&para;</a></h2>
+<p>キーからハッシュ関数でアドレスを求め、直接要素にアクセスします。理想的な場合 O(1) で探索できます。</p>
+<p>衝突（異なるキーが同じハッシュ値を生成する）の解決方法として、「チェイン法」と「オープンアドレス法」を実装します。</p>
+<h3 id="_8">チェイン法<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p>同じハッシュ値を持つ要素を連結リストで管理します。</p>
+<h4 id="red_2">Red — 失敗するテストを書く<a class="headerlink" href="#red_2" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="x">public function testチェイン法ハッシュ追加と探索(): void</span>
+<span class="x">{</span>
+<span class="x">    $hash = new ChainedHash(13);</span>
+<span class="x">    $hash-&gt;add(&#39;Alice&#39;, 1);</span>
+<span class="x">    $hash-&gt;add(&#39;Bob&#39;, 2);</span>
+<span class="x">    $this-&gt;assertSame(1, $hash-&gt;search(&#39;Alice&#39;));</span>
+<span class="x">    $this-&gt;assertSame(2, $hash-&gt;search(&#39;Bob&#39;));</span>
+<span class="x">}</span>
+
+<span class="x">public function testチェイン法ハッシュ重複追加は失敗する(): void</span>
+<span class="x">{</span>
+<span class="x">    $hash = new ChainedHash(13);</span>
+<span class="x">    $hash-&gt;add(&#39;Alice&#39;, 1);</span>
+<span class="x">    $this-&gt;assertFalse($hash-&gt;add(&#39;Alice&#39;, 2));</span>
+<span class="x">}</span>
+
+<span class="x">public function testチェイン法ハッシュ削除できる(): void</span>
+<span class="x">{</span>
+<span class="x">    $hash = new ChainedHash(13);</span>
+<span class="x">    $hash-&gt;add(&#39;Alice&#39;, 1);</span>
+<span class="x">    $hash-&gt;remove(&#39;Alice&#39;);</span>
+<span class="x">    $this-&gt;assertNull($hash-&gt;search(&#39;Alice&#39;));</span>
+<span class="x">}</span>
+</code></pre></div>
+<h4 id="green_2">Green — テストを通す実装<a class="headerlink" href="#green_2" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="x">class ChainNode</span>
+<span class="x">{</span>
+<span class="x">    public function __construct(</span>
+<span class="x">        public mixed $key,</span>
+<span class="x">        public mixed $value,</span>
+<span class="x">        public ?ChainNode $nextNode = null,</span>
+<span class="x">    ) {}</span>
+<span class="x">}</span>
+
+<span class="x">class ChainedHash</span>
+<span class="x">{</span>
+<span class="x">    private array $table;</span>
+
+<span class="x">    public function __construct(private int $capacity)</span>
+<span class="x">    {</span>
+<span class="x">        $this-&gt;table = array_fill(0, $capacity, null);</span>
+<span class="x">    }</span>
+
+<span class="x">    private function hashValue(mixed $key): int</span>
+<span class="x">    {</span>
+<span class="x">        if (is_int($key)) {</span>
+<span class="x">            return $key % $this-&gt;capacity;</span>
+<span class="x">        }</span>
+<span class="x">        return abs(crc32((string) $key)) % $this-&gt;capacity;</span>
+<span class="x">    }</span>
+
+<span class="x">    public function search(mixed $key): mixed</span>
+<span class="x">    {</span>
+<span class="x">        $h = $this-&gt;hashValue($key);</span>
+<span class="x">        $p = $this-&gt;table[$h];</span>
+<span class="x">        while ($p !== null) {</span>
+<span class="x">            if ($p-&gt;key === $key) {</span>
+<span class="x">                return $p-&gt;value;</span>
+<span class="x">            }</span>
+<span class="x">            $p = $p-&gt;nextNode;</span>
+<span class="x">        }</span>
+<span class="x">        return null;</span>
+<span class="x">    }</span>
+
+<span class="x">    public function add(mixed $key, mixed $value): bool</span>
+<span class="x">    {</span>
+<span class="x">        $h = $this-&gt;hashValue($key);</span>
+<span class="x">        $p = $this-&gt;table[$h];</span>
+<span class="x">        while ($p !== null) {</span>
+<span class="x">            if ($p-&gt;key === $key) {</span>
+<span class="x">                return false;  // 重複は追加しない</span>
+<span class="x">            }</span>
+<span class="x">            $p = $p-&gt;nextNode;</span>
+<span class="x">        }</span>
+<span class="x">        $this-&gt;table[$h] = new ChainNode($key, $value, $this-&gt;table[$h]);</span>
+<span class="x">        return true;</span>
+<span class="x">    }</span>
+
+<span class="x">    public function remove(mixed $key): bool</span>
+<span class="x">    {</span>
+<span class="x">        $h = $this-&gt;hashValue($key);</span>
+<span class="x">        $p = $this-&gt;table[$h];</span>
+<span class="x">        $pp = null;</span>
+<span class="x">        while ($p !== null) {</span>
+<span class="x">            if ($p-&gt;key === $key) {</span>
+<span class="x">                if ($pp === null) {</span>
+<span class="x">                    $this-&gt;table[$h] = $p-&gt;nextNode;  // 先頭ノードを削除</span>
+<span class="x">                } else {</span>
+<span class="x">                    $pp-&gt;nextNode = $p-&gt;nextNode;      // 後続ノードを削除</span>
+<span class="x">                }</span>
+<span class="x">                return true;</span>
+<span class="x">            }</span>
+<span class="x">            $pp = $p;</span>
+<span class="x">            $p = $p-&gt;nextNode;</span>
+<span class="x">        }</span>
+<span class="x">        return false;</span>
+<span class="x">    }</span>
+<span class="x">}</span>
+</code></pre></div>
+<p>PHP では <code>crc32()</code> 関数でハッシュ値を計算します。Python の <code>hashlib.sha256</code> に相当しますが、よりシンプルです。コンストラクタの promoted properties（<code>public mixed $key</code>）を使うことで、簡潔にノードクラスを定義できます。</p>
+<h3 id="_9">オープンアドレス法<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<p>衝突時に空きスロットを探して要素を格納します。</p>
+<div class="highlight"><pre><span></span><code><span class="x">enum BucketStatus</span>
+<span class="x">{</span>
+<span class="x">    case Occupied;</span>
+<span class="x">    case Empty;</span>
+<span class="x">    case Deleted;</span>
+<span class="x">}</span>
+
+<span class="x">class Bucket</span>
+<span class="x">{</span>
+<span class="x">    public function __construct(</span>
+<span class="x">        public mixed $key = null,</span>
+<span class="x">        public mixed $value = null,</span>
+<span class="x">        public BucketStatus $stat = BucketStatus::Empty,</span>
+<span class="x">    ) {}</span>
+<span class="x">}</span>
+
+<span class="x">class OpenHash</span>
+<span class="x">{</span>
+<span class="x">    /** @var Bucket[] */</span>
+<span class="x">    private array $table;</span>
+
+<span class="x">    public function __construct(private int $capacity)</span>
+<span class="x">    {</span>
+<span class="x">        $this-&gt;table = [];</span>
+<span class="x">        for ($i = 0; $i &lt; $capacity; $i++) {</span>
+<span class="x">            $this-&gt;table[$i] = new Bucket();</span>
+<span class="x">        }</span>
+<span class="x">    }</span>
+
+<span class="x">    private function hashValue(mixed $key): int</span>
+<span class="x">    {</span>
+<span class="x">        if (is_int($key)) {</span>
+<span class="x">            return $key % $this-&gt;capacity;</span>
+<span class="x">        }</span>
+<span class="x">        return abs(crc32((string) $key)) % $this-&gt;capacity;</span>
+<span class="x">    }</span>
+
+<span class="x">    public function search(mixed $key): mixed</span>
+<span class="x">    {</span>
+<span class="x">        $h = $this-&gt;hashValue($key);</span>
+<span class="x">        for ($i = 0; $i &lt; $this-&gt;capacity; $i++) {</span>
+<span class="x">            $p = $this-&gt;table[$h];</span>
+<span class="x">            if ($p-&gt;stat === BucketStatus::Empty) {</span>
+<span class="x">                return null;</span>
+<span class="x">            }</span>
+<span class="x">            if ($p-&gt;stat === BucketStatus::Occupied &amp;&amp; $p-&gt;key === $key) {</span>
+<span class="x">                return $p-&gt;value;</span>
+<span class="x">            }</span>
+<span class="x">            $h = ($h + 1) % $this-&gt;capacity;  // 次のスロットへ</span>
+<span class="x">        }</span>
+<span class="x">        return null;</span>
+<span class="x">    }</span>
+
+<span class="x">    public function add(mixed $key, mixed $value): bool</span>
+<span class="x">    {</span>
+<span class="x">        if ($this-&gt;search($key) !== null) {</span>
+<span class="x">            return false;</span>
+<span class="x">        }</span>
+<span class="x">        $h = $this-&gt;hashValue($key);</span>
+<span class="x">        for ($i = 0; $i &lt; $this-&gt;capacity; $i++) {</span>
+<span class="x">            $p = $this-&gt;table[$h];</span>
+<span class="x">            if ($p-&gt;stat === BucketStatus::Empty || $p-&gt;stat === BucketStatus::Deleted) {</span>
+<span class="x">                $this-&gt;table[$h] = new Bucket($key, $value, BucketStatus::Occupied);</span>
+<span class="x">                return true;</span>
+<span class="x">            }</span>
+<span class="x">            $h = ($h + 1) % $this-&gt;capacity;</span>
+<span class="x">        }</span>
+<span class="x">        return false;</span>
+<span class="x">    }</span>
+
+<span class="x">    public function remove(mixed $key): bool</span>
+<span class="x">    {</span>
+<span class="x">        $h = $this-&gt;hashValue($key);</span>
+<span class="x">        for ($i = 0; $i &lt; $this-&gt;capacity; $i++) {</span>
+<span class="x">            $p = $this-&gt;table[$h];</span>
+<span class="x">            if ($p-&gt;stat === BucketStatus::Empty) {</span>
+<span class="x">                return false;</span>
+<span class="x">            }</span>
+<span class="x">            if ($p-&gt;stat === BucketStatus::Occupied &amp;&amp; $p-&gt;key === $key) {</span>
+<span class="x">                $p-&gt;stat = BucketStatus::Deleted;</span>
+<span class="x">                return true;</span>
+<span class="x">            }</span>
+<span class="x">            $h = ($h + 1) % $this-&gt;capacity;</span>
+<span class="x">        }</span>
+<span class="x">        return false;</span>
+<span class="x">    }</span>
+<span class="x">}</span>
+</code></pre></div>
+<p>バケットの状態は <code>Occupied</code>/<code>Empty</code>/<code>Deleted</code> の 3 種類で管理します。<code>Deleted</code> は削除済みを示し、探索をここで止めないためのマーカーです。</p>
+<p>PHP の <code>enum</code> は PHP 8.1 で導入された機能で、Python の <code>Enum</code> クラスに相当します。PHP の enum はファーストクラスのオブジェクトであり、<code>case</code> キーワードで列挙子を定義します。</p>
+<hr />
+<h2 id="_10">テスト実行結果<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>vendor/bin/phpunit<span class="w"> </span>--testdox<span class="w"> </span>--filter<span class="w"> </span>SearchTest
+
+PHPUnit<span class="w"> </span><span class="m">11</span>.5.x<span class="w"> </span>by<span class="w"> </span>Sebastian<span class="w"> </span>Bergmann<span class="w"> </span>and<span class="w"> </span>contributors.
+
+Search<span class="w"> </span><span class="o">(</span>Tests<span class="se">\S</span>earchTest<span class="o">)</span>
+<span class="w"> </span>✔<span class="w"> </span>線形探索<span class="w"> </span>whileキーが見つかる
+<span class="w"> </span>✔<span class="w"> </span>線形探索<span class="w"> </span>whileキーが見つからない
+<span class="w"> </span>✔<span class="w"> </span>線形探索<span class="w"> </span>forキーが見つかる
+<span class="w"> </span>✔<span class="w"> </span>線形探索<span class="w"> </span>forキーが見つからない
+<span class="w"> </span>✔<span class="w"> </span>線形探索<span class="w"> </span>番兵法キーが見つかる
+<span class="w"> </span>✔<span class="w"> </span>線形探索<span class="w"> </span>番兵法キーが見つからない
+<span class="w"> </span>✔<span class="w"> </span>二分探索<span class="w"> </span>キーが見つかる
+<span class="w"> </span>✔<span class="w"> </span>二分探索<span class="w"> </span>キーが見つからない
+<span class="w"> </span>✔<span class="w"> </span>チェイン法ハッシュ追加と探索
+<span class="w"> </span>✔<span class="w"> </span>チェイン法ハッシュ重複追加は失敗する
+<span class="w"> </span>✔<span class="w"> </span>チェイン法ハッシュ削除できる
+<span class="w"> </span>✔<span class="w"> </span>オープンアドレス法ハッシュ追加と探索
+<span class="w"> </span>✔<span class="w"> </span>オープンアドレス法ハッシュ重複追加は失敗する
+<span class="w"> </span>✔<span class="w"> </span>オープンアドレス法ハッシュ削除できる
+
+<span class="m">14</span><span class="w"> </span>tests,<span class="w"> </span><span class="m">14</span><span class="w"> </span>assertions
+</code></pre></div>
+<hr />
+<h2 id="python">Python 版との違い<a class="headerlink" href="#python" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>Python</th>
+<th>PHP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>列挙型</td>
+<td><code>class Status(Enum): OCCUPIED = 0</code></td>
+<td><code>enum BucketStatus { case Occupied; }</code></td>
+</tr>
+<tr>
+<td>ハッシュ関数</td>
+<td><code>hashlib.sha256(str(key).encode())</code></td>
+<td><code>crc32((string) $key)</code></td>
+</tr>
+<tr>
+<td>番兵追加</td>
+<td><code>a.append(key)</code></td>
+<td><code>$arr[] = $key</code></td>
+</tr>
+<tr>
+<td>None チェック</td>
+<td><code>if p is None:</code></td>
+<td><code>if ($p === null)</code></td>
+</tr>
+<tr>
+<td>型宣言</td>
+<td><code>key: Any</code></td>
+<td><code>mixed $key</code></td>
+</tr>
+<tr>
+<td>厳密比較</td>
+<td><code>==</code>（等値）/ <code>is</code>（同一性）</td>
+<td><code>===</code>（型も含めた等値比較）</td>
+</tr>
+<tr>
+<td>コンストラクタ</td>
+<td><code>def __init__(self, key, value):</code></td>
+<td><code>public function __construct(public mixed $key, ...)</code></td>
+</tr>
+<tr>
+<td>配列コピー</td>
+<td><code>copy.deepcopy(list(seq))</code></td>
+<td><code>$arr = $a</code>（値渡しで自然にコピー）</td>
+</tr>
+<tr>
+<td>for-range</td>
+<td><code>for i in range(self.capacity):</code></td>
+<td><code>for ($i = 0; $i &lt; $this-&gt;capacity; $i++)</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_11">探索アルゴリズムの比較<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>アルゴリズム</th>
+<th>事前条件</th>
+<th>計算量</th>
+<th>適用場面</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>線形探索</td>
+<td>なし</td>
+<td>O(n)</td>
+<td>小規模・未整列データ</td>
+</tr>
+<tr>
+<td>二分探索</td>
+<td>整列済み</td>
+<td>O(log n)</td>
+<td>大規模・整列データ</td>
+</tr>
+<tr>
+<td>ハッシュ法</td>
+<td>なし</td>
+<td>O(1)平均</td>
+<td>高速な挿入・削除・探索</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_12">まとめ<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<p>この章では、3 つの主要な探索アルゴリズムについて学びました：</p>
+<ol>
+<li>
+<p><strong>線形探索</strong>：最も単純な探索方法で、配列の先頭から順に探索します。整列されていない配列でも使用できますが、効率は良くありません。番兵法を使うことでわずかに効率化できます。</p>
+</li>
+<li>
+<p><strong>二分探索</strong>：整列された配列に対して使用できる効率的な探索方法で、探索範囲を半分ずつ絞り込みます。O(log n) の計算量で高速な探索が可能です。</p>
+</li>
+<li>
+<p><strong>ハッシュ法</strong>：キーから直接アドレスを求める方法で、理想的な状況では定数時間 O(1) で探索できます。衝突解決方法として、チェイン法とオープンアドレス法があります。</p>
+</li>
+</ol>
+<p>探索アルゴリズムの選択は、データの性質（整列されているか）、データ量、探索の頻度などによって異なります。テスト駆動開発の手法を用いることで、各アルゴリズムの正確な実装と理解を深めることができました。</p>
+<p>次の章では、スタックとキューについて学んでいきましょう。</p>
+<h2 id="_13">参考文献<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
+<ul>
+<li>『新・明解 Python で学ぶアルゴリズムとデータ構造』 — 柴田望洋</li>
+<li>『テスト駆動開発』 — Kent Beck</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/k2works/getting-started-algorithm" target="_blank" rel="noopener" title="GitHub Repository" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "toc.integrate", "search.suggest", "search.highlight"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+      
+        <script src="../../../assets/js/extra.js"></script>
+      
+    
+  </body>
+</html>
