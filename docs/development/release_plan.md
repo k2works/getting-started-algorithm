@@ -331,11 +331,26 @@ gantt
 
 詳細は [iteration_plan-6.md](./iteration_plan-6.md) を参照。
 
-### イテレーション 7-14（Week 13-28）
+### イテレーション 7（Week 13-14）
 
-**ゴール**: システム言語・関数型言語（Go, C, Rust, F#, Scala, Clojure, Elixir, Haskell）を Python 版から順次展開
+**ゴール**: Go 版を Python 版から展開する
 
-**目標 SP**: Go 3 SP、他 各 5 SP
+**主なタスク**:
+
+- [ ] Go プロジェクト初期化（apps/go/）
+- [ ] Python 版を基に Go 版 9 章を執筆
+- [ ] TDD 実装と記事の同期確認
+- [ ] mkdocs.yml に Go 記事を追加
+
+**目標 SP**: 3
+
+詳細は [iteration_plan-7.md](./iteration_plan-7.md) を参照。
+
+### イテレーション 8-14（Week 15-28）
+
+**ゴール**: システム言語・関数型言語（C, Rust, F#, Scala, Clojure, Elixir, Haskell）を Python 版から順次展開
+
+**目標 SP**: C 5 SP、他 各 5 SP
 
 ### イテレーション 15（Week 29-30）
 
@@ -385,7 +400,7 @@ gantt
 | 4 | C# | 3 | 3 | 100% | ✅ 完了 |
 | 5 | Ruby | 3 | 3 | 100% | ✅ 完了 |
 | 6 | PHP | 3 | 3 | 100% | ✅ 完了 |
-| 7 | Go | 3 | - | - | 未着手 |
+| 7 | Go | 3 | - | - | 🔄 計画中 |
 | 8 | C | 5 | - | - | 未着手 |
 | 9 | Rust | 5 | - | - | 未着手 |
 | 10 | F# | 5 | - | - | 未着手 |
