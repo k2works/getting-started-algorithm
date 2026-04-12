@@ -85,8 +85,8 @@ Python 原本を最初に作成し、構造的に類似する OOP 言語へ展�
 | US-009 | F# 版を Python 版から展開する | 5 | 中 | 中 | 高 | 低 | 中 |
 | US-010 | Scala 版を Python 版から展開する | 5 | 中 | 中 | 高 | 低 | 中 |
 | US-011 | Clojure 版を Python 版から展開する | 5 | 中 | 中 | 高 | 低 | 中 |
-| US-012 | Haskell 版を Python 版から展開する | 5 | 中 | 高 | 高 | 低 | 中 |
-| US-013 | Elixir 版を Python 版から展開する | 5 | 中 | 中 | 高 | 低 | 中 |
+| US-012 | Elixir 版を Python 版から展開する | 5 | 中 | 中 | 高 | 低 | 中 |
+| US-013 | Haskell 版を Python 版から展開する | 5 | 中 | 高 | 高 | 低 | 中 |
 | **合計** | | **33** | | | | | |
 
 ### Phase 3: 多言語統合解説（イテレーション 14）
@@ -159,8 +159,8 @@ gantt
     IT9 F#                    :p2-3, after p2-2, 14d
     IT10 Scala                :p2-4, after p2-3, 14d
     IT11 Clojure              :p2-5, after p2-4, 14d
-    IT12 Haskell              :p2-6, after p2-5, 14d
-    IT13 Elixir               :p2-7, after p2-6, 14d
+    IT12 Elixir               :p2-6, after p2-5, 14d
+    IT13 Haskell              :p2-7, after p2-6, 14d
     Release 0.2.0             :milestone, m2, after p2-7, 0d
     section Phase 3 統合解説
     IT14 多言語統合解説        :p3-1, after p2-7, 14d
@@ -201,8 +201,8 @@ gantt
 - F# 版全 9 章（Python から展開）
 - Scala 版全 9 章（Python から展開）
 - Clojure 版全 9 章（Python から展開）
-- Haskell 版全 9 章（Python から展開）
 - Elixir 版全 9 章（Python から展開）
+- Haskell 版全 9 章（Python から展開）
 
 **リリース条件**:
 
