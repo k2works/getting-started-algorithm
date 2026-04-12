@@ -49,6 +49,62 @@ def self.bubble_sort(a)
 end
 ```
 
+### バブルソートの最適化
+
+#### 走査範囲の限定（第3版）
+
+各走査で最後に交換が行われた位置より先は既にソート済みです。次の走査ではその位置までしか見る必要がありません。
+
+```ruby
+def self.bubble_sort3(a)
+  n = a.length
+  k = 0
+  while k < n - 1
+    last = n - 1
+    (n - 1).downto(k + 1) do |j|
+      if a[j - 1] > a[j]
+        a[j - 1], a[j] = a[j], a[j - 1]
+        last = j
+      end
+    end
+    k = last
+  end
+end
+```
+
+### シェーカーソート
+
+シェーカーソート（双方向バブルソート）は、走査を交互に上向きと下向きに行います。小さな値が先頭に、大きな値が末尾に同時に移動します。
+
+```ruby
+def self.shaker_sort(a)
+  left = 0
+  right = a.length - 1
+  last = right
+  while left < right
+    # 下向きの走査（大きい値を後方へ）
+    right.downto(left + 1) do |j|
+      if a[j - 1] > a[j]
+        a[j - 1], a[j] = a[j], a[j - 1]
+        last = j
+      end
+    end
+    left = last
+
+    # 上向きの走査（小さい値を前方へ）
+    (left...right).each do |j|
+      if a[j] > a[j + 1]
+        a[j], a[j + 1] = a[j + 1], a[j]
+        last = j
+      end
+    end
+    right = last
+  end
+end
+```
+
+**計算量**: 最悪 O(n²)、最良 O(n)（整列済みの場合）
+
 ### Python 版との違い
 
 | 概念 | Python | Ruby |
@@ -93,6 +149,50 @@ def self.insertion_sort(a)
   end
 end
 ```
+
+### 二分挿入ソート
+
+挿入ソートの改良版として、二分探索を使って挿入位置を効率的に見つける「二分挿入ソート」があります：
+
+```ruby
+def self.binary_insertion_sort(a)
+  n = a.length
+  (1...n).each do |i|
+    key = a[i]
+    pl = 0
+    pr = i - 1
+
+    loop do
+      pc = (pl + pr) / 2
+      if a[pc] == key
+        break
+      elsif a[pc] < key
+        pl = pc + 1
+      else
+        pr = pc - 1
+      end
+      break if pl > pr
+    end
+
+    pd = pl <= pr ? pc + 1 : pr + 1
+
+    i.downto(pd + 1) { |j| a[j] = a[j - 1] }
+    a[pd] = key
+  end
+end
+```
+
+**計算量**: 最悪 O(n²)、最良 O(n)（整列済みの場合）
+
+挿入位置の探索は O(log n) に改善されますが、要素の移動コストは変わらないため、全体の時間計算量は依然として O(n²) です。
+
+### Python 版との違い
+
+| 概念 | Python | Ruby |
+|------|--------|------|
+| 無限ループ | `while True:` + `break` | `loop do` + `break` |
+| 三項演算子 | `pc + 1 if pl <= pr else pr + 1` | `pl <= pr ? pc + 1 : pr + 1` |
+| `bisect` モジュール | Python 標準ライブラリにあり | Ruby には対応する標準ライブラリなし |
 
 ---
 
@@ -150,19 +250,93 @@ def self.quick_sort(a, left = 0, right = nil)
 end
 ```
 
+### 非再帰的クイックソート
+
+再帰を使わずにスタックを用いて実装することもできます：
+
+```ruby
+def self.qsort_stack(a, left = 0, right = nil)
+  right ||= a.length - 1
+  stack = [[left, right]]
+
+  while stack.any?
+    left, right = stack.pop
+    pl = left
+    pr = right
+    x = a[(left + right) / 2]
+
+    while pl <= pr
+      pl += 1 while a[pl] < x
+      pr -= 1 while a[pr] > x
+      if pl <= pr
+        a[pl], a[pr] = a[pr], a[pl]
+        pl += 1
+        pr -= 1
+      end
+    end
+
+    stack << [left, pr] if left < pr
+    stack << [pl, right] if pl < right
+  end
+end
+```
+
+**計算量**: 平均 O(n log n)、最悪 O(n²)
+
 ### Python 版との違い
 
 | 概念 | Python | Ruby |
 |------|--------|------|
 | デフォルト引数 | `right: int = None` | `right = nil` |
 | None チェック | `if right is None: right = ...` | `right \|\|= a.length - 1` |
-| 多重代入 | `i, j = left, right` | `i, j = left, right`（同様） |
+| スタック操作 | `stack.append(...)` / `stack.pop()` | `stack << [...]` / `stack.pop` |
 
 ---
 
 ## 6. マージソート
 
 配列を半分に分割し、再帰的にソートして結合する。
+
+### ソート済み配列のマージ
+
+マージソートの核心は、2 つのソート済み配列をマージする手順です：
+
+```ruby
+def self.merge_sorted_array(a, b, c)
+  pa = pb = pc = 0
+  na = a.length
+  nb = b.length
+
+  while pa < na && pb < nb
+    if a[pa] <= b[pb]
+      c[pc] = a[pa]; pa += 1
+    else
+      c[pc] = b[pb]; pb += 1
+    end
+    pc += 1
+  end
+
+  while pa < na
+    c[pc] = a[pa]; pa += 1; pc += 1
+  end
+
+  while pb < nb
+    c[pc] = b[pb]; pb += 1; pc += 1
+  end
+end
+```
+
+使用例：
+
+```ruby
+a = [1, 3, 5, 7]
+b = [2, 4, 6, 8]
+c = Array.new(8)
+Algorithm.merge_sorted_array(a, b, c)
+# c => [1, 2, 3, 4, 5, 6, 7, 8]
+```
+
+### マージソート本体
 
 ```ruby
 def self.merge_sort(a)
