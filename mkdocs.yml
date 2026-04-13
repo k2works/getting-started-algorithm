@@ -577,6 +577,17 @@ nav:
               - "演習 4-3": article/practical-database-design/study/study4-3.md
               - "演習 4-4": article/practical-database-design/study/study4-4.md
               - "演習 4-5": article/practical-database-design/study/study4-5.md
+      - Clojure 版:
+          - 概要: article/clojure/index.md
+          - 第 1 章 基本的なアルゴリズム: article/clojure/01-basic-algorithms.md
+          - 第 2 章 配列: article/clojure/02-arrays.md
+          - 第 3 章 探索アルゴリズム: article/clojure/03-search-algorithms.md
+          - 第 4 章 スタックとキュー: article/clojure/04-stacks-and-queues.md
+          - 第 5 章 再帰アルゴリズム: article/clojure/05-recursion.md
+          - 第 6 章 ソートアルゴリズム: article/clojure/06-sort-algorithms.md
+          - 第 7 章 文字列処理: article/clojure/07-strings.md
+          - 第 8 章 リスト: article/clojure/08-linked-lists.md
+          - 第 9 章 木構造: article/clojure/09-trees.md
   - リファレンス:
       - 概要: reference/index.md
       - よいソフトウェアとは: reference/よいソフトウェアとは.md
