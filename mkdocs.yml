@@ -237,6 +237,515 @@ nav:
           - 第 7 章 文字列処理: article/c/07-string-processing.md
           - 第 8 章 リスト: article/c/08-linked-lists.md
           - 第 9 章 木構造: article/c/09-trees.md
+      - Clojure 版:
+          - 概要: article/clojure/index.md
+          - 第 1 章 基本的なアルゴリズム: article/clojure/01-basic-algorithms.md
+          - 第 2 章 配列: article/clojure/02-arrays.md
+          - 第 3 章 探索アルゴリズム: article/clojure/03-search-algorithms.md
+          - 第 4 章 スタックとキュー: article/clojure/04-stacks-and-queues.md
+          - 第 5 章 再帰アルゴリズム: article/clojure/05-recursion.md
+          - 第 6 章 ソートアルゴリズム: article/clojure/06-sort-algorithms.md
+          - 第 7 章 文字列処理: article/clojure/07-strings.md
+          - 第 8 章 リスト: article/clojure/08-linked-lists.md
+          - 第 9 章 木構造: article/clojure/09-trees.md
+      - テスト駆動開発から始めるプログラミング入門:
+          - 概要: article/getting-start-tdd/index.md
+          - 多言語統合解説:
+              - 概要: article/getting-start-tdd/integration/index.md
+              - 言語概観: article/getting-start-tdd/integration/01-language-overview.md
+              - テストフレームワーク比較: article/getting-start-tdd/integration/02-test-framework-comparison.md
+              - TDD パターン比較: article/getting-start-tdd/integration/03-tdd-pattern-comparison.md
+              - 型システム比較: article/getting-start-tdd/integration/04-type-system-comparison.md
+              - 開発環境比較: article/getting-start-tdd/integration/05-dev-environment-comparison.md
+              - 学習ロードマップ: article/getting-start-tdd/integration/06-learning-roadmap.md
+          - Java:
+              - 概要: article/getting-start-tdd/java/index.md
+              - TODO リストと最初のテスト: article/getting-start-tdd/java/01-todo-list-and-first-test.md
+              - 仮実装と三角測量: article/getting-start-tdd/java/02-fake-it-and-triangulation.md
+              - 明白な実装とリファクタリング: article/getting-start-tdd/java/03-obvious-implementation-and-refactoring.md
+              - バージョン管理: article/getting-start-tdd/java/04-version-control-and-conventional-commits.md
+              - パッケージ管理と静的解析: article/getting-start-tdd/java/05-package-management-and-static-analysis.md
+              - タスクランナーと CI/CD: article/getting-start-tdd/java/06-task-runner-and-ci-cd.md
+              - カプセル化とポリモーフィズム: article/getting-start-tdd/java/07-encapsulation-and-polymorphism.md
+              - デザインパターン: article/getting-start-tdd/java/08-design-patterns.md
+              - SOLID 原則とモジュール設計: article/getting-start-tdd/java/09-solid-principles-and-module-design.md
+              - 高階関数と合成: article/getting-start-tdd/java/10-higher-order-functions-and-composition.md
+              - イミュータブルデータとパイプライン: article/getting-start-tdd/java/11-immutable-data-and-pipeline.md
+              - エラーハンドリングと型安全: article/getting-start-tdd/java/12-error-handling-and-type-safety.md
+          - Node.js:
+              - 概要: article/getting-start-tdd/node/index.md
+              - TODO リストと最初のテスト: article/getting-start-tdd/node/01-todo-list-and-first-test.md
+              - 仮実装と三角測量: article/getting-start-tdd/node/02-fake-it-and-triangulation.md
+              - 明白な実装とリファクタリング: article/getting-start-tdd/node/03-obvious-implementation-and-refactoring.md
+              - バージョン管理: article/getting-start-tdd/node/04-version-control-and-conventional-commits.md
+              - パッケージ管理と静的解析: article/getting-start-tdd/node/05-package-management-and-static-analysis.md
+              - タスクランナーと CI/CD: article/getting-start-tdd/node/06-task-runner-and-ci-cd.md
+              - カプセル化とポリモーフィズム: article/getting-start-tdd/node/07-encapsulation-and-polymorphism.md
+              - デザインパターン: article/getting-start-tdd/node/08-design-patterns.md
+              - SOLID 原則とモジュール設計: article/getting-start-tdd/node/09-solid-principles-and-module-design.md
+              - 高階関数と合成: article/getting-start-tdd/node/10-higher-order-functions-and-composition.md
+              - イミュータブルデータとパイプライン: article/getting-start-tdd/node/11-immutable-data-and-pipeline.md
+              - エラーハンドリングと型安全: article/getting-start-tdd/node/12-error-handling-and-type-safety.md
+          - Python:
+              - 概要: article/getting-start-tdd/python/index.md
+              - TODO リストと最初のテスト: article/getting-start-tdd/python/01-todo-list-and-first-test.md
+              - 仮実装と三角測量: article/getting-start-tdd/python/02-fake-it-and-triangulation.md
+              - 明白な実装とリファクタリング: article/getting-start-tdd/python/03-obvious-implementation-and-refactoring.md
+              - バージョン管理: article/getting-start-tdd/python/04-version-control-and-conventional-commits.md
+              - パッケージ管理と静的解析: article/getting-start-tdd/python/05-package-management-and-static-analysis.md
+              - タスクランナーと CI/CD: article/getting-start-tdd/python/06-task-runner-and-ci-cd.md
+              - カプセル化とポリモーフィズム: article/getting-start-tdd/python/07-encapsulation-and-polymorphism.md
+              - デザインパターン: article/getting-start-tdd/python/08-design-patterns.md
+              - SOLID 原則とモジュール設計: article/getting-start-tdd/python/09-solid-principles-and-module-design.md
+              - 高階関数と合成: article/getting-start-tdd/python/10-higher-order-functions-and-composition.md
+              - イミュータブルデータとパイプライン: article/getting-start-tdd/python/11-immutable-data-and-pipeline.md
+              - エラーハンドリングと型安全: article/getting-start-tdd/python/12-error-handling-and-type-safety.md
+          - Ruby:
+              - 概要: article/getting-start-tdd/ruby/index.md
+              - TODO リストと最初のテスト: article/getting-start-tdd/ruby/01-todo-list-and-first-test.md
+              - 仮実装と三角測量: article/getting-start-tdd/ruby/02-fake-it-and-triangulation.md
+              - 明白な実装とリファクタリング: article/getting-start-tdd/ruby/03-obvious-implementation-and-refactoring.md
+              - バージョン管理: article/getting-start-tdd/ruby/04-version-control-and-conventional-commits.md
+              - パッケージ管理と静的解析: article/getting-start-tdd/ruby/05-package-management-and-static-analysis.md
+              - タスクランナーと CI/CD: article/getting-start-tdd/ruby/06-task-runner-and-ci-cd.md
+              - カプセル化とポリモーフィズム: article/getting-start-tdd/ruby/07-encapsulation-and-polymorphism.md
+              - デザインパターン: article/getting-start-tdd/ruby/08-design-patterns.md
+              - SOLID 原則とモジュール設計: article/getting-start-tdd/ruby/09-solid-principles-and-module-design.md
+              - 高階関数と合成: article/getting-start-tdd/ruby/10-higher-order-functions-and-composition.md
+              - イミュータブルデータとパイプライン: article/getting-start-tdd/ruby/11-immutable-data-and-pipeline.md
+              - エラーハンドリングと型安全: article/getting-start-tdd/ruby/12-error-handling-and-type-safety.md
+          - PHP:
+              - 概要: article/getting-start-tdd/php/index.md
+              - TODO リストと最初のテスト: article/getting-start-tdd/php/01-todo-list-and-first-test.md
+              - 仮実装と三角測量: article/getting-start-tdd/php/02-fake-it-and-triangulation.md
+              - 明白な実装とリファクタリング: article/getting-start-tdd/php/03-obvious-implementation-and-refactoring.md
+              - バージョン管理: article/getting-start-tdd/php/04-version-control-and-conventional-commits.md
+              - パッケージ管理と静的解析: article/getting-start-tdd/php/05-package-management-and-static-analysis.md
+              - タスクランナーと CI/CD: article/getting-start-tdd/php/06-task-runner-and-ci-cd.md
+              - カプセル化とポリモーフィズム: article/getting-start-tdd/php/07-encapsulation-and-polymorphism.md
+              - デザインパターン: article/getting-start-tdd/php/08-design-patterns.md
+              - SOLID 原則とモジュール設計: article/getting-start-tdd/php/09-solid-principles-and-module-design.md
+              - 高階関数と合成: article/getting-start-tdd/php/10-higher-order-functions-and-composition.md
+              - イミュータブルデータとパイプライン: article/getting-start-tdd/php/11-immutable-data-and-pipeline.md
+              - エラーハンドリングと型安全: article/getting-start-tdd/php/12-error-handling-and-type-safety.md
+          - Go:
+              - 概要: article/getting-start-tdd/go/index.md
+              - TODO リストと最初のテスト: article/getting-start-tdd/go/01-todo-list-and-first-test.md
+              - 仮実装と三角測量: article/getting-start-tdd/go/02-fake-it-and-triangulation.md
+              - 明白な実装とリファクタリング: article/getting-start-tdd/go/03-obvious-implementation-and-refactoring.md
+              - バージョン管理: article/getting-start-tdd/go/04-version-control-and-conventional-commits.md
+              - パッケージ管理と静的解析: article/getting-start-tdd/go/05-package-management-and-static-analysis.md
+              - タスクランナーと CI/CD: article/getting-start-tdd/go/06-task-runner-and-ci-cd.md
+              - カプセル化とポリモーフィズム: article/getting-start-tdd/go/07-encapsulation-and-polymorphism.md
+              - デザインパターン: article/getting-start-tdd/go/08-design-patterns.md
+              - SOLID 原則とモジュール設計: article/getting-start-tdd/go/09-solid-principles-and-module-design.md
+              - 高階関数と合成: article/getting-start-tdd/go/10-higher-order-functions-and-composition.md
+              - イミュータブルデータとパイプライン: article/getting-start-tdd/go/11-immutable-data-and-pipeline.md
+              - エラーハンドリングと型安全: article/getting-start-tdd/go/12-error-handling-and-type-safety.md
+          - Rust:
+              - 概要: article/getting-start-tdd/rust/index.md
+              - TODO リストと最初のテスト: article/getting-start-tdd/rust/01-todo-list-and-first-test.md
+              - 仮実装と三角測量: article/getting-start-tdd/rust/02-fake-it-and-triangulation.md
+              - 明白な実装とリファクタリング: article/getting-start-tdd/rust/03-obvious-implementation-and-refactoring.md
+              - バージョン管理: article/getting-start-tdd/rust/04-version-control-and-conventional-commits.md
+              - パッケージ管理と静的解析: article/getting-start-tdd/rust/05-package-management-and-static-analysis.md
+              - タスクランナーと CI/CD: article/getting-start-tdd/rust/06-task-runner-and-ci-cd.md
+              - カプセル化とポリモーフィズム: article/getting-start-tdd/rust/07-encapsulation-and-polymorphism.md
+              - デザインパターン: article/getting-start-tdd/rust/08-design-patterns.md
+              - SOLID 原則とモジュール設計: article/getting-start-tdd/rust/09-solid-principles-and-module-design.md
+              - 高階関数と合成: article/getting-start-tdd/rust/10-higher-order-functions-and-composition.md
+              - イミュータブルデータとパイプライン: article/getting-start-tdd/rust/11-immutable-data-and-pipeline.md
+              - エラーハンドリングと型安全: article/getting-start-tdd/rust/12-error-handling-and-type-safety.md
+          - "C#":
+              - 概要: article/getting-start-tdd/csharp/index.md
+              - Chapter 01: article/getting-start-tdd/csharp/chapter01.md
+              - Chapter 02: article/getting-start-tdd/csharp/chapter02.md
+              - Chapter 03: article/getting-start-tdd/csharp/chapter03.md
+              - Chapter 04: article/getting-start-tdd/csharp/chapter04.md
+              - Chapter 05: article/getting-start-tdd/csharp/chapter05.md
+              - Chapter 06: article/getting-start-tdd/csharp/chapter06.md
+              - Chapter 07: article/getting-start-tdd/csharp/chapter07.md
+              - Chapter 08: article/getting-start-tdd/csharp/chapter08.md
+              - Chapter 09: article/getting-start-tdd/csharp/chapter09.md
+              - Chapter 10: article/getting-start-tdd/csharp/chapter10.md
+              - Chapter 11: article/getting-start-tdd/csharp/chapter11.md
+              - Chapter 12: article/getting-start-tdd/csharp/chapter12.md
+          - "F#":
+              - 概要: article/getting-start-tdd/fsharp/index.md
+              - Chapter 01: article/getting-start-tdd/fsharp/chapter01.md
+              - Chapter 02: article/getting-start-tdd/fsharp/chapter02.md
+              - Chapter 03: article/getting-start-tdd/fsharp/chapter03.md
+              - Chapter 04: article/getting-start-tdd/fsharp/chapter04.md
+              - Chapter 05: article/getting-start-tdd/fsharp/chapter05.md
+              - Chapter 06: article/getting-start-tdd/fsharp/chapter06.md
+              - Chapter 07: article/getting-start-tdd/fsharp/chapter07.md
+              - Chapter 08: article/getting-start-tdd/fsharp/chapter08.md
+              - Chapter 09: article/getting-start-tdd/fsharp/chapter09.md
+              - Chapter 10: article/getting-start-tdd/fsharp/chapter10.md
+              - Chapter 11: article/getting-start-tdd/fsharp/chapter11.md
+              - Chapter 12: article/getting-start-tdd/fsharp/chapter12.md
+          - Scala:
+              - 概要: article/getting-start-tdd/scala/index.md
+              - TODO リストと最初のテスト: article/getting-start-tdd/scala/01-todo-list-and-first-test.md
+              - 仮実装と三角測量: article/getting-start-tdd/scala/02-fake-it-and-triangulation.md
+              - 明白な実装とリファクタリング: article/getting-start-tdd/scala/03-obvious-implementation-and-refactoring.md
+              - バージョン管理: article/getting-start-tdd/scala/04-version-control-and-conventional-commits.md
+              - パッケージ管理と静的解析: article/getting-start-tdd/scala/05-package-management-and-static-analysis.md
+              - タスクランナーと CI/CD: article/getting-start-tdd/scala/06-task-runner-and-ci-cd.md
+              - ケースクラスとトレイト: article/getting-start-tdd/scala/07-case-classes-and-traits.md
+              - パターンマッチングとシールドトレイト: article/getting-start-tdd/scala/08-pattern-matching-and-sealed-traits.md
+              - パッケージとモジュール設計: article/getting-start-tdd/scala/09-packages-and-module-design.md
+              - 高階関数と合成: article/getting-start-tdd/scala/10-higher-order-functions-and-composition.md
+              - コレクションと遅延評価: article/getting-start-tdd/scala/11-collections-and-lazy-evaluation.md
+              - エラーハンドリングと型安全: article/getting-start-tdd/scala/12-error-handling-and-type-safety.md
+          - Haskell:
+              - 概要: article/getting-start-tdd/haskell/index.md
+              - TODO リストと最初のテスト: article/getting-start-tdd/haskell/01-todo-list-and-first-test.md
+              - 仮実装と三角測量: article/getting-start-tdd/haskell/02-fake-it-and-triangulation.md
+              - 明白な実装とリファクタリング: article/getting-start-tdd/haskell/03-obvious-implementation-and-refactoring.md
+              - バージョン管理: article/getting-start-tdd/haskell/04-version-control-and-conventional-commits.md
+              - パッケージ管理と静的解析: article/getting-start-tdd/haskell/05-package-management-and-static-analysis.md
+              - タスクランナーと CI/CD: article/getting-start-tdd/haskell/06-task-runner-and-ci-cd.md
+              - 代数的データ型と型クラス: article/getting-start-tdd/haskell/07-algebraic-data-types-and-type-classes.md
+              - パターンマッチングとガード: article/getting-start-tdd/haskell/08-pattern-matching-and-guards.md
+              - モジュール設計とスマートコンストラクタ: article/getting-start-tdd/haskell/09-module-design-and-smart-constructors.md
+              - 高階関数とカリー化: article/getting-start-tdd/haskell/10-higher-order-functions-and-currying.md
+              - 関数合成とポイントフリー: article/getting-start-tdd/haskell/11-function-composition-and-point-free.md
+              - モナドとエラーハンドリング: article/getting-start-tdd/haskell/12-monad-and-error-handling.md
+          - Clojure:
+              - 概要: article/getting-start-tdd/clojure/index.md
+              - TODO リストと最初のテスト: article/getting-start-tdd/clojure/01-todo-list-and-first-test.md
+              - 仮実装と三角測量: article/getting-start-tdd/clojure/02-fake-it-and-triangulation.md
+              - 明白な実装とリファクタリング: article/getting-start-tdd/clojure/03-obvious-implementation-and-refactoring.md
+              - バージョン管理: article/getting-start-tdd/clojure/04-version-control-and-conventional-commits.md
+              - パッケージ管理と静的解析: article/getting-start-tdd/clojure/05-package-management-and-static-analysis.md
+              - タスクランナーと CI/CD: article/getting-start-tdd/clojure/06-task-runner-and-ci-cd.md
+              - プロトコルとレコード: article/getting-start-tdd/clojure/07-protocols-and-records.md
+              - マルチメソッドとデザインパターン: article/getting-start-tdd/clojure/08-multimethods-and-design-patterns.md
+              - 名前空間とモジュール設計: article/getting-start-tdd/clojure/09-namespaces-and-module-design.md
+              - 高階関数と合成: article/getting-start-tdd/clojure/10-higher-order-functions-and-composition.md
+              - 永続データとパイプライン: article/getting-start-tdd/clojure/11-persistent-data-and-pipeline.md
+              - エラーハンドリングと Spec: article/getting-start-tdd/clojure/12-error-handling-and-spec.md
+          - Elixir:
+              - 概要: article/getting-start-tdd/elixir/index.md
+              - TODO リストと最初のテスト: article/getting-start-tdd/elixir/01-todo-list-and-first-test.md
+              - 仮実装と三角測量: article/getting-start-tdd/elixir/02-fake-it-and-triangulation.md
+              - 明白な実装とリファクタリング: article/getting-start-tdd/elixir/03-obvious-implementation-and-refactoring.md
+              - バージョン管理: article/getting-start-tdd/elixir/04-version-control-and-conventional-commits.md
+              - パッケージ管理と静的解析: article/getting-start-tdd/elixir/05-package-management-and-static-analysis.md
+              - タスクランナーと CI/CD: article/getting-start-tdd/elixir/06-task-runner-and-ci-cd.md
+              - 構造体とプロトコル: article/getting-start-tdd/elixir/07-structs-and-protocols.md
+              - パターンマッチングとガード: article/getting-start-tdd/elixir/08-pattern-matching-and-guards.md
+              - モジュール設計とビヘイビア: article/getting-start-tdd/elixir/09-module-design-and-behaviours.md
+              - 高階関数とパイプライン: article/getting-start-tdd/elixir/10-higher-order-functions-and-pipeline.md
+              - ストリームと遅延評価: article/getting-start-tdd/elixir/11-stream-and-lazy-evaluation.md
+              - エラーハンドリングと with: article/getting-start-tdd/elixir/12-error-handling-and-with.md
+      - Grokking Functional Programming:
+          - 概要: article/grokkingfp/index.md
+          - 多言語統合解説:
+              - 概要: article/grokkingfp/all/index.md
+              - "Part 1: FP 入門": article/grokkingfp/all/part-1-ch01-fp-introduction.md
+              - "Part 1: 純粋関数": article/grokkingfp/all/part-1-ch02-pure-functions.md
+              - "Part 2: イミュータブルデータ": article/grokkingfp/all/part-2-ch03-immutable-data.md
+              - "Part 2: 高階関数": article/grokkingfp/all/part-2-ch04-higher-order-functions.md
+              - "Part 2: flatMap": article/grokkingfp/all/part-2-ch05-flatmap.md
+              - "Part 3: Option": article/grokkingfp/all/part-3-ch06-option.md
+              - "Part 3: Either と ADT": article/grokkingfp/all/part-3-ch07-either-adt.md
+              - "Part 4: IO モナド": article/grokkingfp/all/part-4-ch08-io-monad.md
+              - "Part 4: ストリーム": article/grokkingfp/all/part-4-ch09-streams.md
+              - "Part 5: 並行処理": article/grokkingfp/all/part-5-ch10-concurrency.md
+              - "Part 6: アプリケーション": article/grokkingfp/all/part-6-ch11-application.md
+              - "Part 6: テスティング": article/grokkingfp/all/part-6-ch12-testing.md
+          - Scala:
+              - 概要: article/grokkingfp/scala/index.md
+              - Part 1: article/grokkingfp/scala/part-1.md
+              - Part 2: article/grokkingfp/scala/part-2.md
+              - Part 3: article/grokkingfp/scala/part-3.md
+              - Part 4: article/grokkingfp/scala/part-4.md
+              - Part 5: article/grokkingfp/scala/part-5.md
+              - Part 6: article/grokkingfp/scala/part-6.md
+          - Haskell:
+              - 概要: article/grokkingfp/haskell/index.md
+              - Part 1: article/grokkingfp/haskell/part-1.md
+              - Part 2: article/grokkingfp/haskell/part-2.md
+              - Part 3: article/grokkingfp/haskell/part-3.md
+              - Part 4: article/grokkingfp/haskell/part-4.md
+              - Part 5: article/grokkingfp/haskell/part-5.md
+              - Part 6: article/grokkingfp/haskell/part-6.md
+          - Clojure:
+              - 概要: article/grokkingfp/clojure/index.md
+              - Part 1: article/grokkingfp/clojure/part-1.md
+              - Part 2: article/grokkingfp/clojure/part-2.md
+              - Part 3: article/grokkingfp/clojure/part-3.md
+              - Part 4: article/grokkingfp/clojure/part-4.md
+              - Part 5: article/grokkingfp/clojure/part-5.md
+              - Part 6: article/grokkingfp/clojure/part-6.md
+          - Rust:
+              - 概要: article/grokkingfp/rust/index.md
+              - Part 1: article/grokkingfp/rust/part-1.md
+              - Part 2: article/grokkingfp/rust/part-2.md
+              - Part 3: article/grokkingfp/rust/part-3.md
+              - Part 4: article/grokkingfp/rust/part-4.md
+              - Part 5: article/grokkingfp/rust/part-5.md
+              - Part 6: article/grokkingfp/rust/part-6.md
+          - "F#":
+              - 概要: article/grokkingfp/fsharp/index.md
+              - Part 1: article/grokkingfp/fsharp/part-1.md
+              - Part 2: article/grokkingfp/fsharp/part-2.md
+              - Part 3: article/grokkingfp/fsharp/part-3.md
+              - Part 4: article/grokkingfp/fsharp/part-4.md
+              - Part 5: article/grokkingfp/fsharp/part-5.md
+              - Part 6: article/grokkingfp/fsharp/part-6.md
+          - Elixir:
+              - 概要: article/grokkingfp/elixir/index.md
+              - Part 1: article/grokkingfp/elixir/part-1.md
+              - Part 2: article/grokkingfp/elixir/part-2.md
+              - Part 3: article/grokkingfp/elixir/part-3.md
+              - Part 4: article/grokkingfp/elixir/part-4.md
+              - Part 5: article/grokkingfp/elixir/part-5.md
+              - Part 6: article/grokkingfp/elixir/part-6.md
+          - Java:
+              - 概要: article/grokkingfp/java/index.md
+              - Part 1: article/grokkingfp/java/part-1.md
+              - Part 2: article/grokkingfp/java/part-2.md
+              - Part 3: article/grokkingfp/java/part-3.md
+              - Part 4: article/grokkingfp/java/part-4.md
+              - Part 5: article/grokkingfp/java/part-5.md
+              - Part 6: article/grokkingfp/java/part-6.md
+          - Python:
+              - 概要: article/grokkingfp/python/index.md
+              - Part 1: article/grokkingfp/python/part-1.md
+              - Part 2: article/grokkingfp/python/part-2.md
+              - Part 3: article/grokkingfp/python/part-3.md
+              - Part 4: article/grokkingfp/python/part-4.md
+              - Part 5: article/grokkingfp/python/part-5.md
+              - Part 6: article/grokkingfp/python/part-6.md
+          - Ruby:
+              - 概要: article/grokkingfp/ruby/index.md
+              - Part 1: article/grokkingfp/ruby/part-1.md
+              - Part 2: article/grokkingfp/ruby/part-2.md
+              - Part 3: article/grokkingfp/ruby/part-3.md
+              - Part 4: article/grokkingfp/ruby/part-4.md
+              - Part 5: article/grokkingfp/ruby/part-5.md
+              - Part 6: article/grokkingfp/ruby/part-6.md
+          - "C#":
+              - 概要: article/grokkingfp/csharp/index.md
+              - Part 1: article/grokkingfp/csharp/part-1.md
+              - Part 2: article/grokkingfp/csharp/part-2.md
+              - Part 3: article/grokkingfp/csharp/part-3.md
+              - Part 4: article/grokkingfp/csharp/part-4.md
+              - Part 5: article/grokkingfp/csharp/part-5.md
+              - Part 6: article/grokkingfp/csharp/part-6.md
+          - TypeScript:
+              - 概要: article/grokkingfp/typescript/index.md
+              - Part 1: article/grokkingfp/typescript/part-1.md
+              - Part 2: article/grokkingfp/typescript/part-2.md
+              - Part 3: article/grokkingfp/typescript/part-3.md
+              - Part 4: article/grokkingfp/typescript/part-4.md
+              - Part 5: article/grokkingfp/typescript/part-5.md
+              - Part 6: article/grokkingfp/typescript/part-6.md
+      - Grokking Concurrency:
+          - 概要: article/grokking-concurrency/index.md
+          - 多言語統合解説:
+              - 概要: article/grokking-concurrency/all/index.md
+              - "Part 1: 逐次処理": article/grokking-concurrency/all/part-1-ch02-sequential.md
+              - "Part 2: スレッド": article/grokking-concurrency/all/part-2-ch04-05-threads.md
+              - "Part 3: マルチタスク": article/grokking-concurrency/all/part-3-ch06-multitasking.md
+              - "Part 4: 並列パターン": article/grokking-concurrency/all/part-4-ch07-parallel-patterns.md
+              - "Part 5: 同期": article/grokking-concurrency/all/part-5-ch08-09-synchronization.md
+              - "Part 6: ノンブロッキング I/O": article/grokking-concurrency/all/part-6-ch10-11-nonblocking-io.md
+              - "Part 7: 非同期": article/grokking-concurrency/all/part-7-ch12-async.md
+              - "Part 8: MapReduce": article/grokking-concurrency/all/part-8-ch13-mapreduce.md
+          - Java:
+              - 概要: article/grokking-concurrency/java/index.md
+              - Part 1: article/grokking-concurrency/java/part-1.md
+              - Part 2: article/grokking-concurrency/java/part-2.md
+              - Part 3: article/grokking-concurrency/java/part-3.md
+              - Part 4: article/grokking-concurrency/java/part-4.md
+              - Part 5: article/grokking-concurrency/java/part-5.md
+              - Part 6: article/grokking-concurrency/java/part-6.md
+              - Part 7: article/grokking-concurrency/java/part-7.md
+              - Part 8: article/grokking-concurrency/java/part-8.md
+          - Python:
+              - 概要: article/grokking-concurrency/python/index.md
+              - Part 1: article/grokking-concurrency/python/part-1.md
+              - Part 2: article/grokking-concurrency/python/part-2.md
+              - Part 3: article/grokking-concurrency/python/part-3.md
+              - Part 4: article/grokking-concurrency/python/part-4.md
+              - Part 5: article/grokking-concurrency/python/part-5.md
+              - Part 6: article/grokking-concurrency/python/part-6.md
+              - Part 7: article/grokking-concurrency/python/part-7.md
+              - Part 8: article/grokking-concurrency/python/part-8.md
+          - Scala:
+              - 概要: article/grokking-concurrency/scala/index.md
+              - Part 1: article/grokking-concurrency/scala/part-1.md
+              - Part 2: article/grokking-concurrency/scala/part-2.md
+              - Part 3: article/grokking-concurrency/scala/part-3.md
+              - Part 4: article/grokking-concurrency/scala/part-4.md
+              - Part 5: article/grokking-concurrency/scala/part-5.md
+              - Part 6: article/grokking-concurrency/scala/part-6.md
+              - Part 7: article/grokking-concurrency/scala/part-7.md
+              - Part 8: article/grokking-concurrency/scala/part-8.md
+          - Haskell:
+              - 概要: article/grokking-concurrency/haskell/index.md
+              - Part 1: article/grokking-concurrency/haskell/part-1.md
+              - Part 2: article/grokking-concurrency/haskell/part-2.md
+              - Part 3: article/grokking-concurrency/haskell/part-3.md
+              - Part 4: article/grokking-concurrency/haskell/part-4.md
+              - Part 5: article/grokking-concurrency/haskell/part-5.md
+              - Part 6: article/grokking-concurrency/haskell/part-6.md
+              - Part 7: article/grokking-concurrency/haskell/part-7.md
+              - Part 8: article/grokking-concurrency/haskell/part-8.md
+          - Clojure:
+              - 概要: article/grokking-concurrency/clojure/index.md
+              - Part 1: article/grokking-concurrency/clojure/part-1.md
+              - Part 2: article/grokking-concurrency/clojure/part-2.md
+              - Part 3: article/grokking-concurrency/clojure/part-3.md
+              - Part 4: article/grokking-concurrency/clojure/part-4.md
+              - Part 5: article/grokking-concurrency/clojure/part-5.md
+              - Part 6: article/grokking-concurrency/clojure/part-6.md
+              - Part 7: article/grokking-concurrency/clojure/part-7.md
+              - Part 8: article/grokking-concurrency/clojure/part-8.md
+          - Rust:
+              - 概要: article/grokking-concurrency/rust/index.md
+              - Part 1: article/grokking-concurrency/rust/part-1.md
+              - Part 2: article/grokking-concurrency/rust/part-2.md
+              - Part 3: article/grokking-concurrency/rust/part-3.md
+              - Part 4: article/grokking-concurrency/rust/part-4.md
+              - Part 5: article/grokking-concurrency/rust/part-5.md
+              - Part 6: article/grokking-concurrency/rust/part-6.md
+              - Part 7: article/grokking-concurrency/rust/part-7.md
+              - Part 8: article/grokking-concurrency/rust/part-8.md
+          - "F#":
+              - 概要: article/grokking-concurrency/fsharp/index.md
+              - Part 1: article/grokking-concurrency/fsharp/part-1.md
+              - Part 2: article/grokking-concurrency/fsharp/part-2.md
+              - Part 3: article/grokking-concurrency/fsharp/part-3.md
+              - Part 4: article/grokking-concurrency/fsharp/part-4.md
+              - Part 5: article/grokking-concurrency/fsharp/part-5.md
+              - Part 6: article/grokking-concurrency/fsharp/part-6.md
+              - Part 7: article/grokking-concurrency/fsharp/part-7.md
+              - Part 8: article/grokking-concurrency/fsharp/part-8.md
+          - "C#":
+              - 概要: article/grokking-concurrency/csharp/index.md
+              - Part 1: article/grokking-concurrency/csharp/part-1.md
+              - Part 2: article/grokking-concurrency/csharp/part-2.md
+              - Part 3: article/grokking-concurrency/csharp/part-3.md
+              - Part 4: article/grokking-concurrency/csharp/part-4.md
+              - Part 5: article/grokking-concurrency/csharp/part-5.md
+              - Part 6: article/grokking-concurrency/csharp/part-6.md
+              - Part 7: article/grokking-concurrency/csharp/part-7.md
+              - Part 8: article/grokking-concurrency/csharp/part-8.md
+      - 関数型デザイン - 原則、パターン、実践:
+          - 概要: article/functional-desgin-ppp/index.md
+          - 多言語統合解説:
+              - 概要: article/functional-desgin-ppp/all/index.md
+              - 不変性とデータ変換: article/functional-desgin-ppp/all/01-immutability-and-data-transformation.md
+              - 関数合成: article/functional-desgin-ppp/all/02-function-composition.md
+              - ポリモーフィズム: article/functional-desgin-ppp/all/03-polymorphism.md
+              - データバリデーション: article/functional-desgin-ppp/all/04-data-validation.md
+              - プロパティベーステスト: article/functional-desgin-ppp/all/05-property-based-testing.md
+              - TDD と関数型: article/functional-desgin-ppp/all/06-tdd-and-functional.md
+              - Composite パターン: article/functional-desgin-ppp/all/07-composite-pattern.md
+              - Decorator パターン: article/functional-desgin-ppp/all/08-decorator-pattern.md
+              - Adapter パターン: article/functional-desgin-ppp/all/09-adapter-pattern.md
+              - Strategy パターン: article/functional-desgin-ppp/all/10-strategy-pattern.md
+              - Command パターン: article/functional-desgin-ppp/all/11-command-pattern.md
+              - Visitor パターン: article/functional-desgin-ppp/all/12-visitor-pattern.md
+              - Abstract Factory パターン: article/functional-desgin-ppp/all/13-abstract-factory-pattern.md
+              - Abstract Server パターン: article/functional-desgin-ppp/all/14-abstract-server-pattern.md
+              - おしゃべりバス運転手: article/functional-desgin-ppp/all/15-gossiping-bus-drivers.md
+              - 給与計算システム: article/functional-desgin-ppp/all/16-payroll-system.md
+              - ビデオレンタルシステム: article/functional-desgin-ppp/all/17-video-rental-system.md
+              - 並行処理システム: article/functional-desgin-ppp/all/18-concurrency-system.md
+              - Wa-Tor シミュレーション: article/functional-desgin-ppp/all/19-wa-tor-simulation.md
+              - パターンの相互作用: article/functional-desgin-ppp/all/20-pattern-interactions.md
+              - ベストプラクティス: article/functional-desgin-ppp/all/21-best-practices.md
+              - OO から FP への移行: article/functional-desgin-ppp/all/22-oo-to-fp-migration.md
+          - Scala:
+              - 概要: article/functional-desgin-ppp/scala/index.md
+          - Haskell:
+              - 概要: article/functional-desgin-ppp/haskell/index.md
+          - Clojure:
+              - 概要: article/functional-desgin-ppp/clojure/index.md
+          - Rust:
+              - 概要: article/functional-desgin-ppp/rust/index.md
+          - "F#":
+              - 概要: article/functional-desgin-ppp/fsharp/index.md
+          - Elixir:
+              - 概要: article/functional-desgin-ppp/elixir/index.md
+      - 実践データベース設計：基幹業務システム編:
+          - 概要: article/practical-database-design/index.md
+          - "Part 1: 基礎":
+              - Chapter 01: article/practical-database-design/part1/chapter01.md
+              - Chapter 02: article/practical-database-design/part1/chapter02.md
+              - Chapter 03: article/practical-database-design/part1/chapter03.md
+          - "Part 2: 販売管理":
+              - Chapter 04: article/practical-database-design/part2/chapter04.md
+              - Chapter 05: article/practical-database-design/part2/chapter05.md
+              - Chapter 06: article/practical-database-design/part2/chapter06.md
+              - Chapter 07: article/practical-database-design/part2/chapter07.md
+              - Chapter 08: article/practical-database-design/part2/chapter08.md
+              - Chapter 09: article/practical-database-design/part2/chapter09.md
+              - Chapter 10: article/practical-database-design/part2/chapter10.md
+              - Chapter 11: article/practical-database-design/part2/chapter11.md
+              - Chapter 12: article/practical-database-design/part2/chapter12.md
+              - Chapter 13: article/practical-database-design/part2/chapter13.md
+          - "Part 3: 財務会計":
+              - Chapter 14: article/practical-database-design/part3/chapter14.md
+              - Chapter 15: article/practical-database-design/part3/chapter15.md
+              - Chapter 16: article/practical-database-design/part3/chapter16.md
+              - Chapter 17: article/practical-database-design/part3/chapter17.md
+              - Chapter 18: article/practical-database-design/part3/chapter18.md
+              - Chapter 19: article/practical-database-design/part3/chapter19.md
+              - Chapter 20: article/practical-database-design/part3/chapter20.md
+              - Chapter 21: article/practical-database-design/part3/chapter21.md
+          - "Part 3 ORM: ORM 対応":
+              - Chapter 14 ORM: article/practical-database-design/part3-orm/chapter14-orm.md
+              - Chapter 15 ORM: article/practical-database-design/part3-orm/chapter15-orm.md
+              - Chapter 16 ORM: article/practical-database-design/part3-orm/chapter16-orm.md
+              - Chapter 17 ORM: article/practical-database-design/part3-orm/chapter17-orm.md
+              - Chapter 18 ORM: article/practical-database-design/part3-orm/chapter18-orm.md
+              - Chapter 19 ORM: article/practical-database-design/part3-orm/chapter19-orm.md
+              - Chapter 20 ORM: article/practical-database-design/part3-orm/chapter20-orm.md
+              - Chapter 21 ORM: article/practical-database-design/part3-orm/chapter21-orm.md
+              - Chapter 22 ORM: article/practical-database-design/part3-orm/chapter22-orm.md
+          - "Part 4: 生産管理":
+              - Chapter 22: article/practical-database-design/part4/chapter22.md
+              - Chapter 23: article/practical-database-design/part4/chapter23.md
+              - Chapter 24: article/practical-database-design/part4/chapter24.md
+              - Chapter 25: article/practical-database-design/part4/chapter25.md
+              - Chapter 26: article/practical-database-design/part4/chapter26.md
+              - Chapter 27: article/practical-database-design/part4/chapter27.md
+              - Chapter 28: article/practical-database-design/part4/chapter28.md
+              - Chapter 29: article/practical-database-design/part4/chapter29.md
+              - Chapter 30: article/practical-database-design/part4/chapter30.md
+              - Chapter 31: article/practical-database-design/part4/chapter31.md
+              - Chapter 32: article/practical-database-design/part4/chapter32.md
+          - "Part 5: 統合":
+              - Chapter 33: article/practical-database-design/part5/chapter33.md
+              - Chapter 34: article/practical-database-design/part5/chapter34.md
+              - Chapter 35: article/practical-database-design/part5/chapter35.md
+              - Chapter 36: article/practical-database-design/part5/chapter36.md
+              - Chapter 37: article/practical-database-design/part5/chapter37.md
+              - Chapter 38: article/practical-database-design/part5/chapter38.md
+              - Chapter 39: article/practical-database-design/part5/chapter39.md
+          - 演習:
+              - "演習 2-1": article/practical-database-design/study/study2-1.md
+              - "演習 2-2": article/practical-database-design/study/study2-2.md
+              - "演習 2-3": article/practical-database-design/study/study2-3.md
+              - "演習 2-4": article/practical-database-design/study/study2-4.md
+              - "演習 2-5": article/practical-database-design/study/study2-5.md
+              - "演習 3-1": article/practical-database-design/study/study3-1.md
+              - "演習 3-2": article/practical-database-design/study/study3-2.md
+              - "演習 3-3": article/practical-database-design/study/study3-3.md
+              - "演習 3-4": article/practical-database-design/study/study3-4.md
+              - "演習 3-5": article/practical-database-design/study/study3-5.md
+              - "演習 4-1": article/practical-database-design/study/study4-1.md
+              - "演習 4-2": article/practical-database-design/study/study4-2.md
+              - "演習 4-3": article/practical-database-design/study/study4-3.md
+              - "演習 4-4": article/practical-database-design/study/study4-4.md
+              - "演習 4-5": article/practical-database-design/study/study4-5.md
   - リファレンス:
       - 概要: reference/index.md
       - よいソフトウェアとは: reference/よいソフトウェアとは.md
