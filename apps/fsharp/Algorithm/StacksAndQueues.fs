@@ -47,6 +47,14 @@ type FixedStack<'T when 'T : equality>(capacity: int) =
 
     member _.Clear() = ptr <- 0
 
+    member _.Dump() =
+        if ptr <= 0 then
+            printfn "スタックは空です"
+        else
+            for i in 0..ptr-1 do
+                printf "%A " (unbox<'T> stk.[i])
+            printfn ""
+
 /// 固定長キュー（リングバッファ）
 type FixedQueue<'T when 'T : equality>(capacity: int) =
     let que = Array.zeroCreate<obj> capacity
@@ -94,3 +102,11 @@ type FixedQueue<'T when 'T : equality>(capacity: int) =
 
     member _.Clear() =
         front <- 0; rear <- 0; num <- 0
+
+    member _.Dump() =
+        if num <= 0 then
+            printfn "キューは空です"
+        else
+            for i in 0..num-1 do
+                printf "%A " (unbox<'T> que.[(i + front) % capacity])
+            printfn ""

@@ -98,6 +98,20 @@ module FixedStackTests =
         let s = FixedStack<int>(64)
         Assert.Equal(64, s.GetCapacity())
 
+    [<Fact>]
+    let ``Dump - 空のスタック``() =
+        let s = FixedStack<int>(3)
+        // 例外なく実行できることを確認
+        s.Dump()
+
+    [<Fact>]
+    let ``Dump - 要素があるスタック``() =
+        let s = FixedStack<int>(3)
+        s.Push(1)
+        s.Push(2)
+        // 例外なく実行できることを確認
+        s.Dump()
+
 module FixedQueueTests =
     [<Fact>]
     let ``初期状態は空``() =
@@ -198,3 +212,15 @@ module FixedQueueTests =
         Assert.Equal(2, q.Deque())
         Assert.Equal(3, q.Deque())
         Assert.Equal(4, q.Deque())
+
+    [<Fact>]
+    let ``Dump - 空のキュー``() =
+        let q = FixedQueue<int>(3)
+        q.Dump()
+
+    [<Fact>]
+    let ``Dump - 要素があるキュー``() =
+        let q = FixedQueue<int>(3)
+        q.Enque(1)
+        q.Enque(2)
+        q.Dump()
