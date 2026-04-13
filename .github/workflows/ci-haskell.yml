@@ -1,0 +1,42 @@
+name: CI Haskell
+
+on:
+  push:
+    paths:
+      - 'apps/haskell/**'
+      - '.github/workflows/ci-haskell.yml'
+  pull_request:
+    paths:
+      - 'apps/haskell/**'
+      - '.github/workflows/ci-haskell.yml'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup GHC
+        uses: haskell-actions/setup@v2
+        with:
+          ghc-version: '9.10'
+          cabal-version: '3.10'
+
+      - name: Cache cabal
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cabal/packages
+            ~/.cabal/store
+            apps/haskell/dist-newstyle
+          key: ${{ runner.os }}-cabal-${{ hashFiles('apps/haskell/haskell-algorithm.cabal') }}
+          restore-keys: |
+            ${{ runner.os }}-cabal-
+
+      - name: Install dependencies
+        working-directory: apps/haskell
+        run: cabal update && cabal build --only-dependencies --enable-tests
+
+      - name: Run tests
+        working-directory: apps/haskell
+        run: cabal test --test-show-details=always
