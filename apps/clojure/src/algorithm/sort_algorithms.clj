@@ -135,3 +135,26 @@
           (down-heap arr 0 (dec i))
           (recur (dec i))))
       (vec arr))))
+
+(defn counting-sort
+  "度数ソート（カウンティングソート）"
+  [a]
+  (if (empty? a)
+    []
+    (let [max-val (apply max a)
+          n (count a)
+          freq (int-array (inc max-val) 0)
+          b (int-array n 0)]
+      ;; 各要素の度数をカウント
+      (doseq [v a]
+        (aset freq v (inc (aget freq v))))
+      ;; 累積度数を計算
+      (loop [i 1]
+        (when (<= i max-val)
+          (aset freq i (+ (aget freq i) (aget freq (dec i))))
+          (recur (inc i))))
+      ;; 各要素を作業用配列に格納（安定性のため逆順）
+      (doseq [v (reverse a)]
+        (aset freq v (dec (aget freq v)))
+        (aset b (aget freq v) v))
+      (vec b))))

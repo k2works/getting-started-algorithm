@@ -53,3 +53,11 @@
     (is (= [42] (heap-sort [42])))
     (is (= [] (heap-sort [])))
     (is (= [1 1 2 3 3] (heap-sort [3 1 2 1 3])))))
+
+(deftest counting-sort-test
+  (testing "度数ソート"
+    (is (= [5 11 22 32 68 70 120] (counting-sort [22 5 11 32 120 68 70])))
+    (is (= sorted-expected (counting-sort unsorted)))
+    (is (= [42] (counting-sort [42])))
+    (is (= [] (counting-sort [])))
+    (is (= [1 1 2 3 3] (counting-sort [3 1 2 1 3])))))
