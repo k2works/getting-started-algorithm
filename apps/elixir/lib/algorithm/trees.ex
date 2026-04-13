@@ -26,6 +26,33 @@ defmodule Algorithm.BinarySearchTree do
 
   def member?(%__MODULE__{right: right}, value), do: member?(right, value)
 
+  @doc "ノードの削除"
+  def delete(nil, _value), do: nil
+
+  def delete(%__MODULE__{value: v, left: l, right: r}, value) when value < v,
+    do: %__MODULE__{value: v, left: delete(l, value), right: r}
+
+  def delete(%__MODULE__{value: v, left: l, right: r}, value) when value > v,
+    do: %__MODULE__{value: v, left: l, right: delete(r, value)}
+
+  def delete(%__MODULE__{value: _v, left: nil, right: r}, _value), do: r
+  def delete(%__MODULE__{value: _v, left: l, right: nil}, _value), do: l
+
+  def delete(%__MODULE__{value: _v, left: l, right: r}, _value) do
+    min_val = find_min(r)
+    %__MODULE__{value: min_val, left: l, right: delete(r, min_val)}
+  end
+
+  @doc "最小値を取得"
+  def find_min(nil), do: nil
+  def find_min(%__MODULE__{left: nil, value: v}), do: v
+  def find_min(%__MODULE__{left: l}), do: find_min(l)
+
+  @doc "最大値を取得"
+  def find_max(nil), do: nil
+  def find_max(%__MODULE__{right: nil, value: v}), do: v
+  def find_max(%__MODULE__{right: r}), do: find_max(r)
+
   @doc "中順走査（昇順）"
   def in_order(nil), do: []
 
