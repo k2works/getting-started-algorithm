@@ -30,6 +30,14 @@
     (doseq [n (range 1 6)]
       (is (= (int (dec (Math/pow 2 n))) (count (hanoi n "A" "C" "B")))))))
 
+(deftest eight-queens-test
+  (testing "8 王妃問題の解の数"
+    (is (= 92 (count (eight-queens)))))
+  (testing "各解は 8 要素のベクタ"
+    (is (every? #(= 8 (count %)) (eight-queens))))
+  (testing "各解で行の重複がない"
+    (is (every? #(= 8 (count (set %))) (eight-queens)))))
+
 (deftest maze-solve-test
   (testing "迷路探索"
     (let [solvable [[1 1 1 1 1]

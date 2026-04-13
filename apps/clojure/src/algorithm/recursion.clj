@@ -31,6 +31,25 @@
             [[src dst]]
             (hanoi (dec n) via dst src))))
 
+(defn eight-queens
+  "8 王妃問題の全解を返す。各解は [col0-row col1-row ... col7-row] のベクタ"
+  []
+  (let [results (atom [])]
+    (letfn [(solve [col pos flag-row flag-diag1 flag-diag2]
+              (if (= col 8)
+                (swap! results conj (vec pos))
+                (doseq [row (range 8)]
+                  (when (and (not (flag-row row))
+                             (not (flag-diag1 (+ col row)))
+                             (not (flag-diag2 (+ (- col row) 7))))
+                    (solve (inc col)
+                           (conj pos row)
+                           (conj flag-row row)
+                           (conj flag-diag1 (+ col row))
+                           (conj flag-diag2 (+ (- col row) 7)))))))]
+      (solve 0 [] #{} #{} #{}))
+    @results))
+
 (defn maze-solve
   "迷路をバックトラッキングで解く。maze[r][c] == 0: 通路, 1: 壁"
   ([maze row col goal-row goal-col]
