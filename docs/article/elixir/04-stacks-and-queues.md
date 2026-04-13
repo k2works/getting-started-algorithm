@@ -8,6 +8,12 @@
 
 Elixir はすべてのデータが不変（イミュータブル）であるため、可変状態が必要な場合はプロセスを使います。`Agent` は、状態の読み書きを行うためのシンプルなプロセス抽象化です。
 
+### 目次
+
+1. [スタック（LIFO）](#1-スタックlifo)
+2. [キュー（FIFO）](#2-キューfifo)
+3. [スタックとキューの比較](#スタックとキューの比較)
+
 ---
 
 ## 1. スタック（LIFO）
@@ -191,6 +197,86 @@ stop
 @enduml
 ```
 
+#### スタックのピーク操作
+
+```plantuml
+@startuml
+title スタックのピーク操作 (peek)
+
+start
+
+if (state == []) then (はい)
+  :return :empty;
+  stop
+endif
+
+:[h | _] = state;
+:return {:ok, h};
+note right
+  state は変更しない
+end note
+
+stop
+@enduml
+```
+
+ピーク操作はポップと似ていますが、状態を変更しない点が異なります。`Agent.get/2` を使い、読み取りのみを行います。Python の `peek` メソッドではポインタを変更せず `stk[ptr - 1]` を返しますが、Elixir ではリストの先頭要素をパターンマッチで取得します。
+
+### 追加操作 -- size, find, count, dump, clear
+
+Python 版では `find`、`count`、`dump`、`clear` などの追加操作を実装しています。Elixir でも同等の操作を `Agent` ベースで提供できます。
+
+```elixir
+# lib/algorithm/stacks_and_queues.ex（Stack モジュールへの追加）
+def size(pid), do: Agent.get(pid, &length/1)
+
+def find(pid, value) do
+  Agent.get(pid, fn state ->
+    case Enum.find_index(state, &(&1 == value)) do
+      nil -> -1
+      idx -> idx
+    end
+  end)
+end
+
+def count(pid, value), do: Agent.get(pid, fn s -> Enum.count(s, &(&1 == value)) end)
+
+def dump(pid), do: Agent.get(pid, & &1)
+
+def clear(pid), do: Agent.update(pid, fn _ -> [] end)
+```
+
+| 操作 | Python（`FixedStack`） | Elixir（`Stack`） |
+|------|------------------------|-------------------|
+| サイズ取得 | `len(self.__stk)` / `self.ptr` | `size/1` → `Agent.get` + `length/1` |
+| 要素検索 | `find(value)` → `index()` | `find/2` → `Enum.find_index/2` |
+| 出現回数 | `count(value)` → `.count()` | `count/2` → `Enum.count/2` |
+| 全要素取得 | `dump()` → `list()` | `dump/1` → `Agent.get` |
+| クリア | `clear()` → `.clear()` | `clear/1` → `Agent.update` |
+
+### Erlang の :queue モジュール
+
+Python には `collections.deque` があるように、Erlang/Elixir には `:queue` モジュールが標準で提供されています。これはまさに Banker's Queue（2 リスト方式）の実装です。
+
+```elixir
+# Erlang :queue モジュールの利用例
+q = :queue.new()
+q = :queue.in(1, q)    # enqueue
+q = :queue.in(2, q)
+q = :queue.in(3, q)
+
+{{:value, 1}, q} = :queue.out(q)  # dequeue → 1
+{{:value, 2}, q} = :queue.out(q)  # dequeue → 2
+```
+
+| Python | Elixir |
+|--------|--------|
+| `collections.deque` | `:queue` モジュール（Erlang 標準） |
+| `deque.append(x)` | `:queue.in(x, q)` |
+| `deque.popleft()` | `:queue.out(q)` |
+| `deque.pop()` | `:queue.out_r(q)` |
+| `len(deque)` | `:queue.len(q)` |
+
 ---
 
 ## 2. キュー（FIFO）
@@ -203,6 +289,7 @@ stop
 
 - **エンキュー（Enqueue）**: キューの末尾にデータを追加する
 - **デキュー（Dequeue）**: キューの先頭からデータを取り出す
+- **ピーク（Peek）**: キューの先頭のデータを参照する（取り出さない）
 
 キューは、幅優先探索、プリンタのスプーリング、プロセススケジューリングなど、多くのアルゴリズムやシステムで使用されます。
 
@@ -362,6 +449,43 @@ if (front == []) then (はい)
 else (いいえ)
   :[h | t] = front;
   :state = {t, rear};
+  :return {:ok, h};
+endif
+
+stop
+@enduml
+```
+
+#### キューのピーク操作
+
+Python 版にはキューの `peek` 操作が実装されています。Elixir でも同様に、先頭要素を取り出さずに参照する操作を追加できます。
+
+```elixir
+# Queue モジュールへの追加
+def peek(pid) do
+  Agent.get(pid, fn
+    {[], []} -> :empty
+    {[], rear} -> {:ok, List.last(rear)}
+    {[h | _], _rear} -> {:ok, h}
+  end)
+end
+```
+
+```plantuml
+@startuml
+title キューのピーク操作 (peek)
+
+start
+
+if ({[], []} ?) then (はい)
+  :return :empty;
+  stop
+endif
+
+if (front == []) then (はい)
+  :return {:ok, List.last(rear)};
+else (いいえ)
+  :[h | _] = front;
   :return {:ok, h};
 endif
 
