@@ -30,6 +30,40 @@ defmodule Algorithm.Recursion do
     do_hanoi(n - 1, from, aux, to) ++ [{from, to}] ++ do_hanoi(n - 1, aux, to, from)
   end
 
+  @doc "真に再帰的な関数"
+  def recure(n), do: do_recure(n, []) |> Enum.reverse()
+
+  defp do_recure(n, acc) when n <= 0, do: acc
+
+  defp do_recure(n, acc) do
+    acc = do_recure(n - 1, acc)
+    acc = [n | acc]
+    do_recure(n - 2, acc)
+  end
+
+  @doc "迷路探索（バックトラッキング）"
+  def maze_solve(maze, start, goal) do
+    do_maze_solve(maze, start, goal, MapSet.new())
+  end
+
+  defp do_maze_solve(_maze, pos, goal, _visited) when pos == goal, do: true
+
+  defp do_maze_solve(maze, {row, col}, goal, visited) do
+    visited = MapSet.put(visited, {row, col})
+
+    [{-1, 0}, {1, 0}, {0, -1}, {0, 1}]
+    |> Enum.any?(fn {dr, dc} ->
+      nr = row + dr
+      nc = col + dc
+
+      nr >= 0 and nr < length(maze) and
+        nc >= 0 and nc < length(hd(maze)) and
+        Enum.at(Enum.at(maze, nr), nc) == 0 and
+        not MapSet.member?(visited, {nr, nc}) and
+        do_maze_solve(maze, {nr, nc}, goal, visited)
+    end)
+  end
+
   @doc "8 クイーン問題"
   def eight_queens do
     solve_queens(8, 0, [])
