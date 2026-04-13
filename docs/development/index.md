@@ -20,14 +20,15 @@
 | IT4 | [計画](iteration_plan-4.md) | [ふりかえり](retrospective-4.md) | [完了報告書](iteration_report-4.md) | ✅ 完了 |
 | IT5 | [計画](iteration_plan-5.md) | [ふりかえり](retrospective-5.md) | [完了報告書](iteration_report-5.md) | ✅ 完了 |
 | IT6 | [計画](iteration_plan-6.md) | [ふりかえり](retrospective-6.md) | [完了報告書](iteration_report-6.md) | ✅ 完了 |
-| IT7 | - | - | - | 未着手 |
-| IT8 | - | - | - | 未着手 |
-| IT9 | - | - | - | 未着手 |
-| IT10 | - | - | - | 未着手 |
-| IT11 | - | - | - | 未着手 |
-| IT12 | - | - | - | 未着手 |
-| IT13 | - | - | - | 未着手 |
-| IT14 | - | - | - | 未着手 |
+| IT7 | [計画](iteration_plan-7.md) | [ふりかえり](retrospective-7.md) | [完了報告書](iteration_report-7.md) | ✅ 完了 |
+| IT8 | [計画](iteration_plan-8.md) | [ふりかえり](retrospective-8.md) | [完了報告書](iteration_report-8.md) | ✅ 完了 |
+| IT9 | [計画](iteration_plan-9.md) | [ふりかえり](retrospective-9.md) | [完了報告書](iteration_report-9.md) | ✅ 完了 |
+| IT10 | [計画](iteration_plan-10.md) | [ふりかえり](iteration_plan-10.md#ふりかえり) | [完了報告書](iteration_report-10.md) | ✅ 完了 |
+| IT11 | [計画](iteration_plan-11.md) | [ふりかえり](retrospective-11.md) | [完了報告書](iteration_report-11.md) | ✅ 完了 |
+| IT12 | [計画](iteration_plan-12.md) | [ふりかえり](retrospective-12.md) | [完了報告書](iteration_report-12.md) | ✅ 完了 |
+| IT13 | [計画](iteration_plan-13.md) | [ふりかえり](retrospective-13.md) | [完了報告書](iteration_report-13.md) | ✅ 完了 |
+| IT14 | [計画](iteration_plan-14.md) | [ふりかえり](retrospective-14.md) | [完了報告書](iteration_report-14.md) | ✅ 完了 |
+| IT15 | [計画](iteration_plan-15.md) | [ふりかえり](retrospective-15.md) | [完了報告書](iteration_report-15.md) | ✅ 完了 |
 
 ### 進捗サマリー
 
@@ -39,23 +40,24 @@
 | IT4 | C# | 3 | 3 | 100% |
 | IT5 | Ruby | 3 | 3 | 100% |
 | IT6 | PHP | 3 | 3 | 100% |
-| IT7 | Go | 3 | - | - |
-| IT8 | Rust | 5 | - | - |
-| IT9 | F# | 5 | - | - |
-| IT10 | Scala | 5 | - | - |
-| IT11 | Clojure | 5 | - | - |
-| IT12 | Haskell | 5 | - | - |
-| IT13 | Elixir | 5 | - | - |
-| IT14 | 統合解説 | 8 | - | - |
-| **累計** | | **61** | **20** | **33%** |
+| IT7 | Go | 3 | 3 | 100% |
+| IT8 | C | 5 | 5 | 100% |
+| IT9 | Rust | 5 | 5 | 100% |
+| IT10 | F# | 5 | 5 | 100% |
+| IT11 | Scala | 5 | 5 | 100% |
+| IT12 | Clojure | 5 | 5 | 100% |
+| IT13 | Elixir | 5 | 5 | 100% |
+| IT14 | Haskell | 5 | 5 | 100% |
+| IT15 | 統合解説 | 8 | 8 | 100% |
+| **累計** | | **66** | **66** | **100%** |
 
 ### フェーズ進捗
 
 | フェーズ | 内容 | SP | 完了 SP | 状態 |
 |---------|------|-----|---------|------|
 | Phase 1 | Python 原本 + OOP 言語展開（6 言語） | 20 | 20 | ✅ 完了 |
-| Phase 2 | システム言語 + 関数型言語展開（7 言語） | 33 | 0 | 未着手 |
-| Phase 3 | 多言語統合解説 | 8 | 0 | 未着手 |
+| Phase 2 | システム言語 + 関数型言語展開（8 言語） | 38 | 38 | ✅ 完了 |
+| Phase 3 | 多言語統合解説 | 8 | 8 | ✅ 完了 |
 
 ### リリース完了報告書
 

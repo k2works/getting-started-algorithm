@@ -1,0 +1,35 @@
+name: CI FSharp
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+    paths:
+      - 'apps/fsharp/**'
+      - '.github/workflows/ci-fsharp.yml'
+  pull_request:
+    branches:
+      - main
+      - develop
+    paths:
+      - 'apps/fsharp/**'
+      - '.github/workflows/ci-fsharp.yml'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v30
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+
+      - name: Run tests
+        run: nix develop .#dotnet --command bash -c "cd apps/fsharp && dotnet test Algorithm.Tests/"
