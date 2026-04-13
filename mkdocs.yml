@@ -111,6 +111,8 @@ nav:
       - イテレーション 13 ふりかえり: development/retrospective-13.md
       - イテレーション 13 完了報告書: development/iteration_report-13.md
       - イテレーション 14 計画: development/iteration_plan-14.md
+      - イテレーション 14 ふりかえり: development/retrospective-14.md
+      - イテレーション 14 完了報告書: development/iteration_report-14.md
       - Release 0.1.0 完了報告書: development/release_report-0_1_0.md
   - 運用:
       - 概要: operation/index.md
