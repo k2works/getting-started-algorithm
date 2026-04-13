@@ -265,6 +265,17 @@ nav:
           - 第 7 章 文字列処理: article/elixir/07-strings.md
           - 第 8 章 リスト: article/elixir/08-linked-lists.md
           - 第 9 章 木構造: article/elixir/09-trees.md
+      - Haskell 版:
+          - 概要: article/haskell/index.md
+          - 第 1 章 基本的なアルゴリズム: article/haskell/01_basic_algorithms.md
+          - 第 2 章 配列: article/haskell/02_arrays.md
+          - 第 3 章 探索アルゴリズム: article/haskell/03_search_algorithms.md
+          - 第 4 章 スタックとキュー: article/haskell/04_stacks_and_queues.md
+          - 第 5 章 再帰アルゴリズム: article/haskell/05_recursion.md
+          - 第 6 章 ソートアルゴリズム: article/haskell/06_sort_algorithms.md
+          - 第 7 章 文字列処理: article/haskell/07_strings.md
+          - 第 8 章 リスト: article/haskell/08_linked_lists.md
+          - 第 9 章 木構造: article/haskell/09_trees.md
       - テスト駆動開発から始めるプログラミング入門:
           - 概要: article/getting-start-tdd/index.md
           - 多言語統合解説:
