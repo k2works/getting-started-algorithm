@@ -63,10 +63,9 @@
 
 | # | タスク | 見積もり | 状態 |
 |---|--------|---------|------|
-| 1-1 | Scala プロジェクト作成（apps/scala/、build.sbt） | 20 分 | [ ] |
-| 1-2 | 章ごとのパッケージ分割（chapter01〜chapter09） | 20 分 | [ ] |
-| 1-3 | `.gitignore` 作成（`target/`、`.bsp/`、`.metals/`） | 5 分 | [ ] |
-| 1-4 | Nix devShell（.#scala または .#jvm）設定確認 | 15 分 | [ ] |
+| 1-1 | Scala プロジェクト作成（apps/scala/、build.sbt、src/main/scala/algorithm/、src/test/scala/algorithm/） | 20 分 | [ ] |
+| 1-2 | `.gitignore` 作成（`target/`、`.bsp/`、`.metals/`） | 5 分 | [ ] |
+| 1-3 | Nix devShell（.#scala）設定確認 | 15 分 | [ ] |
 
 ### 2. CI 整備（0.5 SP）
 
@@ -215,6 +214,8 @@ gantt
 
 ### ディレクトリ構成
 
+apps/java と同じ Maven 標準レイアウト（単一 `algorithm` パッケージ）に合わせる。
+
 ```
 apps/scala/
 ├── .gitignore
@@ -222,44 +223,26 @@ apps/scala/
 ├── project/
 │   └── build.properties
 └── src/
-    ├── main/scala/
-    │   ├── chapter01/
-    │   │   └── BasicAlgorithms.scala
-    │   ├── chapter02/
-    │   │   └── Arrays.scala
-    │   ├── chapter03/
-    │   │   └── SearchAlgorithms.scala
-    │   ├── chapter04/
-    │   │   └── StacksAndQueues.scala
-    │   ├── chapter05/
-    │   │   └── Recursion.scala
-    │   ├── chapter06/
-    │   │   └── SortAlgorithms.scala
-    │   ├── chapter07/
-    │   │   └── Strings.scala
-    │   ├── chapter08/
-    │   │   └── LinkedLists.scala
-    │   └── chapter09/
-    │       └── Trees.scala
-    └── test/scala/
-        ├── chapter01/
-        │   └── BasicAlgorithmsSpec.scala
-        ├── chapter02/
-        │   └── ArraysSpec.scala
-        ├── chapter03/
-        │   └── SearchAlgorithmsSpec.scala
-        ├── chapter04/
-        │   └── StacksAndQueuesSpec.scala
-        ├── chapter05/
-        │   └── RecursionSpec.scala
-        ├── chapter06/
-        │   └── SortAlgorithmsSpec.scala
-        ├── chapter07/
-        │   └── StringsSpec.scala
-        ├── chapter08/
-        │   └── LinkedListsSpec.scala
-        └── chapter09/
-            └── TreesSpec.scala
+    ├── main/scala/algorithm/
+    │   ├── BasicAlgorithms.scala
+    │   ├── Arrays.scala
+    │   ├── SearchAlgorithms.scala
+    │   ├── StacksAndQueues.scala
+    │   ├── Recursion.scala
+    │   ├── SortAlgorithms.scala
+    │   ├── Strings.scala
+    │   ├── LinkedLists.scala
+    │   └── Trees.scala
+    └── test/scala/algorithm/
+        ├── BasicAlgorithmsTest.scala
+        ├── ArraysTest.scala
+        ├── SearchAlgorithmsTest.scala
+        ├── StacksAndQueuesTest.scala
+        ├── RecursionTest.scala
+        ├── SortAlgorithmsTest.scala
+        ├── StringsTest.scala
+        ├── LinkedListsTest.scala
+        └── TreesTest.scala
 
 docs/article/scala/
 ├── index.md
@@ -276,8 +259,8 @@ docs/article/scala/
 
 ### Scala 言語の設計方針
 
-- `sbt`（Scala Build Tool）でビルド管理、単一プロジェクト + パッケージ分割
-- テストは ScalaTest（FunSuite または AnyFlatSpec スタイル）を使用
+- `sbt`（Scala Build Tool）でビルド管理、単一 `algorithm` パッケージ（apps/java と同一構成）
+- テストは ScalaTest（AnyFunSuite スタイル）を使用
 - 関数型・オブジェクト指向ハイブリッドで実装し、Scala のイディオムに従う
 - `case class` と `sealed trait` でデータモデルを表現
 - パターンマッチ（`match { case ... => }`）で条件分岐を表現
