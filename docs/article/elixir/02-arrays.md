@@ -16,7 +16,24 @@ Elixir では、配列に相当するデータ構造として「リスト」と�
 
 ### 配列の必要性
 
-例えば、5 人の学生の点数を読み込んで合計点と平均点を求めるプログラムを考えます。変数を個別に用意するのではなく、リストを使うことで簡潔に記述できます。
+まず、配列がなぜ必要なのかを考えてみましょう。例えば、5 人の学生の点数を読み込んで合計点と平均点を求めるプログラムを考えます。
+
+配列を使わない場合、以下のようなコードになります：
+
+```elixir
+tensu1 = 85
+tensu2 = 72
+tensu3 = 90
+tensu4 = 68
+tensu5 = 95
+
+total = tensu1 + tensu2 + tensu3 + tensu4 + tensu5
+average = total / 5
+```
+
+このコードでは、5 人分の変数を個別に用意しています。しかし、100 人や 1000 人の点数を扱う場合、このアプローチは現実的ではありません。
+
+リストを使うことで簡潔に記述できます：
 
 ```elixir
 scores = [85, 72, 90, 68, 95]
@@ -450,6 +467,100 @@ def prime3(x) do
 end
 ```
 
+#### フローチャート（第 1 版）
+
+```plantuml
+@startuml
+title 素数を列挙するアルゴリズム (第1版)
+
+start
+:入力: 上限値 x;
+:counter = 0;
+
+repeat :n = 2 から x まで;
+  repeat :i = 2 から n-1 まで;
+    :counter += 1;
+    if (rem(n, i) == 0) then (はい)
+      :halt（中断）;
+    endif
+  repeat while (i < n-1)
+repeat while (n < x)
+
+:出力: counter;
+stop
+@enduml
+```
+
+第 1 版は単純ですが、効率が悪いです。n が素数でない場合でも、割り切れる数が見つかるまで全ての数で除算を試みます。
+
+#### フローチャート（第 2 版）
+
+```plantuml
+@startuml
+title 素数を列挙するアルゴリズム (第2版)
+
+start
+:入力: 上限値 x;
+:counter = 0;
+:primes = [2];
+
+repeat :n = 3 から x まで (2ずつ増加);
+  repeat :各素数 p で除算;
+    :counter += 1;
+    if (rem(n, p) == 0) then (はい)
+      :halt（中断）;
+    endif
+  repeat while (素数リストの残りがある)
+
+  if (割り切れなかった) then (はい)
+    :primes に n を追加;
+  endif
+repeat while (n < x)
+
+:出力: counter;
+stop
+@enduml
+```
+
+第 2 版の最適化：偶数はチェックしない（2 以外の偶数は素数ではないため）、すでに見つけた素数だけで割り切れるかをチェックする。
+
+#### フローチャート（第 3 版）
+
+```plantuml
+@startuml
+title 素数を列挙するアルゴリズム (第3版)
+
+start
+:入力: 上限値 x;
+:counter = 0;
+:primes = [3, 2];
+
+repeat :n = 5 から x まで (2ずつ増加);
+  repeat :各素数 p で除算;
+    if (p * p > n) then (はい)
+      :counter += 1;
+      :素数と判定;
+      :halt;
+    else
+      :counter += 2;
+      if (rem(n, p) == 0) then (はい)
+        :halt（中断）;
+      endif
+    endif
+  repeat while (素数リストの残りがある)
+
+  if (素数と判定された) then (はい)
+    :primes に n を追加;
+  endif
+repeat while (n < x)
+
+:出力: counter;
+stop
+@enduml
+```
+
+第 3 版の最適化：各数 n について、その平方根以下の素数でのみ割り切れるかをチェックする（それ以上の数でチェックする必要はない）。
+
 ### 効率の比較
 
 | バージョン | 除算回数 | 改善率 |
@@ -483,6 +594,40 @@ Algorithm.ArraysTest
   * test prime3/1 平方根以下のみ確認の除算回数を返す (passed)
 
 13 tests, 0 failures
+```
+
+---
+
+## リストのイミュータブル性とコピー
+
+Python のリストは可変（mutable）であるため、浅いコピー（shallow copy）と深いコピー（deep copy）の区別が重要でした。
+
+```python
+# Python: 浅いコピーでは内部リストが共有される
+x = [[1, 2, 3], [4, 5, 6]]
+y = x.copy()
+x[0][1] = 9  # y も変更される
+```
+
+Elixir では、すべてのデータがイミュータブル（不変）であるため、このような問題は存在しません：
+
+```elixir
+x = [[1, 2, 3], [4, 5, 6]]
+y = x
+
+# x の内部リストを「変更」しても、実際には新しいリストが作られる
+new_inner = List.replace_at(hd(x), 1, 9)
+new_x = List.replace_at(x, 0, new_inner)
+# new_x => [[1, 9, 3], [4, 5, 6]]
+# y は変更されない => [[1, 2, 3], [4, 5, 6]]
+```
+
+Elixir ではデータの「変更」は常に新しいデータ構造の生成を意味します。Erlang VM の構造共有（structural sharing）により、変更されていない部分はメモリ上で共有されるため、効率的です。
+
+また、Elixir のリストは異なる型の要素を混在させることができます：
+
+```elixir
+x = [15, 64, 7, 3.14, [32, 55], "ABC"]
 ```
 
 ---
