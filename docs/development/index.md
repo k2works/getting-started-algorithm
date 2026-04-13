@@ -28,7 +28,7 @@
 | IT12 | [計画](iteration_plan-12.md) | [ふりかえり](retrospective-12.md) | [完了報告書](iteration_report-12.md) | ✅ 完了 |
 | IT13 | [計画](iteration_plan-13.md) | [ふりかえり](retrospective-13.md) | [完了報告書](iteration_report-13.md) | ✅ 完了 |
 | IT14 | [計画](iteration_plan-14.md) | [ふりかえり](retrospective-14.md) | [完了報告書](iteration_report-14.md) | ✅ 完了 |
-| IT15 | [計画](iteration_plan-15.md) | - | - | 🔄 進行中 |
+| IT15 | [計画](iteration_plan-15.md) | [ふりかえり](retrospective-15.md) | [完了報告書](iteration_report-15.md) | ✅ 完了 |
 
 ### 進捗サマリー
 
@@ -48,8 +48,8 @@
 | IT12 | Clojure | 5 | 5 | 100% |
 | IT13 | Elixir | 5 | 5 | 100% |
 | IT14 | Haskell | 5 | 5 | 100% |
-| IT15 | 統合解説 | 8 | - | - |
-| **累計** | | **66** | **58** | **87.9%** |
+| IT15 | 統合解説 | 8 | 8 | 100% |
+| **累計** | | **66** | **66** | **100%** |
 
 ### フェーズ進捗
 
@@ -57,7 +57,7 @@
 |---------|------|-----|---------|------|
 | Phase 1 | Python 原本 + OOP 言語展開（6 言語） | 20 | 20 | ✅ 完了 |
 | Phase 2 | システム言語 + 関数型言語展開（8 言語） | 38 | 38 | ✅ 完了 |
-| Phase 3 | 多言語統合解説 | 8 | 0 | 🔄 進行中 |
+| Phase 3 | 多言語統合解説 | 8 | 8 | ✅ 完了 |
 
 ### リリース完了報告書
 
