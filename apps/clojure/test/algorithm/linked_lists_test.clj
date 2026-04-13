@@ -58,3 +58,62 @@
       (ll-insert-front lst 2)
       (ll-insert-front lst 1)
       (is (= [1 2 3] (ll-to-vec lst))))))
+
+(deftest doubly-linked-list-test
+  (testing "初期状態"
+    (let [dlst (make-doubly-linked-list)]
+      (is (= 0 (dll-size dlst)))
+      (is (= [] (dll-to-vec dlst)))
+      (is (true? (dll-empty? dlst)))))
+
+  (testing "末尾に挿入"
+    (let [dlst (make-doubly-linked-list)]
+      (dll-add-last dlst 1)
+      (dll-add-last dlst 2)
+      (dll-add-last dlst 3)
+      (is (= 3 (dll-size dlst)))
+      (is (= [1 2 3] (dll-to-vec dlst)))))
+
+  (testing "先頭に挿入"
+    (let [dlst (make-doubly-linked-list)]
+      (dll-add-first dlst 3)
+      (dll-add-first dlst 2)
+      (dll-add-first dlst 1)
+      (is (= [1 2 3] (dll-to-vec dlst)))))
+
+  (testing "検索"
+    (let [dlst (make-doubly-linked-list)]
+      (dll-add-last dlst 10)
+      (dll-add-last dlst 20)
+      (dll-add-last dlst 30)
+      (is (true? (dll-search dlst 20)))
+      (is (false? (dll-search dlst 99)))))
+
+  (testing "値による削除"
+    (let [dlst (make-doubly-linked-list)]
+      (dll-add-last dlst 1)
+      (dll-add-last dlst 2)
+      (dll-add-last dlst 3)
+      (dll-remove dlst 2)
+      (is (= [1 3] (dll-to-vec dlst)))
+      (is (= 2 (dll-size dlst)))))
+
+  (testing "先頭の削除"
+    (let [dlst (make-doubly-linked-list)]
+      (dll-add-last dlst 1)
+      (dll-add-last dlst 2)
+      (dll-remove dlst 1)
+      (is (= [2] (dll-to-vec dlst)))))
+
+  (testing "末尾の削除"
+    (let [dlst (make-doubly-linked-list)]
+      (dll-add-last dlst 1)
+      (dll-add-last dlst 2)
+      (dll-remove dlst 2)
+      (is (= [1] (dll-to-vec dlst)))))
+
+  (testing "存在しない要素の削除"
+    (let [dlst (make-doubly-linked-list)]
+      (dll-add-last dlst 1)
+      (dll-remove dlst 99)
+      (is (= [1] (dll-to-vec dlst))))))
