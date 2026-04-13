@@ -251,6 +251,17 @@ nav:
           - 第 7 章 文字列処理: article/clojure/07-strings.md
           - 第 8 章 リスト: article/clojure/08-linked-lists.md
           - 第 9 章 木構造: article/clojure/09-trees.md
+      - Elixir 版:
+          - 概要: article/elixir/index.md
+          - 第 1 章 基本的なアルゴリズム: article/elixir/01-basic-algorithms.md
+          - 第 2 章 配列: article/elixir/02-arrays.md
+          - 第 3 章 探索アルゴリズム: article/elixir/03-search-algorithms.md
+          - 第 4 章 スタックとキュー: article/elixir/04-stacks-and-queues.md
+          - 第 5 章 再帰アルゴリズム: article/elixir/05-recursion.md
+          - 第 6 章 ソートアルゴリズム: article/elixir/06-sort-algorithms.md
+          - 第 7 章 文字列処理: article/elixir/07-strings.md
+          - 第 8 章 リスト: article/elixir/08-linked-lists.md
+          - 第 9 章 木構造: article/elixir/09-trees.md
       - テスト駆動開発から始めるプログラミング入門:
           - 概要: article/getting-start-tdd/index.md
           - 多言語統合解説:
