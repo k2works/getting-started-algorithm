@@ -13,6 +13,15 @@ Elixir は関数型言語であり、ループ構文（`for`/`while`）の代わ
 1. **基底部（base case）**: 再帰呼び出しを終了する条件
 2. **再帰部（recursive case）**: 問題を小さくして自分自身を呼び出す部分
 
+### 目次
+
+1. [階乗](#1-階乗)
+2. [最大公約数（ユークリッドの互除法）](#2-最大公約数ユークリッドの互除法)
+3. [ハノイの塔](#3-ハノイの塔)
+4. [再帰アルゴリズムの解析](#4-再帰アルゴリズムの解析)
+5. [8 クイーン問題](#5-8-クイーン問題)
+6. [迷路探索（バックトラッキング）](#6-迷路探索バックトラッキング)
+
 ---
 
 ## 1. 階乗
@@ -331,6 +340,88 @@ recure(4) の展開：
 - ...
 - 結果: [1, 2, 3, 1, 4, 1, 2]
 
+#### フローチャート
+
+```plantuml
+@startuml
+title 真に再帰的な関数 (recure)
+
+start
+:入力: 整数 n;
+
+if (n > 0) then (はい)
+  :do_recure(n - 1, acc);
+  note right
+    最初の再帰呼び出し
+  end note
+
+  :acc = [n | acc];
+
+  :do_recure(n - 2, acc);
+  note right
+    2番目の再帰呼び出し
+  end note
+endif
+
+:return acc |> Enum.reverse();
+stop
+@enduml
+```
+
+### 再帰アルゴリズムの非再帰表現
+
+再帰は概念的に理解しやすいですが、実行効率の面では問題があることがあります。Python では深い再帰呼び出しがスタックオーバーフローを引き起こす可能性があるため、非再帰化が重要です。
+
+Elixir では BEAM VM の末尾再帰最適化により、末尾再帰の関数はスタックオーバーフローしません。しかし、非末尾再帰の場合はスタックが必要です。
+
+#### 末尾再帰の除去
+
+Python では末尾再帰をループに変換しますが、Elixir では BEAM VM が自動的に末尾再帰を最適化するため、手動での変換は不要です。
+
+```elixir
+# Elixir の末尾再帰 — BEAM VM が自動最適化
+def factorial(n), do: factorial(n, 1)
+defp factorial(0, acc), do: acc
+defp factorial(n, acc), do: factorial(n - 1, n * acc)
+# ↑ 再帰呼び出しが最後の操作 → TCO が適用される
+```
+
+これは Python で以下のようにループに変換するのと同等の効率です：
+
+```python
+# Python の末尾再帰除去（手動でループに変換）
+def factorial(n):
+    acc = 1
+    while n > 0:
+        acc = n * acc
+        n = n - 1
+    return acc
+```
+
+#### 再帰の完全除去（スタック使用）
+
+Python では、すべての再帰呼び出しをスタックで明示的に管理して非再帰化できます。Elixir でも同様のアプローチは可能ですが、通常は末尾再帰最適化のおかげで必要ありません。
+
+```elixir
+# スタックを使った非再帰版（教育目的）
+def recure_iterative(n) do
+  {:ok, stack} = Agent.start_link(fn -> [] end)
+  {:ok, result} = Agent.start_link(fn -> [] end)
+
+  current = n
+
+  # ... Agent ベースのスタックで再帰をシミュレート
+  # Elixir では通常このアプローチは不要（TCO があるため）
+end
+```
+
+| 手法 | Python | Elixir |
+|------|--------|--------|
+| 末尾再帰 | ループに手動変換が必要 | BEAM VM が自動最適化（TCO） |
+| 非末尾再帰 | スタックオーバーフローのリスク | スタックは消費するが、制限は緩い |
+| 再帰の完全除去 | スタックを使った手動変換 | 通常不要（TCO で十分） |
+| 再帰制限 | `sys.setrecursionlimit()`（デフォルト 1000） | 末尾再帰なら制限なし |
+
 ---
 
 ## 5. 8 クイーン問題
@@ -465,6 +556,55 @@ end
 ### Refactor
 
 Python では `set` に訪問済み座標を追加し、`for` ループで 4 方向を探索します。Elixir では `MapSet` と `Enum.any?/2` で同じロジックを表現します。`Enum.any?/2` は短絡評価（最初に `true` になった時点で終了）するため、Python の `for` + `return True` と同じ効率です。
+
+### アルゴリズムの考え方
+
+#### フローチャート
+
+```plantuml
+@startuml
+title 迷路探索 (maze_solve)
+
+start
+:入力: 迷路 maze, 開始位置 {row, col}, ゴール goal;
+
+if ({row, col} == goal) then (はい)
+  :return true;
+  stop
+endif
+
+:visited = MapSet.put(visited, {row, col});
+
+:directions = [{-1,0}, {1,0}, {0,-1}, {0,1}];
+
+:Enum.any? で各方向を探索;
+
+repeat :各方向 {dr, dc} について;
+  :nr = row + dr, nc = col + dc;
+
+  if (範囲内 and 壁でない and 未訪問) then (はい)
+    :do_maze_solve(maze, {nr, nc}, goal, visited);
+    if (true を返した) then (はい)
+      :return true;
+      stop
+    endif
+  endif
+repeat while (未探索の方向がある)
+
+:return false;
+stop
+@enduml
+```
+
+アルゴリズムの流れ：
+1. 現在位置がゴールと一致すれば `true` を返す（基底部）
+2. 現在位置を訪問済みに追加する
+3. 上下左右の 4 方向について、以下の条件をすべて満たす場合に再帰探索する：
+   - 迷路の範囲内である
+   - 壁（1）でない
+   - まだ訪問していない
+4. いずれかの方向で `true` が返れば `true`（`Enum.any?` による短絡評価）
+5. すべての方向を試しても `true` にならなければ `false`（バックトラック）
 
 ---
 
