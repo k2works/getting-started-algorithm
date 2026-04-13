@@ -32,4 +32,4 @@ jobs:
             experimental-features = nix-command flakes
 
       - name: Run tests
-        run: nix develop .#dotnet --command bash -c "cd apps/fsharp && dotnet test"
+        run: nix develop .#dotnet --command bash -c "cd apps/fsharp && dotnet test Algorithm.Tests/"
