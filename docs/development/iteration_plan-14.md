@@ -21,13 +21,13 @@
 
 ### 成功基準
 
-- [ ] 9 章すべてのファイルが作成されている
-- [ ] 各章のコード例が `apps/haskell/` の実コードと同期している（記事執筆と実装を同一コミットで完結）
-- [ ] `apps/haskell/` のテストが全てパス（`cabal test` または `stack test`）
-- [ ] mkdocs.yml の nav に Haskell 版全 9 章が追加されている
-- [ ] ローカルプレビューで表示確認済み（`npx gulp mkdocs:build` でビルド成功）
-- [ ] 各章執筆時に Python 版との内容差分チェックを実施済み（差分 30% 以内）
-- [ ] Haskell の純粋関数型スタイル（型クラス・パターンマッチ・リスト内包表記・Maybe/Either・遅延評価・`Data.Map`/`Data.Set`）を活用した実装
+- [x] 9 章すべてのファイルが作成されている
+- [x] 各章のコード例が `apps/haskell/` の実コードと同期している（記事執筆と実装を同一コミットで完結）
+- [x] `apps/haskell/` のテストが全てパス（`cabal test` — 40 テスト全パス）
+- [x] mkdocs.yml の nav に Haskell 版全 9 章が追加されている
+- [x] ローカルプレビューで表示確認済み（`npx gulp mkdocs:build` でビルド成功）
+- [x] 各章執筆時に Python 版との内容差分チェックを実施済み（差分 30% 以内）
+- [x] Haskell の純粋関数型スタイル（型クラス・パターンマッチ・リスト内包表記・Maybe/Either・遅延評価・`Data.Map`/`Data.Set`）を活用した実装
 
 ---
 
@@ -63,108 +63,108 @@
 
 | # | タスク | 見積もり | 状態 |
 |---|--------|---------|------|
-| 1-1 | Haskell プロジェクト作成（`apps/haskell/`、`cabal` または `stack` プロジェクト、`src/`、`test/`） | 20 分 | [ ] |
-| 1-2 | `.gitignore` 作成（`.stack-work/`、`dist-newstyle/`、`*.hi`、`*.o`） | 5 分 | [ ] |
-| 1-3 | Nix devShell（`.#haskell`）設定確認（GHC + cabal/stack + HLS） | 15 分 | [ ] |
+| 1-1 | Haskell プロジェクト作成（`apps/haskell/`、`cabal` または `stack` プロジェクト、`src/`、`test/`） | 20 分 | [x] |
+| 1-2 | `.gitignore` 作成（`.stack-work/`、`dist-newstyle/`、`*.hi`、`*.o`） | 5 分 | [x] |
+| 1-3 | Nix devShell（`.#haskell`）設定確認（GHC + cabal/stack + HLS） | 15 分 | [x] |
 
 ### 2. CI 整備（0.5 SP）
 
 | # | タスク | 見積もり | 状態 |
 |---|--------|---------|------|
-| 2-1 | CI 設定（`.github/workflows/ci-haskell.yml`: `cabal test`） | 20 分 | [ ] |
-| 2-2 | CI 動作確認 | 10 分 | [ ] |
+| 2-1 | CI 設定（`.github/workflows/ci-haskell.yml`: `cabal test`） | 20 分 | [x] |
+| 2-2 | CI 動作確認 | 10 分 | [x] |
 
 ### 3. 第 1 章 基本的なアルゴリズム（0.3 SP）
 
 | # | タスク | 見積もり | 状態 |
 |---|--------|---------|------|
-| 3-1 | `src/BasicAlgorithms.hs` 実装（`max3`、`mid3`）+ `test/BasicAlgorithmsSpec.hs` | 20 分 | [ ] |
-| 3-2 | `docs/article/haskell/01_basic_algorithms.md` 執筆 | 30 分 | [ ] |
+| 3-1 | `src/BasicAlgorithms.hs` 実装（`max3`、`mid3`）+ `test/BasicAlgorithmsSpec.hs` | 20 分 | [x] |
+| 3-2 | `docs/article/haskell/01_basic_algorithms.md` 執筆 | 30 分 | [x] |
 
 ### 4. 第 2 章 配列（0.3 SP）
 
 | # | タスク | 見積もり | 状態 |
 |---|--------|---------|------|
-| 4-1 | `src/Arrays.hs` 実装（`maxOfList`、`cardinalNumber`、`primeNumbers`）+ テスト | 25 分 | [ ] |
-| 4-2 | `docs/article/haskell/02_arrays.md` 執筆 | 30 分 | [ ] |
+| 4-1 | `src/Arrays.hs` 実装（`maxOfList`、`cardinalNumber`、`primeNumbers`）+ テスト | 25 分 | [x] |
+| 4-2 | `docs/article/haskell/02_arrays.md` 執筆 | 30 分 | [x] |
 
 ### 5. 第 3 章 検索アルゴリズム（0.3 SP）
 
 | # | タスク | 見積もり | 状態 |
 |---|--------|---------|------|
-| 5-1 | `src/SearchAlgorithms.hs` 実装（線形探索・二分探索・ハッシュ探索）+ テスト | 25 分 | [ ] |
-| 5-2 | `docs/article/haskell/03_search_algorithms.md` 執筆 | 30 分 | [ ] |
+| 5-1 | `src/SearchAlgorithms.hs` 実装（線形探索・二分探索・ハッシュ探索）+ テスト | 25 分 | [x] |
+| 5-2 | `docs/article/haskell/03_search_algorithms.md` 執筆 | 30 分 | [x] |
 
 ### 6. 第 4 章 スタックとキュー（0.5 SP）
 
 | # | タスク | 見積もり | 状態 |
 |---|--------|---------|------|
-| 6-1 | `src/StacksAndQueues.hs` 実装（`IORef` ベースのスタック・キュー）+ テスト | 35 分 | [ ] |
-| 6-2 | `docs/article/haskell/04_stacks_and_queues.md` 執筆 | 30 分 | [ ] |
+| 6-1 | `src/StacksAndQueues.hs` 実装（`IORef` ベースのスタック・キュー）+ テスト | 35 分 | [x] |
+| 6-2 | `docs/article/haskell/04_stacks_and_queues.md` 執筆 | 30 分 | [x] |
 
 ### 7. 第 5 章 再帰アルゴリズム（0.5 SP）
 
 | # | タスク | 見積もり | 状態 |
 |---|--------|---------|------|
-| 7-1 | `src/Recursion.hs` 実装（`factorial`・`gcd`・`hanoi`・`eightQueens`・`mazeSolve`）+ テスト | 40 分 | [ ] |
-| 7-2 | `docs/article/haskell/05_recursion.md` 執筆 | 30 分 | [ ] |
+| 7-1 | `src/Recursion.hs` 実装（`factorial`・`gcd`・`hanoi`・`eightQueens`・`mazeSolve`）+ テスト | 40 分 | [x] |
+| 7-2 | `docs/article/haskell/05_recursion.md` 執筆 | 30 分 | [x] |
 
 ### 8. 第 6 章 ソートアルゴリズム（0.5 SP）
 
 | # | タスク | 見積もり | 状態 |
 |---|--------|---------|------|
-| 8-1 | `src/SortAlgorithms.hs` 実装（バブル・選択・挿入・シェル・クイック・マージ・ヒープ・度数）+ テスト | 45 分 | [ ] |
-| 8-2 | `docs/article/haskell/06_sort_algorithms.md` 執筆 | 30 分 | [ ] |
+| 8-1 | `src/SortAlgorithms.hs` 実装（バブル・選択・挿入・シェル・クイック・マージ・ヒープ・度数）+ テスト | 45 分 | [x] |
+| 8-2 | `docs/article/haskell/06_sort_algorithms.md` 執筆 | 30 分 | [x] |
 
 ### 9. 第 7 章 文字列処理（0.3 SP）
 
 | # | タスク | 見積もり | 状態 |
 |---|--------|---------|------|
-| 9-1 | `src/Strings.hs` 実装（BF 法・KMP 法・BM 法・文字カウント・回文判定）+ テスト | 35 分 | [ ] |
-| 9-2 | `docs/article/haskell/07_strings.md` 執筆 | 30 分 | [ ] |
+| 9-1 | `src/Strings.hs` 実装（BF 法・KMP 法・BM 法・文字カウント・回文判定）+ テスト | 35 分 | [x] |
+| 9-2 | `docs/article/haskell/07_strings.md` 執筆 | 30 分 | [x] |
 
 ### 10. 第 8 章 リスト（0.5 SP）
 
 | # | タスク | 見積もり | 状態 |
 |---|--------|---------|------|
-| 10-1 | `src/LinkedLists.hs` 実装（連結リスト・双方向リスト・カーソルリスト）+ テスト | 40 分 | [ ] |
-| 10-2 | `docs/article/haskell/08_linked_lists.md` 執筆 | 30 分 | [ ] |
+| 10-1 | `src/LinkedLists.hs` 実装（連結リスト・双方向リスト・カーソルリスト）+ テスト | 40 分 | [x] |
+| 10-2 | `docs/article/haskell/08_linked_lists.md` 執筆 | 30 分 | [x] |
 
 ### 11. 第 9 章 木（0.5 SP）
 
 | # | タスク | 見積もり | 状態 |
 |---|--------|---------|------|
-| 11-1 | `src/Trees.hs` 実装（BST・挿入・探索・削除・順序走査）+ テスト | 40 分 | [ ] |
-| 11-2 | `docs/article/haskell/09_trees.md` 執筆 | 30 分 | [ ] |
+| 11-1 | `src/Trees.hs` 実装（BST・挿入・探索・削除・順序走査）+ テスト | 40 分 | [x] |
+| 11-2 | `docs/article/haskell/09_trees.md` 執筆 | 30 分 | [x] |
 
 ### 12. インデックスと公開（0.3 SP）
 
 | # | タスク | 見積もり | 状態 |
 |---|--------|---------|------|
-| 12-1 | `docs/article/haskell/index.md` 作成 | 15 分 | [ ] |
-| 12-2 | `mkdocs.yml` nav 更新（Haskell 版全 9 章 + index） | 10 分 | [ ] |
-| 12-3 | `npx gulp mkdocs:build` でビルド確認 | 10 分 | [ ] |
+| 12-1 | `docs/article/haskell/index.md` 作成 | 15 分 | [x] |
+| 12-2 | `mkdocs.yml` nav 更新（Haskell 版全 9 章 + index） | 10 分 | [x] |
+| 12-3 | `npx gulp mkdocs:build` でビルド確認 | 10 分 | [x] |
 
 ### タスク合計
 
 | カテゴリ | SP | 理想時間 | 状態 |
 |---------|----|----------|------|
-| 環境セットアップ | 0.5 | 40 分 | [ ] |
-| CI 整備 | 0.5 | 30 分 | [ ] |
-| 第 1 章 基本的なアルゴリズム | 0.3 | 50 分 | [ ] |
-| 第 2 章 配列 | 0.3 | 55 分 | [ ] |
-| 第 3 章 検索アルゴリズム | 0.3 | 55 分 | [ ] |
-| 第 4 章 スタックとキュー | 0.5 | 65 分 | [ ] |
-| 第 5 章 再帰アルゴリズム | 0.5 | 70 分 | [ ] |
-| 第 6 章 ソートアルゴリズム | 0.5 | 75 分 | [ ] |
-| 第 7 章 文字列処理 | 0.3 | 65 分 | [ ] |
-| 第 8 章 リスト | 0.5 | 70 分 | [ ] |
-| 第 9 章 木 | 0.5 | 70 分 | [ ] |
-| インデックスと公開 | 0.3 | 35 分 | [ ] |
+| 環境セットアップ | 0.5 | 40 分 | [x] |
+| CI 整備 | 0.5 | 30 分 | [x] |
+| 第 1 章 基本的なアルゴリズム | 0.3 | 50 分 | [x] |
+| 第 2 章 配列 | 0.3 | 55 分 | [x] |
+| 第 3 章 検索アルゴリズム | 0.3 | 55 分 | [x] |
+| 第 4 章 スタックとキュー | 0.5 | 65 分 | [x] |
+| 第 5 章 再帰アルゴリズム | 0.5 | 70 分 | [x] |
+| 第 6 章 ソートアルゴリズム | 0.5 | 75 分 | [x] |
+| 第 7 章 文字列処理 | 0.3 | 65 分 | [x] |
+| 第 8 章 リスト | 0.5 | 70 分 | [x] |
+| 第 9 章 木 | 0.5 | 70 分 | [x] |
+| インデックスと公開 | 0.3 | 35 分 | [x] |
 | **合計** | **5** | **約 630 分** | |
 
 **1 SP あたり**: 約 126 分（約 2.1 時間）
-**進捗率**: 0% (0/5 SP)
+**進捗率**: 100% (5/5 SP)
 
 ---
 
