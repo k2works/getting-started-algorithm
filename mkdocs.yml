@@ -279,6 +279,15 @@ nav:
           - 第 7 章 文字列処理: article/haskell/07_strings.md
           - 第 8 章 リスト: article/haskell/08_linked_lists.md
           - 第 9 章 木構造: article/haskell/09_trees.md
+      - 多言語統合解説:
+          - 概要: article/all/index.md
+          - 第 1 章 言語概要と開発環境比較: article/all/01-language-overview.md
+          - 第 2 章 基本構文と制御フロー比較: article/all/02-basic-syntax-comparison.md
+          - 第 3 章 配列・コレクション比較: article/all/03-arrays-and-collections.md
+          - 第 4 章 データ構造の実装アプローチ比較: article/all/04-data-structures.md
+          - 第 5 章 再帰とソートアルゴリズム比較: article/all/05-recursion-and-sorting.md
+          - 第 6 章 文字列処理と高度なデータ構造比較: article/all/06-strings-and-advanced-structures.md
+          - 第 7 章 総合比較とまとめ: article/all/07-comprehensive-comparison.md
       - テスト駆動開発から始めるプログラミング入門:
           - 概要: article/getting-start-tdd/index.md
           - 多言語統合解説:
