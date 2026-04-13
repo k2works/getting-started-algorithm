@@ -27,6 +27,12 @@ class RecursionTest extends AnyFunSuite with Matchers:
   test("recursiveSum: n=0"):
     Recursion.recursiveSum(0) shouldBe 0
 
+  test("recure: 真に再帰的な関数"):
+    Recursion.recure(4) shouldBe List(1, 2, 3, 1, 4, 1, 2)
+
+  test("recure: n=0 は空リスト"):
+    Recursion.recure(0) shouldBe Nil
+
   test("hanoi: n=1 のハノイの塔"):
     Recursion.hanoi(1, "A", "C", "B") shouldBe List("A->C")
 

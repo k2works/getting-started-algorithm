@@ -15,6 +15,11 @@ object Recursion:
   def recursiveSum(n: Int): Int =
     if n <= 0 then 0 else n + recursiveSum(n - 1)
 
+  /** 真に再帰的な関数（2 箇所で再帰呼び出しを行う） */
+  def recure(n: Int): List[Int] =
+    if n <= 0 then Nil
+    else recure(n - 1) ::: List(n) ::: recure(n - 2)
+
   /** ハノイの塔: 移動手順をリストで返す */
   def hanoi(n: Int, src: String, dst: String, via: String): List[String] =
     if n == 1 then List(s"$src->$dst")
