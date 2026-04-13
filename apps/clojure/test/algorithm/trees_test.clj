@@ -64,6 +64,12 @@
       (let [result (bst-delete tree 99)]
         (is (true? (bst-search result 5)))))))
 
+(deftest bst-find-min-max-test
+  (testing "最小キー・最大キーの取得"
+    (let [tree (reduce bst-insert nil [5 3 7 1 4 6 8])]
+      (is (= 1 (:key (find-min tree))))
+      (is (= 8 (:key (find-max tree)))))))
+
 (deftest bst-insert-duplicate-test
   (testing "重複キーの挿入は無視される"
     (let [tree (-> nil (bst-insert 5) (bst-insert 5))]

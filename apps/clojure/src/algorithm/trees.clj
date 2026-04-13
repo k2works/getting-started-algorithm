@@ -21,12 +21,19 @@
     (< key (:key tree)) (recur (:left tree) key)
     :else (recur (:right tree) key)))
 
-(defn- find-min
+(defn find-min
   "部分木の最小ノードを見つける"
   [tree]
   (if (nil? (:left tree))
     tree
     (recur (:left tree))))
+
+(defn find-max
+  "部分木の最大ノードを見つける"
+  [tree]
+  (if (nil? (:right tree))
+    tree
+    (recur (:right tree))))
 
 (defn bst-delete
   "二分探索木からキーを削除する（不変データ構造版）"
