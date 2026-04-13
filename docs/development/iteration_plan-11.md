@@ -314,14 +314,14 @@ docs/article/scala/
 
 ### Definition of Done
 
-- [ ] `apps/scala/` の全テストがパス（`sbt test`）
-- [ ] 全 9 章 + index.md が作成されている
-- [ ] mkdocs.yml の nav に Scala 版全 9 章が追加されている
-- [ ] ローカルプレビューで表示確認済み（`npm run docs:build` でビルド成功）
-- [ ] 各章のコード例が実装コードと同期している
-- [ ] Python 版との記事記述量差分が 30% 以内
-- [ ] `.gitignore` に `target/`、`.bsp/` が登録済み
-- [ ] Scala の関数型スタイル（`case class`、パターンマッチ、`Option[T]`）を活用した実装
+- [x] `apps/scala/` の全テストがパス（`sbt test`）— 125 テスト全パス
+- [x] 全 9 章 + index.md が作成されている
+- [x] mkdocs.yml の nav に Scala 版全 9 章が追加されている
+- [x] ローカルプレビューで表示確認済み（`npx gulp mkdocs:build` でビルド成功）
+- [x] 各章のコード例が実装コードと同期している
+- [x] Python 版との記事記述量差分が 30% 以内（追記により差分を解消）
+- [x] `.gitignore` に `target/`、`.bsp/` が登録済み
+- [x] Scala の関数型スタイル（`case class`、パターンマッチ、`Option[T]`）を活用した実装
 
 ### デモ項目
 
@@ -350,6 +350,7 @@ docs/article/scala/
 | 日付 | 更新内容 | 更新者 |
 |------|---------|--------|
 | 2026-04-13 | 初版作成 | - |
+| 2026-04-13 | Python 版との差分補完（記事追記・recure 実装追加）、125 テスト全パス確認、DoD 全完了チェック | - |
 
 ---
 
