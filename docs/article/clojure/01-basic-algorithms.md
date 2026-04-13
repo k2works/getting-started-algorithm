@@ -2,22 +2,57 @@
 
 ## はじめに
 
-基本的なアルゴリズムとして、最大値・中央値の求め方、条件分岐、繰り返し処理を Clojure で TDD 実装します。
+この章では、アルゴリズムの基礎として、条件判定、分岐、繰り返し処理を Clojure で TDD 実装します。
+
+アルゴリズムとは、問題を解くための手順や方法のことです。プログラミングにおいては、入力に対して正しい出力を得るための具体的な計算手順を指します。
+
+## 準備
+
+### 環境構築
+
+Clojure の開発環境は nix flake で管理しています。
+
+```bash
+nix develop .#clojure
+```
+
+### プロジェクト構成
+
+```
+apps/clojure/
+  src/algorithm/
+    basic_algorithms.clj   # 実装
+  test/algorithm/
+    basic_algorithms_test.clj  # テスト
+  project.clj
+```
+
+### テスト実行コマンド
+
+```bash
+cd apps/clojure
+lein test
+```
+
+## 1. アルゴリズムとは
+
+アルゴリズムとは、ある問題を解くための明確に定義された有限個の手順です。良いアルゴリズムは以下の特性を持ちます：
+
+- **正当性**: 正しい結果を出力する
+- **効率性**: 時間とメモリを効率的に使う
+- **明確性**: 手順が曖昧でない
 
 ### 目次
 
-- [3 値の最大値](#3-値の最大値)
-- [3 値の中央値](#3-値の中央値)
-- [符号判定](#符号判定)
-- [1 から n までの総和](#1-から-n-までの総和)
-- [記号文字の交互表示](#記号文字の交互表示)
-- [長方形の辺の長さ](#長方形の辺の長さ)
-- [九九の表](#九九の表)
-- [直角三角形](#直角三角形)
+1. [3 値の最大値](#2-3-値の最大値)
+2. [3 値の中央値](#3-3-値の中央値)
+3. [条件判定と分岐](#4-条件判定と分岐)
+4. [繰り返し処理](#5-繰り返し処理)
+5. [多重ループ](#6-多重ループ)
 
 ---
 
-## 3 値の最大値
+## 2. 3 値の最大値
 
 ### Red -- 失敗するテストを書く
 
@@ -28,10 +63,13 @@
          (= expected (max3 a b c))
       3 2 1 3
       1 2 3 3
-      3 3 3 3)))
+      3 3 3 3
+      1 3 2 3
+      2 1 3 3
+      2 3 1 3)))
 ```
 
-### Green -- テストを通す実装
+### Green -- テストを通す最小限の実装
 
 ```clojure
 (defn max3
@@ -40,11 +78,25 @@
   (max a b c))
 ```
 
+### アルゴリズムの考え方
+
+Clojure の `max` 関数は可変長引数を取り、内部で順に比較を行います。手動で実装する場合：
+
+```clojure
+(defn max3-manual [a b c]
+  (cond
+    (and (>= a b) (>= a c)) a
+    (and (>= b a) (>= b c)) b
+    :else c))
+```
+
+しかし、Clojure では組み込みの `max` を使うのが最もシンプルです。
+
 **計算量**: O(1)
 
 ---
 
-## 3 値の中央値
+## 3. 3 値の中央値
 
 ### Red -- 失敗するテストを書く
 
@@ -54,11 +106,15 @@
     (are [a b c expected]
          (= expected (med3 a b c))
       3 2 1 2
+      3 1 2 2
       1 2 3 2
+      1 3 2 2
+      2 1 3 2
+      2 3 1 2
       3 3 3 3)))
 ```
 
-### Green -- テストを通す実装
+### Green -- テストを通す最小限の実装
 
 ```clojure
 (defn med3
@@ -68,11 +124,24 @@
     (nth sorted 1)))
 ```
 
+### アルゴリズムの考え方
+
+3 つの値をソートして 2 番目の要素を取得します。条件分岐で実装すると複雑になりますが、`sort` + `nth` で簡潔に書けます。
+
+条件分岐で実装する場合、比較の組み合わせが多くなります：
+
+```
+a >= b >= c → b が中央値
+a >= c >= b → c が中央値
+b >= a >= c → a が中央値
+... (6 通り)
+```
+
 **計算量**: O(1)
 
 ---
 
-## 符号判定
+## 4. 条件判定と分岐
 
 ### Red -- 失敗するテストを書く
 
@@ -84,7 +153,7 @@
     (is (= "その値は0です。" (judge-sign 0)))))
 ```
 
-### Green -- テストを通す実装
+### Green -- テストを通す最小限の実装
 
 ```clojure
 (defn judge-sign
@@ -96,49 +165,63 @@
     :else    "その値は0です。"))
 ```
 
+Clojure の `cond` は、Python の `if/elif/else` に対応します。`pos?`、`neg?`、`zero?` などの述語関数が用意されています。
+
 ---
 
-## 1 から n までの総和
+## 5. 繰り返し処理
 
-### Red -- 失敗するテストを書く
+### 5-1. 1 から n までの総和
+
+#### Red -- 失敗するテストを書く
 
 ```clojure
 (deftest sum1-to-n-while-test
   (testing "1からnまでの総和（loop/recur版）"
-    (is (= 15 (sum1-to-n-while 5)))))
+    (is (= 15 (sum1-to-n-while 5)))
+    (is (= 55 (sum1-to-n-while 10)))))
 
 (deftest sum1-to-n-for-test
   (testing "1からnまでの総和（reduce版）"
-    (is (= 15 (sum1-to-n-for 5)))))
+    (is (= 15 (sum1-to-n-for 5)))
+    (is (= 55 (sum1-to-n-for 10)))))
 ```
 
-### Green -- テストを通す実装
+#### Green -- テストを通す実装
 
 ```clojure
-(defn sum1-to-n-while
-  "loop/recur で 1 から n までの総和を求める"
-  [n]
+;; loop/recur 版（命令型スタイル）
+(defn sum1-to-n-while [n]
   (loop [i 1 total 0]
     (if (> i n)
       total
       (recur (inc i) (+ total i)))))
 
-(defn sum1-to-n-for
-  "reduce で 1 から n までの総和を求める"
-  [n]
+;; reduce 版（関数型スタイル）
+(defn sum1-to-n-for [n]
   (reduce + (range 1 (inc n))))
 ```
 
-### フローチャート
+Clojure では `loop/recur` が命令型の `while` ループに対応し、`reduce` がより関数型のアプローチです。
+
+#### フローチャート
 
 ```plantuml
 @startuml
+title 1 から n までの総和 (sum1-to-n-while)
+
 start
+:入力: n;
 :i = 1, total = 0;
-while (i <= n?) is (Yes)
+
+while (i <= n) is (はい)
   :total = total + i;
   :i = i + 1;
-endwhile (No)
+  note right
+    recur で先頭に戻る
+  end note
+endwhile (いいえ)
+
 :return total;
 stop
 @enduml
@@ -146,11 +229,19 @@ stop
 
 **計算量**: O(n)
 
----
+### 5-2. 記号文字の交互表示
 
-## 記号文字の交互表示
+#### Red -- 失敗するテストを書く
 
-### Green -- テストを通す実装
+```clojure
+(deftest alternative1-test
+  (testing "記号文字の交互表示（剰余判定方式）"
+    (is (= "+-+-+" (alternative1 5)))
+    (is (= "+-+-" (alternative1 4)))
+    (is (= "+" (alternative1 1)))))
+```
+
+#### Green -- テストを通す実装
 
 ```clojure
 (defn alternative1
@@ -165,11 +256,21 @@ stop
     (if (odd? n) (str base "+") base)))
 ```
 
----
+`map` と `even?` で関数型に実装。`apply str` で文字のシーケンスを文字列に変換します。
 
-## 長方形の辺の長さ
+### 5-3. 長方形の辺の長さを列挙
 
-### Green -- テストを通す実装
+#### Red -- 失敗するテストを書く
+
+```clojure
+(deftest rectangle-test
+  (testing "長方形の辺の長さ"
+    (is (clojure.string/includes? (rectangle 12) "1x12"))
+    (is (clojure.string/includes? (rectangle 12) "2x6"))
+    (is (clojure.string/includes? (rectangle 12) "3x4"))))
+```
+
+#### Green -- テストを通す実装
 
 ```clojure
 (defn rectangle
@@ -184,16 +285,28 @@ stop
                result)))))
 ```
 
+**計算量**: O(sqrt(n))
+
 ---
 
-## 九九の表
+## 6. 多重ループ
 
-### Green -- テストを通す実装
+### 6-1. 九九の表
+
+#### Red -- 失敗するテストを書く
 
 ```clojure
-(defn multiplication-table
-  "九九の表を返す"
-  []
+(deftest multiplication-table-test
+  (testing "九九の表"
+    (let [table (multiplication-table)]
+      (is (clojure.string/includes? table "1"))
+      (is (clojure.string/includes? table "81")))))
+```
+
+#### Green -- テストを通す実装
+
+```clojure
+(defn multiplication-table []
   (let [header (apply str (repeat 27 "-"))
         rows (for [i (range 1 10)]
                (apply str (for [j (range 1 10)]
@@ -203,11 +316,19 @@ stop
          header)))
 ```
 
----
+Clojure の `for` はリスト内包表記に相当し、ネストした `for` で二重ループを表現します。
 
-## 直角三角形
+### 6-2. 直角三角形の表示
 
-### Green -- テストを通す実装
+#### Red -- 失敗するテストを書く
+
+```clojure
+(deftest triangle-lb-test
+  (testing "直角三角形"
+    (is (clojure.string/includes? (triangle-lb 5) "*****"))))
+```
+
+#### Green -- テストを通す実装
 
 ```clojure
 (defn triangle-lb
@@ -219,19 +340,35 @@ stop
 
 ---
 
+## テスト実行結果
+
+```bash
+$ lein test :only algorithm.basic-algorithms-test
+
+lein test algorithm.basic-algorithms-test
+
+Ran 12 tests containing 35 assertions.
+0 failures, 0 errors.
+```
+
+---
+
 ## まとめ
 
-| アルゴリズム | 関数名 | 計算量 | Clojure の特徴 |
-|------------|--------|--------|---------------|
-| 3 値の最大値 | `max3` | O(1) | 組み込み `max` 関数 |
-| 3 値の中央値 | `med3` | O(1) | `sort` + `nth` |
-| 符号判定 | `judge-sign` | O(1) | `cond` による分岐 |
-| 総和（ループ） | `sum1-to-n-while` | O(n) | `loop/recur` |
-| 総和（reduce） | `sum1-to-n-for` | O(n) | `reduce` |
-| 交互表示 | `alternative1` | O(n) | `map` + `apply str` |
-| 長方形 | `rectangle` | O(sqrt(n)) | `loop/recur` |
-| 九九の表 | `multiplication-table` | O(1) | `for` 内包表記 |
-| 直角三角形 | `triangle-lb` | O(n^2) | `for` + `repeat` |
+この章では、基本的なアルゴリズムを Clojure で TDD 実装しました：
+
+1. **3 値の最大値** -- 組み込み `max` 関数で 1 行実装
+2. **3 値の中央値** -- `sort` + `nth` で簡潔に実装
+3. **符号判定** -- `cond` + 述語関数（`pos?`、`neg?`）で分岐
+4. **総和** -- `loop/recur`（命令型）と `reduce`（関数型）の 2 つのアプローチ
+5. **交互表示** -- `map` + `even?` で関数型に実装
+6. **長方形の辺** -- `loop/recur` で sqrt(n) までの探索
+7. **九九の表** -- ネストした `for` 内包表記
+8. **直角三角形** -- `for` + `repeat` で生成
+
+Clojure では、`loop/recur` による命令型スタイルと、`map`/`reduce`/`for` による関数型スタイルの両方で表現できます。問題の性質に応じて適切なスタイルを選択することが重要です。
+
+次の章では、配列について学んでいきましょう。
 
 ## 参考文献
 
