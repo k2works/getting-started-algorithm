@@ -28,6 +28,7 @@
 | IT12 | [計画](iteration_plan-12.md) | [ふりかえり](retrospective-12.md) | [完了報告書](iteration_report-12.md) | ✅ 完了 |
 | IT13 | [計画](iteration_plan-13.md) | [ふりかえり](retrospective-13.md) | [完了報告書](iteration_report-13.md) | ✅ 完了 |
 | IT14 | [計画](iteration_plan-14.md) | [ふりかえり](retrospective-14.md) | [完了報告書](iteration_report-14.md) | ✅ 完了 |
+| IT15 | [計画](iteration_plan-15.md) | - | - | 🔄 進行中 |
 
 ### 進捗サマリー
 
@@ -56,7 +57,7 @@
 |---------|------|-----|---------|------|
 | Phase 1 | Python 原本 + OOP 言語展開（6 言語） | 20 | 20 | ✅ 完了 |
 | Phase 2 | システム言語 + 関数型言語展開（8 言語） | 38 | 38 | ✅ 完了 |
-| Phase 3 | 多言語統合解説 | 8 | 0 | 未着手 |
+| Phase 3 | 多言語統合解説 | 8 | 0 | 🔄 進行中 |
 
 ### リリース完了報告書
 
