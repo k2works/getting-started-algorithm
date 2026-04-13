@@ -29,6 +29,14 @@ packages.mkShell {
       echo "Linked $VIMRC_SRC to $VIMRC_DEST"
     fi
 
+    # tmux 設定の反映
+    TMUX_CONF_SRC="${./.tmux.conf}"
+    TMUX_CONF_DEST="$HOME/.tmux.conf"
+    if [ -f "$TMUX_CONF_SRC" ]; then
+      ln -sf "$TMUX_CONF_SRC" "$TMUX_CONF_DEST"
+      echo "Linked $TMUX_CONF_SRC to $TMUX_CONF_DEST"
+    fi
+
     echo "Welcome to the common development environment"
   '';
 }
