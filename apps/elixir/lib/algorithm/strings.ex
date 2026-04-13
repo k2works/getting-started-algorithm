@@ -83,6 +83,50 @@ defmodule Algorithm.Strings do
     end
   end
 
+  @doc "Boyer-Moore 法による文字列探索（Bad Character ルール）"
+  def bm_search(text, pattern) do
+    t = String.graphemes(text)
+    p = String.graphemes(pattern)
+    tlen = length(t)
+    plen = length(p)
+
+    if plen == 0 do
+      {:ok, 0}
+    else
+      bad_char = build_bad_char_table(p, plen)
+      do_bm_search(t, p, bad_char, 0, tlen, plen)
+    end
+  end
+
+  defp build_bad_char_table(p, _plen) do
+    Enum.reduce(Enum.with_index(p), %{}, fn {char, i}, acc ->
+      Map.put(acc, char, i)
+    end)
+  end
+
+  defp do_bm_search(_t, _p, _bc, s, tlen, plen) when s > tlen - plen, do: :not_found
+
+  defp do_bm_search(t, p, bc, s, tlen, plen) do
+    j = match_from_right(t, p, s, plen - 1)
+
+    if j < 0 do
+      {:ok, s}
+    else
+      skip = j - Map.get(bc, Enum.at(t, s + j), -1)
+      do_bm_search(t, p, bc, s + max(1, skip), tlen, plen)
+    end
+  end
+
+  defp match_from_right(_t, _p, _s, j) when j < 0, do: j
+
+  defp match_from_right(t, p, s, j) do
+    if Enum.at(p, j) == Enum.at(t, s + j) do
+      match_from_right(t, p, s, j - 1)
+    else
+      j
+    end
+  end
+
   @doc "各文字の出現回数を返す"
   def char_count(str) do
     str

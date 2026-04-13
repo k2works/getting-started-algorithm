@@ -16,6 +16,24 @@ defmodule Algorithm.StringsTest do
     test "KMP 法で文字列を検索する" do
       assert Strings.kmp_search("ABCABC", "CAB") == {:ok, 2}
     end
+
+    test "パターンが見つからない場合 :not_found を返す" do
+      assert Strings.kmp_search("ABCABC", "XYZ") == :not_found
+    end
+  end
+
+  describe "bm_search/2" do
+    test "BM 法で文字列を検索する" do
+      assert Strings.bm_search("ABCABC", "CAB") == {:ok, 2}
+    end
+
+    test "パターンが見つからない場合 :not_found を返す" do
+      assert Strings.bm_search("ABCABC", "XYZ") == :not_found
+    end
+
+    test "先頭のパターンを見つける" do
+      assert Strings.bm_search("ABCDEF", "ABC") == {:ok, 0}
+    end
   end
 
   describe "char_count/1" do
