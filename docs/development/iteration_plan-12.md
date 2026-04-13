@@ -21,13 +21,13 @@
 
 ### 成功基準
 
-- [ ] 9 章すべてのファイルが作成されている
-- [ ] 各章のコード例が `apps/clojure/` の実コードと同期している（記事執筆と実装を同一コミットで完結）
-- [ ] `apps/clojure/` のテストが全てパス（`lein test`）
-- [ ] mkdocs.yml の nav に Clojure 版全 9 章が追加されている
-- [ ] ローカルプレビューで表示確認済み（`npx gulp mkdocs:build` でビルド成功）
-- [ ] 各章執筆時に Python 版との内容差分チェックを実施済み（差分 30% 以内）
-- [ ] Clojure の関数型スタイル（不変データ構造・高階関数・`defn`・マクロ・遅延評価）を活用した実装
+- [x] 9 章すべてのファイルが作成されている
+- [x] 各章のコード例が `apps/clojure/` の実コードと同期している（記事執筆と実装を同一コミットで完結）
+- [x] `apps/clojure/` のテストが全てパス（`lein test`）
+- [x] mkdocs.yml の nav に Clojure 版全 9 章が追加されている
+- [x] ローカルプレビューで表示確認済み（`npx gulp mkdocs:build` でビルド成功）
+- [x] 各章執筆時に Python 版との内容差分チェックを実施済み（差分 30% 以内）
+- [x] Clojure の関数型スタイル（不変データ構造・高階関数・`defn`・マクロ・遅延評価）を活用した実装
 
 ---
 
@@ -63,100 +63,100 @@
 
 | # | タスク | 見積もり | 状態 |
 |---|--------|---------|------|
-| 1-1 | Clojure プロジェクト作成（apps/clojure/、project.clj、src/algorithm/、test/algorithm/） | 20 分 | [ ] |
-| 1-2 | `.gitignore` 作成（`target/`、`.clj-kondo/`、`.lsp/`、`.cpcache/`） | 5 分 | [ ] |
-| 1-3 | Nix devShell（.#clojure）設定確認（leiningen + clojure）| 15 分 | [ ] |
+| 1-1 | Clojure プロジェクト作成（apps/clojure/、project.clj、src/algorithm/、test/algorithm/） | 20 分 | [x] |
+| 1-2 | `.gitignore` 作成（`target/`、`.clj-kondo/`、`.lsp/`、`.cpcache/`） | 5 分 | [x] |
+| 1-3 | Nix devShell（.#clojure）設定確認（leiningen + clojure）| 15 分 | [x] |
 
 ### 2. CI 整備（0.5 SP）
 
 | # | タスク | 見積もり | 状態 |
 |---|--------|---------|------|
-| 2-1 | CI 設定（.github/workflows/ci-clojure.yml: `lein test`） | 20 分 | [ ] |
-| 2-2 | CI 動作確認 | 10 分 | [ ] |
+| 2-1 | CI 設定（.github/workflows/ci-clojure.yml: `lein test`） | 20 分 | [x] |
+| 2-2 | CI 動作確認 | 10 分 | [x] |
 
 ### 3. 第 1 章 基本的なアルゴリズム（0.3 SP）
 
 | # | タスク | 見積もり | 状態 |
 |---|--------|---------|------|
-| 3-1 | TDD 実装（3 値最大値・中央値、条件判定、繰り返し） | 40 分 | [ ] |
-| 3-2 | 記事執筆（docs/article/clojure/01-basic-algorithms.md）+ Python 版差分チェック | 30 分 | [ ] |
+| 3-1 | TDD 実装（3 値最大値・中央値、条件判定、繰り返し） | 40 分 | [x] |
+| 3-2 | 記事執筆（docs/article/clojure/01-basic-algorithms.md）+ Python 版差分チェック | 30 分 | [x] |
 
 ### 4. 第 2 章 配列（0.3 SP）
 
 | # | タスク | 見積もり | 状態 |
 |---|--------|---------|------|
-| 4-1 | TDD 実装（配列操作、基数変換、素数列挙） | 40 分 | [ ] |
-| 4-2 | 記事執筆（docs/article/clojure/02-arrays.md）+ Python 版差分チェック | 20 分 | [ ] |
+| 4-1 | TDD 実装（配列操作、基数変換、素数列挙） | 40 分 | [x] |
+| 4-2 | 記事執筆（docs/article/clojure/02-arrays.md）+ Python 版差分チェック | 20 分 | [x] |
 
 ### 5. 第 3 章 探索アルゴリズム（0.3 SP）
 
 | # | タスク | 見積もり | 状態 |
 |---|--------|---------|------|
-| 5-1 | TDD 実装（線形探索、二分探索、ハッシュ法） | 40 分 | [ ] |
-| 5-2 | 記事執筆（docs/article/clojure/03-search-algorithms.md）+ Python 版差分チェック | 20 分 | [ ] |
+| 5-1 | TDD 実装（線形探索、二分探索、ハッシュ法） | 40 分 | [x] |
+| 5-2 | 記事執筆（docs/article/clojure/03-search-algorithms.md）+ Python 版差分チェック | 20 分 | [x] |
 
 ### 6. 第 4 章 スタックとキュー（0.3 SP）
 
 | # | タスク | 見積もり | 状態 |
 |---|--------|---------|------|
-| 6-1 | TDD 実装（スタック、キュー） | 40 分 | [ ] |
-| 6-2 | 記事執筆（docs/article/clojure/04-stacks-and-queues.md）+ Python 版差分チェック | 20 分 | [ ] |
+| 6-1 | TDD 実装（スタック、キュー） | 40 分 | [x] |
+| 6-2 | 記事執筆（docs/article/clojure/04-stacks-and-queues.md）+ Python 版差分チェック | 20 分 | [x] |
 
 ### 7. 第 5 章 再帰アルゴリズム（0.3 SP）
 
 | # | タスク | 見積もり | 状態 |
 |---|--------|---------|------|
-| 7-1 | TDD 実装（再帰基本・GCD・ハノイの塔・迷路・8 王妃問題） | 40 分 | [ ] |
-| 7-2 | 記事執筆（docs/article/clojure/05-recursion.md）+ Python 版差分チェック | 20 分 | [ ] |
+| 7-1 | TDD 実装（再帰基本・GCD・ハノイの塔・迷路・8 王妃問題） | 40 分 | [x] |
+| 7-2 | 記事執筆（docs/article/clojure/05-recursion.md）+ Python 版差分チェック | 20 分 | [x] |
 
 ### 8. 第 6 章 ソートアルゴリズム（0.4 SP）
 
 | # | タスク | 見積もり | 状態 |
 |---|--------|---------|------|
-| 8-1 | TDD 実装（バブル、選択、挿入、シェル、クイック、マージ、ヒープ、度数） | 50 分 | [ ] |
-| 8-2 | 記事執筆（docs/article/clojure/06-sort-algorithms.md）+ Python 版差分チェック | 20 分 | [ ] |
+| 8-1 | TDD 実装（バブル、選択、挿入、シェル、クイック、マージ、ヒープ、度数） | 50 分 | [x] |
+| 8-2 | 記事執筆（docs/article/clojure/06-sort-algorithms.md）+ Python 版差分チェック | 20 分 | [x] |
 
 ### 9. 第 7 章 文字列処理（0.3 SP）
 
 | # | タスク | 見積もり | 状態 |
 |---|--------|---------|------|
-| 9-1 | TDD 実装（文字列探索 BF/KMP/BM、文字数カウント、逆順、回文） | 40 分 | [ ] |
-| 9-2 | 記事執筆（docs/article/clojure/07-strings.md）+ Python 版差分チェック | 20 分 | [ ] |
+| 9-1 | TDD 実装（文字列探索 BF/KMP/BM、文字数カウント、逆順、回文） | 40 分 | [x] |
+| 9-2 | 記事執筆（docs/article/clojure/07-strings.md）+ Python 版差分チェック | 20 分 | [x] |
 
 ### 10. 第 8 章 リスト（0.4 SP）
 
 | # | タスク | 見積もり | 状態 |
 |---|--------|---------|------|
-| 10-1 | TDD 実装（単方向リスト、双方向リスト、配列カーソル版） | 50 分 | [ ] |
-| 10-2 | 記事執筆（docs/article/clojure/08-linked-lists.md）+ Python 版差分チェック | 20 分 | [ ] |
+| 10-1 | TDD 実装（単方向リスト、双方向リスト、配列カーソル版） | 50 分 | [x] |
+| 10-2 | 記事執筆（docs/article/clojure/08-linked-lists.md）+ Python 版差分チェック | 20 分 | [x] |
 
 ### 11. 第 9 章 木構造（0.4 SP）
 
 | # | タスク | 見積もり | 状態 |
 |---|--------|---------|------|
-| 11-1 | TDD 実装（BST、走査 3 種） | 50 分 | [ ] |
-| 11-2 | 記事執筆（docs/article/clojure/09-trees.md）+ Python 版差分チェック | 20 分 | [ ] |
+| 11-1 | TDD 実装（BST、走査 3 種） | 50 分 | [x] |
+| 11-2 | 記事執筆（docs/article/clojure/09-trees.md）+ Python 版差分チェック | 20 分 | [x] |
 
 ### 12. ドキュメント整備（0.5 SP）
 
 | # | タスク | 見積もり | 状態 |
 |---|--------|---------|------|
-| 12-1 | index.md 作成（docs/article/clojure/index.md） | 30 分 | [ ] |
-| 12-2 | mkdocs.yml に Clojure 版 9 章を追加 | 10 分 | [ ] |
-| 12-3 | ローカルプレビュー確認（`npx gulp mkdocs:build`） | 10 分 | [ ] |
+| 12-1 | index.md 作成（docs/article/clojure/index.md） | 30 分 | [x] |
+| 12-2 | mkdocs.yml に Clojure 版 9 章を追加 | 10 分 | [x] |
+| 12-3 | ローカルプレビュー確認（`npx gulp mkdocs:build`） | 10 分 | [x] |
 
 ### タスク合計
 
 | カテゴリ | SP | 理想時間 | 状態 |
 |---------|----|----------|------|
-| 環境セットアップ | 0.5 | 40 分 | [ ] |
-| CI 整備 | 0.5 | 30 分 | [ ] |
-| 第 1〜9 章 TDD 実装 + 記事 | 3.0 | 540 分 | [ ] |
-| ドキュメント整備 | 1.0 | 50 分 | [ ] |
+| 環境セットアップ | 0.5 | 40 分 | [x] |
+| CI 整備 | 0.5 | 30 分 | [x] |
+| 第 1〜9 章 TDD 実装 + 記事 | 3.0 | 540 分 | [x] |
+| ドキュメント整備 | 1.0 | 50 分 | [x] |
 | **合計** | **5** | **660 分（約 11.0h）** | |
 
 **1 SP あたり**: 約 132 分（2.2h）
-**進捗率**: 0%（0/5 SP）
+**進捗率**: 100%（5/5 SP）
 
 ---
 
@@ -311,14 +311,14 @@ docs/article/clojure/
 
 ### Definition of Done
 
-- [ ] `apps/clojure/` の全テストがパス（`lein test`）
-- [ ] 全 9 章 + index.md が作成されている
-- [ ] mkdocs.yml の nav に Clojure 版全 9 章が追加されている
-- [ ] ローカルプレビューで表示確認済み（`npx gulp mkdocs:build` でビルド成功）
-- [ ] 各章のコード例が実装コードと同期している
-- [ ] Python 版との記事記述量差分が 30% 以内
-- [ ] `.gitignore` に `target/`、`.clj-kondo/`、`.lsp/`、`.cpcache/` が登録済み
-- [ ] Clojure の関数型スタイル（不変データ構造・`map`/`filter`/`reduce`・`loop/recur`）を活用した実装
+- [x] `apps/clojure/` の全テストがパス（`lein test`）
+- [x] 全 9 章 + index.md が作成されている
+- [x] mkdocs.yml の nav に Clojure 版全 9 章が追加されている
+- [x] ローカルプレビューで表示確認済み（`npx gulp mkdocs:build` でビルド成功）
+- [x] 各章のコード例が実装コードと同期している
+- [x] Python 版との記事記述量差分が 30% 以内
+- [x] `.gitignore` に `target/`、`.clj-kondo/`、`.lsp/`、`.cpcache/` が登録済み
+- [x] Clojure の関数型スタイル（不変データ構造・`map`/`filter`/`reduce`・`loop/recur`）を活用した実装
 
 ### デモ項目
 
