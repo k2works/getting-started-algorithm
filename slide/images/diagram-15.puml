@@ -1,0 +1,15 @@
+@startuml
+left to right direction
+
+rectangle "Part 1\nTDD" as p1 #lightyellow
+rectangle "Part 2\nDesign Patterns" as p2 #lightblue
+rectangle "Part 3\nAlgorithms" as p3 #lightgreen
+
+rectangle "変更を楽に安全にできて\n役に立つソフトウェア" as good #pink
+
+p1 --> p2 : テストの土台
+p2 --> p3 : 設計の語彙
+p3 --> good : 計算量と正しさ
+p1 --> good
+p2 --> good
+@enduml

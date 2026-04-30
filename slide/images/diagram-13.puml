@@ -1,0 +1,18 @@
+@startuml
+[*] --> 章選択
+章選択 --> 言語選択
+言語選択 --> 受け入れテスト
+
+state "TDD + アルゴリズム" as TDD {
+  受け入れテスト --> Red
+  Red --> Green : 素朴な実装
+  Green --> Refactor : 計算量改善
+  Refactor --> Red : 次のテスト
+  Refactor --> 計算量比較
+  計算量比較 --> 章完了
+}
+
+章完了 --> 章選択 : 次の章
+章完了 --> KPT振り返り
+KPT振り返り --> [*]
+@enduml
