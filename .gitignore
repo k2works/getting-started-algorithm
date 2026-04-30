@@ -23,6 +23,8 @@ site/
 dist/
 build/
 .gradle/
+apps/java/bin/
+apps/java/out/
 
 # Logs
 *.log
