@@ -1,0 +1,12 @@
+@startuml
+title ヒントの 4 段階
+
+rectangle "1. 方向性" as h1 #ffeecc
+rectangle "2. 構造" as h2 #ffddaa
+rectangle "3. コード片" as h3 #ffcc88
+rectangle "4. 解答 + 解説" as h4 #ffbb66
+
+h1 --> h2
+h2 --> h3
+h3 --> h4
+@enduml

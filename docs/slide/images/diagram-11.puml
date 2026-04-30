@@ -1,0 +1,14 @@
+@startuml
+state Red #ffcccc
+state Green #ccffcc
+state Refactor #ccccff
+
+[*] --> Red
+Red : 入出力例から\n受け入れテスト
+Red --> Green
+Green : 素朴な実装\n（O(n²) でも可）
+Green --> Refactor
+Refactor : 計算量を改善\nO(n log n) へ
+Refactor --> Red : 次のテストケース
+Refactor --> [*]
+@enduml

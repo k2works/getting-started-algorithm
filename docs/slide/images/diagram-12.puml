@@ -1,0 +1,21 @@
+@startuml
+left to right direction
+
+rectangle "GitHub Codespaces" as cs #lightyellow {
+  rectangle "Nix devShell" as nix
+  rectangle "13 言語環境" as envs
+}
+
+rectangle "Claude Code" as cc #lightblue {
+  rectangle "Agent Skills" as skills
+  rectangle "対話式チュートリアル" as tutorial
+  rectangle "TDD サイクル支援" as tdd
+}
+
+rectangle "学習者" as user #lightgreen
+
+cs --> user : 即起動・統一環境\nセットアップ不要
+cc --> user : 質問・コード生成\nレビュー・テスト
+user --> cs : ブラウザだけで\nどこでも開発
+user --> cc : 自然言語で\n指示・対話
+@enduml
