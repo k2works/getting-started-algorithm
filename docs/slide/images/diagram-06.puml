@@ -1,0 +1,18 @@
+@startuml
+title 3 値の最大値 max3
+
+start
+:入力: a, b, c;
+:maximum = a;
+
+if (b > maximum?) then (はい)
+  :maximum = b;
+endif
+
+if (c > maximum?) then (はい)
+  :maximum = c;
+endif
+
+:return maximum;
+stop
+@enduml

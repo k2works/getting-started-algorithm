@@ -1,0 +1,30 @@
+@startuml
+left to right direction
+
+rectangle "Python（原本）" as py #lightyellow
+
+package "OOP 言語" as oop_pkg #lightblue {
+  rectangle "TypeScript" as ts
+  rectangle "Java" as java
+  rectangle "C#" as cs
+  rectangle "Ruby" as rb
+  rectangle "PHP" as php
+}
+
+package "システム言語" as sys_pkg #lightpink {
+  rectangle "Go" as go
+  rectangle "Rust" as rs
+}
+
+package "関数型言語" as fp_pkg #lightgreen {
+  rectangle "F#" as fs
+  rectangle "Scala" as sc
+  rectangle "Clojure" as cj
+  rectangle "Haskell" as hs
+  rectangle "Elixir" as ex
+}
+
+py --> oop_pkg : 構造的類似性\n展開コスト低
+py --> sys_pkg : メモリ管理を\n言語固有で
+py --> fp_pkg : 再帰・イミュータブルで\n再構成
+@enduml

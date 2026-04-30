@@ -1,0 +1,24 @@
+@startuml
+left to right direction
+
+rectangle "Part 1: TDD 入門" as p1 #lightyellow {
+  rectangle "FizzBuzz" as fz
+  rectangle "Red-Green-Refactor" as rgr
+  rectangle "テストの書き方" as tw
+}
+
+rectangle "Part 2: デザインパターン入門" as p2 #lightblue {
+  rectangle "GoF パターン" as gof
+  rectangle "言語イディオム" as idiom
+  rectangle "設計の語彙" as dv
+}
+
+rectangle "Part 3: アルゴリズム入門" as p3 #lightgreen {
+  rectangle "計算量と正しさ" as comp
+  rectangle "古典アルゴリズム" as classic
+  rectangle "データ構造" as ds
+}
+
+p1 --> p2 : テストの土台で\n設計を学ぶ
+p2 --> p3 : 設計の語彙で\nアルゴリズムを語る
+@enduml

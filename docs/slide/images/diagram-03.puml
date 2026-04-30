@@ -1,0 +1,14 @@
+@startuml
+state Red #ffcccc
+state Green #ccffcc
+state Refactor #ccccff
+
+[*] --> Red
+Red : 入出力例から受け入れテスト
+Red --> Green
+Green : 素朴な実装で通す
+Green --> Refactor
+Refactor : 計算量・可読性を改善
+Refactor --> Red : 次のアルゴリズムへ
+Refactor --> [*]
+@enduml

@@ -1,0 +1,19 @@
+@startuml
+left to right direction
+
+rectangle "問題" as problem #ffcccc
+rectangle "素朴な実装" as naive #ffeecc {
+  rectangle "O(n²) ソート" as bubble
+  rectangle "線形探索" as linear
+  rectangle "再帰の重複計算" as redundant
+}
+rectangle "アルゴリズム適用後" as algo #ccffcc {
+  rectangle "O(n log n) ソート" as quick
+  rectangle "二分探索" as binary
+  rectangle "メモ化・動的計画" as memo
+}
+
+problem --> naive : 動くけど遅い・読めない
+problem --> algo : 計算量・正しさ・可読性
+naive --> algo : リファクタリング
+@enduml

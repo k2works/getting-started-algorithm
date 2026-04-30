@@ -1,0 +1,20 @@
+@startuml
+title hanoi(3, A, C, B) の再帰木
+
+rectangle "hanoi(3, A, C, B)" as h3
+rectangle "hanoi(2, A, B, C)" as h2L
+rectangle "A → C" as m3
+rectangle "hanoi(2, B, C, A)" as h2R
+
+rectangle "hanoi(1, A, C, B)" as h1LL
+rectangle "A → B" as m2L
+rectangle "hanoi(1, C, B, A)" as h1LR
+
+h3 --> h2L
+h3 --> m3
+h3 --> h2R
+
+h2L --> h1LL
+h2L --> m2L
+h2L --> h1LR
+@enduml

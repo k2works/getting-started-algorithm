@@ -1,0 +1,18 @@
+@startuml
+title 二分探索木で 7 を探す
+
+rectangle "10" as r10
+rectangle "5" as r5
+rectangle "15" as r15
+rectangle "3" as r3
+rectangle "7" as r7
+rectangle "12" as r12
+rectangle "20" as r20
+
+r10 --> r5 : 7 < 10
+r10 --> r15
+r5 --> r3
+r5 --> r7 : 7 > 5\n発見!
+r15 --> r12
+r15 --> r20
+@enduml
