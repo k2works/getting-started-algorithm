@@ -1,7 +1,0 @@
-# Elixir
-/_build/
-/deps/
-/.elixir_ls/
-/.cpcache/
-erl_crash.dump
-*.ez

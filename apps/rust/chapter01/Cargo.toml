@@ -1,8 +1,0 @@
-[package]
-name = "chapter01"
-version = "0.1.0"
-edition = "2021"
-
-[lib]
-name = "chapter01"
-path = "src/lib.rs"
