@@ -923,6 +923,202 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kotlin/03-search-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 3 章 探索アルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kotlin/04-stack-and-queue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 4 章 スタックとキュー
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kotlin/05-recursion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 5 章 再帰アルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kotlin/06-sort-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 6 章 ソートアルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kotlin/07-string-processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 7 章 文字列処理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kotlin/08-lists/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 8 章 リスト
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kotlin/09-tree-structures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 9 章 木構造
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -7606,7 +7802,7 @@
 
 <h1 id="1">第 1 章 言語概要と開発環境比較<a class="headerlink" href="#1" title="Permanent link">&para;</a></h1>
 <h2 id="_1">はじめに<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>本章では、シリーズで使用した 15 言語を <strong>パラダイム</strong>・<strong>型システム</strong>・<strong>メモリ管理</strong>・<strong>開発環境</strong> の観点から俯瞰的に比較します。アルゴリズム実装の具体的な違いに入る前に、各言語がどのような設計思想を持ち、どのような場面で使われているかを整理します。</p>
+<p>本章では、シリーズで使用した 16 言語を <strong>パラダイム</strong>・<strong>型システム</strong>・<strong>メモリ管理</strong>・<strong>開発環境</strong> の観点から俯瞰的に比較します。アルゴリズム実装の具体的な違いに入る前に、各言語がどのような設計思想を持ち、どのような場面で使われているかを整理します。</p>
 <h2 id="_2">言語パラダイム分類<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>プログラミング言語は、その設計思想に基づいていくつかのパラダイムに分類できます。</p>
 <pre class="mermaid"><code>graph TD
@@ -7623,6 +7819,7 @@
     E --&gt; E1[Python]
     E --&gt; E2[TypeScript]
     E --&gt; E3[Rust]
+    E --&gt; E4[Kotlin]
     D --&gt; D1[F#]
     D --&gt; D2[Scala]
     D --&gt; D3[Clojure]
@@ -7647,8 +7844,8 @@
 </tr>
 <tr>
 <td><strong>マルチパラダイム</strong></td>
-<td>Python, TypeScript, Rust</td>
-<td>OOP と関数型を柔軟に組み合わせ可能</td>
+<td>Python, TypeScript, Rust, Kotlin</td>
+<td>OOP と関数型を柔軟に組み合わせ可能。Kotlin は JVM 上で簡潔な OOP と高階関数を使える</td>
 </tr>
 <tr>
 <td><strong>手続き型 / システム言語</strong></td>
@@ -7767,6 +7964,13 @@
 <td><code>Option[T]</code> / Union Type</td>
 </tr>
 <tr>
+<td>Kotlin</td>
+<td>静的・強い</td>
+<td>あり</td>
+<td>あり（型消去）</td>
+<td><code>T?</code> を型で表現</td>
+</tr>
+<tr>
 <td>Clojure</td>
 <td>動的・強い</td>
 <td>-</td>
@@ -7800,7 +8004,7 @@
 <div class="highlight"><pre><span></span><code>弱い型付け                                              強い型付け
  ←─────────────────────────────────────────────────────→
  C    PHP         Python  Ruby     Go  Java    Rust  Haskell
-                  Elixir  Clojure  C#  TypeScript  F#  Scala
+                  Elixir  Clojure  C#  TypeScript  F#  Scala Kotlin
 </code></pre></div>
 <h2 id="_6">メモリ管理方式<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
 <table>
@@ -7824,7 +8028,7 @@
 </tr>
 <tr>
 <td><strong>ガベージコレクション（GC）</strong></td>
-<td>Java, C#, Go, Python, Ruby, PHP, TypeScript, Scala, Clojure, Haskell</td>
+<td>Java, Kotlin, C#, Go, Python, Ruby, PHP, TypeScript, Scala, Clojure, Haskell</td>
 <td>ランタイムが自動でメモリを回収</td>
 </tr>
 <tr>
@@ -7934,6 +8138,13 @@
 <td>sbt</td>
 </tr>
 <tr>
+<td>Kotlin</td>
+<td>Gradle Wrapper</td>
+<td><code>kotlin.test</code> / JUnit 5</td>
+<td>-</td>
+<td>Gradle</td>
+</tr>
+<tr>
 <td>Clojure</td>
 <td>Leiningen</td>
 <td>clojure.test（標準）</td>
@@ -7980,7 +8191,7 @@
 </tr>
 <tr>
 <td><strong>JVM バイトコード</strong></td>
-<td>Java, Scala, Clojure</td>
+<td>Java, Kotlin, Scala, Clojure</td>
 <td>Java 仮想マシン上で実行。JIT コンパイル</td>
 </tr>
 <tr>
@@ -8011,11 +8222,12 @@
 </tbody>
 </table>
 <h2 id="nix">Nix 開発環境<a class="headerlink" href="#nix" title="Permanent link">&para;</a></h2>
-<p>本プロジェクトでは、全 15 言語の開発環境を <strong>Nix</strong> で統一管理しています。</p>
+<p>本プロジェクトでは、全 16 言語の開発環境を <strong>Nix</strong> で統一管理しています。</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># 各言語の開発環境に入る</span>
 nix<span class="w"> </span>develop<span class="w"> </span>.#python
 nix<span class="w"> </span>develop<span class="w"> </span>.#node
 nix<span class="w"> </span>develop<span class="w"> </span>.#java
+nix<span class="w"> </span>develop<span class="w"> </span>.#kotlin
 nix<span class="w"> </span>develop<span class="w"> </span>.#dotnet<span class="w">    </span><span class="c1"># C# / F#</span>
 nix<span class="w"> </span>develop<span class="w"> </span>.#ruby
 nix<span class="w"> </span>develop<span class="w"> </span>.#php
@@ -8113,6 +8325,12 @@ nix<span class="w"> </span>develop<span class="w"> </span>.#nadesiko
 <td>メモリ安全性とパフォーマンスの両立</td>
 </tr>
 <tr>
+<td>Kotlin</td>
+<td>2011</td>
+<td>JetBrains</td>
+<td>JVM との相互運用を重視し、簡潔で安全な OOP と FP を統合</td>
+</tr>
+<tr>
 <td>TypeScript</td>
 <td>2012</td>
 <td>Anders Hejlsberg</td>
@@ -8133,7 +8351,7 @@ nix<span class="w"> </span>develop<span class="w"> </span>.#nadesiko
 </tbody>
 </table>
 <h2 id="_10">まとめ<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
-<p>15 言語は、以下の軸で大きく異なります:</p>
+<p>16 言語は、以下の軸で大きく異なります:</p>
 <ol>
 <li><strong>パラダイム</strong>: 手続き型 / OOP / 関数型 / 純粋関数型</li>
 <li><strong>型システム</strong>: 静的 vs 動的、型推論の有無、Null 安全性</li>
@@ -8141,6 +8359,7 @@ nix<span class="w"> </span>develop<span class="w"> </span>.#nadesiko
 <li><strong>実行モデル</strong>: ネイティブ / VM / インタプリタ</li>
 </ol>
 <p>なでしこ3 は、日本語で処理の流れを読み書きできる点が他の言語とは異なる切り口です。教材では <code>gonako</code> 3.8.8 と <code>make check</code> を使い、構文・書式・テストを確認します。</p>
+<p>Kotlin は JVM の豊富なライブラリを利用しながら、<code>val</code> / <code>var</code> による可変性の明示、nullable 型、sealed class で安全なモデルを表現できます。<code>tailrec</code> を付けた末尾再帰はコンパイラがループへ変換しますが、適用条件を満たす再帰に限られます。</p>
 <p>次章以降では、これらの違いが実際のアルゴリズム実装にどう影響するかを、具体的なコード比較で見ていきます。</p>
 
 

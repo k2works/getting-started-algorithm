@@ -923,6 +923,202 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kotlin/03-search-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 3 章 探索アルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kotlin/04-stack-and-queue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 4 章 スタックとキュー
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kotlin/05-recursion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 5 章 再帰アルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kotlin/06-sort-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 6 章 ソートアルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kotlin/07-string-processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 7 章 文字列処理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kotlin/08-lists/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 8 章 リスト
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kotlin/09-tree-structures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 9 章 木構造
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -7651,7 +7847,7 @@
 
 <h1 id="3">第 3 章 配列・コレクション比較<a class="headerlink" href="#3" title="Permanent link">&para;</a></h1>
 <h2 id="_1">はじめに<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>配列やリストは、ほぼすべてのアルゴリズムの基盤となるデータ構造です。本章では、15 言語における配列・コレクションの扱いと、線形探索・二分探索の実装パターンを比較します。</p>
+<p>配列やリストは、ほぼすべてのアルゴリズムの基盤となるデータ構造です。本章では、16 言語における配列・コレクションの扱いと、線形探索・二分探索の実装パターンを比較します。</p>
 <h2 id="_2">配列 / リスト / コレクションの分類<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -7683,6 +7879,13 @@
 <td><code>int[]</code> / <code>ArrayList&lt;T&gt;</code></td>
 <td>配列: 可変 / List: 可変</td>
 <td>配列: 固定 / List: 可変</td>
+<td>同一型</td>
+</tr>
+<tr>
+<td>Kotlin</td>
+<td><code>IntArray</code> / <code>List&lt;T&gt;</code> / <code>MutableList&lt;T&gt;</code></td>
+<td>配列: 可変 / List: 読み取り専用インターフェース</td>
+<td>配列: 固定 / List: 可変長</td>
 <td>同一型</td>
 </tr>
 <tr>
@@ -7780,6 +7983,7 @@
     C --&gt; C1[Rust: let vs let mut]
     C --&gt; C2[F#: list 不変 / array 可変]
     C --&gt; C3[Scala: List 不変 / Array 可変]
+    C --&gt; C7[Kotlin: List 読み取り専用 / MutableList 可変]
     C --&gt; C4[Clojure: 永続データ構造]
     C --&gt; C5[Elixir: 全て不変]
     C --&gt; C6[Haskell: 全て不変]</code></pre>
@@ -7798,6 +8002,14 @@
 <span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="na">length</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
 <span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">key</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>Kotlin</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">fun</span><span class="w"> </span><span class="nf">linearSearch</span><span class="p">(</span><span class="n">a</span><span class="p">:</span><span class="w"> </span><span class="n">IntArray</span><span class="p">,</span><span class="w"> </span><span class="n">key</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">):</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="na">indices</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">key</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">i</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="m">1</span>
 <span class="p">}</span>
 </code></pre></div>
 <p><strong>Go</strong>:</p>
@@ -7936,6 +8148,11 @@
 <td><strong>はい</strong></td>
 </tr>
 <tr>
+<td>Kotlin</td>
+<td><code>-1</code>（添字）/ nullable 型（値検索）</td>
+<td>選択可能</td>
+</tr>
+<tr>
 <td>なでしこ3</td>
 <td><code>-1</code></td>
 <td>いいえ</td>
@@ -8067,6 +8284,11 @@
 <td>チェイン法</td>
 </tr>
 <tr>
+<td>Kotlin</td>
+<td><code>class ChainedHash</code> + <code>MutableList</code></td>
+<td>チェイン法</td>
+</tr>
+<tr>
 <td>C#</td>
 <td><code>class ChainedHash</code> + <code>List&lt;T&gt;</code></td>
 <td>チェイン法</td>
@@ -8151,6 +8373,10 @@
 <td><code>Arrays.stream(arr).filter(x -&gt; x % 2 == 0).toArray()</code></td>
 </tr>
 <tr>
+<td>Kotlin</td>
+<td><code>arr.filter { it % 2 == 0 }</code></td>
+</tr>
+<tr>
 <td>C#</td>
 <td><code>arr.Where(x =&gt; x % 2 == 0).ToArray()</code></td>
 </tr>
@@ -8209,7 +8435,8 @@
 </code></pre></div>
 <h2 id="_13">まとめ<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>配列の可変性</strong>: OOP 言語はデフォルト可変、関数型言語はデフォルト不変</li>
+<li><strong>コレクションの可変性</strong>: 言語ごとに異なり、Kotlin は読み取り専用 <code>List</code> と変更可能な <code>MutableList</code> を型で分ける</li>
+<li><strong>Kotlin のコレクション</strong>: <code>List&lt;T&gt;</code> は読み取り専用 API、<code>MutableList&lt;T&gt;</code> は変更 API を提供する（読み取り専用型が常に不変性を保証するわけではない）</li>
 <li><strong>探索の戻り値</strong>: 型安全な言語（Rust, F#, Haskell）は <code>Option</code>/<code>Maybe</code> で「見つからない」を表現</li>
 <li><strong>二分探索</strong>: 命令型は while ループ、関数型は再帰で実装するのが自然</li>
 <li><strong>高階関数</strong>: <code>filter</code>, <code>map</code>, <code>find</code> などは関数型言語で最も簡潔に書ける</li>

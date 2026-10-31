@@ -923,6 +923,202 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kotlin/03-search-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 3 章 探索アルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kotlin/04-stack-and-queue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 4 章 スタックとキュー
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kotlin/05-recursion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 5 章 再帰アルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kotlin/06-sort-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 6 章 ソートアルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kotlin/07-string-processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 7 章 文字列処理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kotlin/08-lists/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 8 章 リスト
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kotlin/09-tree-structures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 9 章 木構造
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -7696,6 +7892,23 @@
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
+<p><strong>Kotlin</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nc">FixedStack</span><span class="o">&lt;</span><span class="n">T</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kt">Any</span><span class="o">&gt;</span><span class="p">(</span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">capacity</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">elements</span><span class="p">:</span><span class="w"> </span><span class="n">Array</span><span class="o">&lt;</span><span class="kt">Any?</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">pointer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span>
+
+<span class="w">    </span><span class="k">init</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">require</span><span class="p">(</span><span class="n">capacity</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">0</span><span class="p">)</span>
+<span class="w">        </span><span class="n">elements</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">arrayOfNulls</span><span class="p">(</span><span class="n">capacity</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">push</span><span class="p">(</span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="n">T</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">check</span><span class="p">(</span><span class="n">pointer</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">capacity</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">"Stack is full"</span><span class="w"> </span><span class="p">}</span>
+<span class="w">        </span><span class="n">elements</span><span class="o">[</span><span class="n">pointer</span><span class="o">++]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>型パラメータ <code>T : Any</code> で nullable な要素を除外し、<code>private</code> な配列とポインターをクラス内に隠します。教材の実装では満杯・空の状態を <code>check</code> で検査し、違反時は例外を送出します。</p>
 <h3 id="2">パターン 2: 構造体 + 関数（手続き型 / システム言語）<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
 <p><strong>Go</strong>:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">FixedStack</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
@@ -7828,7 +8041,7 @@
 <tbody>
 <tr>
 <td><strong>クラス</strong></td>
-<td>Python, TS, Java, C#, Ruby, PHP</td>
+<td>Python, TS, Java, Kotlin, C#, Ruby, PHP</td>
 <td>private/public</td>
 <td>メソッド内で変更</td>
 <td>例外</td>
@@ -7904,6 +8117,11 @@ front = (front + 1) % capacity  // dequeue 時
 <td><code>rear = (rear + 1) % capacity;</code></td>
 </tr>
 <tr>
+<td>Kotlin</td>
+<td><code>%</code></td>
+<td><code>rear = (rear + 1) % capacity</code></td>
+</tr>
+<tr>
 <td>Go</td>
 <td><code>%</code></td>
 <td><code>q.rear = (q.rear + 1) % q.capacity</code></td>
@@ -7944,7 +8162,7 @@ front = (front + 1) % capacity  // dequeue 時
 <tbody>
 <tr>
 <td><strong>破壊的</strong></td>
-<td>Python, TS, Java, C#, Ruby, PHP, Go, C</td>
+<td>Python, TS, Java, Kotlin, C#, Ruby, PHP, Go, C</td>
 <td>元のスタックが変更される</td>
 </tr>
 <tr>
@@ -8002,6 +8220,11 @@ front = (front + 1) % capacity  // dequeue 時
 <tr>
 <td>Java</td>
 <td><code>T</code></td>
+<td><code>FixedStack&lt;T&gt;</code></td>
+</tr>
+<tr>
+<td>Kotlin</td>
+<td><code>T : Any</code></td>
 <td><code>FixedStack&lt;T&gt;</code></td>
 </tr>
 <tr>
@@ -8079,7 +8302,7 @@ front = (front + 1) % capacity  // dequeue 時
 <tbody>
 <tr>
 <td><strong>例外</strong></td>
-<td>Python, Java, C#, Ruby, PHP</td>
+<td>Python, Java, Kotlin, C#, Ruby, PHP</td>
 <td><code>raise OverflowError</code> / <code>throw new ...</code></td>
 </tr>
 <tr>
@@ -8117,6 +8340,7 @@ front = (front + 1) % capacity  // dequeue 時
 <h2 id="_9">まとめ<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>OOP 言語</strong>: クラスでデータと操作をカプセル化。例外でエラーを通知</li>
+<li><strong>Kotlin</strong>: <code>private</code> な可変状態とジェネリクスをクラスにまとめ、<code>check</code> / <code>require</code> で不変条件を検査</li>
 <li><strong>システム言語（Go, C）</strong>: 構造体 + 関数。エラーは戻り値で返す</li>
 <li><strong>Rust</strong>: 構造体 + impl。所有権システムと <code>Result</code> 型で安全性を保証</li>
 <li><strong>関数型言語</strong>: モジュール / 代数的データ型。不変データを基本とし、可変状態は明示的に管理</li>

@@ -923,6 +923,202 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kotlin/03-search-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 3 章 探索アルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kotlin/04-stack-and-queue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 4 章 スタックとキュー
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kotlin/05-recursion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 5 章 再帰アルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kotlin/06-sort-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 6 章 ソートアルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kotlin/07-string-processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 7 章 文字列処理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kotlin/08-lists/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 8 章 リスト
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kotlin/09-tree-structures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 9 章 木構造
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -7714,6 +7910,13 @@
 <td>UTF-16</td>
 </tr>
 <tr>
+<td>Kotlin</td>
+<td><code>String</code></td>
+<td>不変</td>
+<td><code>s[i]</code> / <code>get(i)</code></td>
+<td>UTF-16</td>
+</tr>
+<tr>
 <td>C#</td>
 <td><code>string</code></td>
 <td>不変</td>
@@ -7799,6 +8002,7 @@
 </tr>
 </tbody>
 </table>
+<p>Kotlin の <code>String</code> は JVM と同じ UTF-16 のコード単位で添字アクセスします。したがって <code>s[i]</code> の <code>Char</code> は必ずしも Unicode code point 1 文字とは限らず、サロゲートペアを扱う処理ではコードポイント単位の走査が必要です。</p>
 <h3 id="bf">BF 法（力まかせ法）の比較<a class="headerlink" href="#bf" title="Permanent link">&para;</a></h3>
 <p><strong>Python</strong>:</p>
 <div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">bf_match</span><span class="p">(</span><span class="n">txt</span><span class="p">,</span> <span class="n">pat</span><span class="p">):</span>
@@ -7865,6 +8069,18 @@
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
+<p><strong>Kotlin</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nc">SinglyLinkedList</span><span class="o">&lt;</span><span class="n">T</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kt">Any</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">Node</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">value</span><span class="p">:</span><span class="w"> </span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">next</span><span class="p">:</span><span class="w"> </span><span class="n">Node</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;?</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span>
+
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">head</span><span class="p">:</span><span class="w"> </span><span class="n">Node</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;?</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span>
+
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">addFirst</span><span class="p">(</span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="n">T</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">head</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Node</span><span class="p">(</span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="n">head</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>ノードのリンクは <code>Node&lt;T&gt;?</code> で表現し、null 安全な型検査の対象にします。<code>T : Any</code> は値要素を nullable にしない制約です。</p>
 <h3 id="3-rust">パターン 3: 所有権ベース（Rust）<a class="headerlink" href="#3-rust" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">Node</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">data</span><span class="p">:</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span>
@@ -7960,7 +8176,7 @@
 </tr>
 <tr>
 <td><strong>参照</strong></td>
-<td>Java, C#, Python, TS, Ruby, PHP</td>
+<td>Java, Kotlin, C#, Python, TS, Ruby, PHP</td>
 <td>class + 参照型</td>
 <td>GC が管理</td>
 </tr>
@@ -8025,6 +8241,18 @@
 <span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="n">Node</span><span class="o">(</span><span class="n">v</span><span class="o">,</span><span class="w"> </span><span class="n">left</span><span class="o">,</span><span class="w"> </span><span class="n">right</span><span class="o">)</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Node</span><span class="o">(</span><span class="n">v</span><span class="o">,</span><span class="w"> </span><span class="n">left</span><span class="o">,</span><span class="w"> </span><span class="n">insert</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">right</span><span class="o">)</span>
 <span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="n">node</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">node</span>
 </code></pre></div>
+<p><strong>Kotlin（sealed class）</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">private</span><span class="w"> </span><span class="kd">sealed</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">Node</span><span class="o">&lt;</span><span class="n">K</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Comparable</span><span class="o">&lt;</span><span class="n">K</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">V</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kt">Any</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">class</span><span class="w"> </span><span class="nc">Empty</span><span class="o">&lt;</span><span class="n">K</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Comparable</span><span class="o">&lt;</span><span class="n">K</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">V</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kt">Any</span><span class="o">&gt;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Node</span><span class="o">&lt;</span><span class="n">K</span><span class="p">,</span><span class="w"> </span><span class="n">V</span><span class="o">&gt;</span><span class="p">()</span>
+<span class="w">    </span><span class="kd">class</span><span class="w"> </span><span class="nc">Branch</span><span class="o">&lt;</span><span class="n">K</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Comparable</span><span class="o">&lt;</span><span class="n">K</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">V</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kt">Any</span><span class="o">&gt;</span><span class="p">(</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">key</span><span class="p">:</span><span class="w"> </span><span class="n">K</span><span class="p">,</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">value</span><span class="p">:</span><span class="w"> </span><span class="n">V</span><span class="p">,</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">left</span><span class="p">:</span><span class="w"> </span><span class="n">Node</span><span class="o">&lt;</span><span class="n">K</span><span class="p">,</span><span class="w"> </span><span class="n">V</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Empty</span><span class="p">(),</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">right</span><span class="p">:</span><span class="w"> </span><span class="n">Node</span><span class="o">&lt;</span><span class="n">K</span><span class="p">,</span><span class="w"> </span><span class="n">V</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Empty</span><span class="p">(),</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Node</span><span class="o">&lt;</span><span class="n">K</span><span class="p">,</span><span class="w"> </span><span class="n">V</span><span class="o">&gt;</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>空の部分木と値を持つノードを sealed class のサブクラスで表します。<code>when</code> 式では全ケースを網羅でき、子ノードの不在を nullable にせず明示できます。</p>
 <p><strong>Java（クラス）</strong>:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nc">BinarySearchTree</span><span class="o">&lt;</span><span class="n">T</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">Comparable</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Node</span><span class="w"> </span><span class="p">{</span>
@@ -8078,6 +8306,12 @@
 <td>Scala</td>
 <td><code>sealed trait</code> + <code>case class</code></td>
 <td><code>match</code> 式</td>
+<td>自然</td>
+</tr>
+<tr>
+<td>Kotlin</td>
+<td><code>sealed class</code> + <code>when</code></td>
+<td><code>when</code> 式で網羅性を検査</td>
 <td>自然</td>
 </tr>
 <tr>
@@ -8140,6 +8374,11 @@
 <td>自然</td>
 </tr>
 <tr>
+<td>Kotlin</td>
+<td>nullable な前後リンクを持つノード</td>
+<td>自然</td>
+</tr>
+<tr>
 <td>Rust</td>
 <td><code>Rc&lt;RefCell&lt;Node&gt;&gt;</code> / <code>unsafe</code></td>
 <td>困難（循環参照）</td>
@@ -8171,7 +8410,7 @@
 <ul>
 <li><strong>文字列探索</strong>: 言語間の差は比較的小さいが、Rust と Haskell の型安全な戻り値（<code>Option</code>/<code>Maybe</code>）が際立つ</li>
 <li><strong>連結リスト</strong>: C のポインタ、Java の参照、Rust の所有権、Haskell の代数的データ型 —— 最もメモリモデルの違いが現れる</li>
-<li><strong>木構造</strong>: 代数的データ型 + パターンマッチ（Haskell, F#, Scala）が最も自然で簡潔</li>
+<li><strong>木構造</strong>: 代数的データ型と網羅的なパターン分岐（Haskell, F#, Scala, Kotlin）が自然に表現できる</li>
 <li><strong>双方向リスト</strong>: 不変性を重視する言語ほど実装が困難。言語の設計思想の限界が見える</li>
 <li><strong>パターンマッチ</strong>: 再帰的データ構造の操作において、パターンマッチは圧倒的な可読性を提供する</li>
 </ul>
