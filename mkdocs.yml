@@ -80,6 +80,7 @@ nav:
           - 第 9 章 木構造: article/nadesiko/09-tree-structures.md
       - Kotlin 版:
           - 第 1 章 基本的なアルゴリズム: article/kotlin/01-basic-algorithms.md
+          - 第 2 章 配列: article/kotlin/02-arrays.md
       - Python 版:
           - 概要: article/python/index.md
           - 第 1 章 基本的なアルゴリズム: article/python/01-basic-algorithms.md
