@@ -78,6 +78,8 @@ nav:
           - 第 7 章 文字列処理: article/nadesiko/07-string-processing.md
           - 第 8 章 リスト: article/nadesiko/08-lists.md
           - 第 9 章 木構造: article/nadesiko/09-tree-structures.md
+      - Kotlin 版:
+          - 第 1 章 基本的なアルゴリズム: article/kotlin/01-basic-algorithms.md
       - Python 版:
           - 概要: article/python/index.md
           - 第 1 章 基本的なアルゴリズム: article/python/01-basic-algorithms.md

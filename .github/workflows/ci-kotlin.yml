@@ -1,0 +1,41 @@
+name: CI Kotlin
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+    paths:
+      - 'apps/kotlin/**'
+      - 'ops/nix/environments/kotlin/**'
+      - 'flake.nix'
+      - 'flake.lock'
+      - '.github/workflows/ci-kotlin.yml'
+  pull_request:
+    branches:
+      - main
+      - develop
+    paths:
+      - 'apps/kotlin/**'
+      - 'ops/nix/environments/kotlin/**'
+      - 'flake.nix'
+      - 'flake.lock'
+      - '.github/workflows/ci-kotlin.yml'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v30
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+
+      - name: Run checks
+        run: nix develop .#kotlin --command bash -c "cd apps/kotlin && ./gradlew check"

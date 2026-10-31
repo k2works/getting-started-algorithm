@@ -299,7 +299,6 @@ Wiki 記事の 9 章構成をそのまま維持する。各章はアルゴリズ
 | Python | リスト内包表記、ジェネレータ、動的型付き |
 | Ruby | ブロック、Enumerable、動的型付き |
 | PHP | SPL データ構造、ジェネレータ |
-| Kotlin | JVM、null 安全、data / sealed class、OOP と FP の融合 |
 
 ### システム言語（メモリ管理・パフォーマンス志向）
 
@@ -323,6 +322,12 @@ Wiki 記事の 9 章構成をそのまま維持する。各章はアルゴリズ
 | 言語 | 特色 |
 |------|------|
 | なでしこ3 | 日本語の語順と助詞による引数指定、配列・辞書、無名関数とクロージャ。`gonako` による実行・lint・format・doctest |
+
+### JVM 言語
+
+| 言語 | 特色 |
+|------|------|
+| Kotlin | null 安全、data / sealed class、拡張関数、高階関数、JVM エコシステム |
 
 ## なでしこ3 版（TDD 入門の続編）
 
@@ -404,9 +409,9 @@ apps/nadesiko/
 - 前作の OOP / FP / null 安全の設計例: `tmp/getting-started-tdd/docs/article/kotlin/07-encapsulation-and-polymorphism.md` 〜 `12-error-handling-and-type-safety.md`
 - アルゴリズムの仕様と章範囲: 本アウトラインの「章構成」、Python 版の記事
 - 読者の前提: Kotlin 基本文法、TDD、Git、Gradle の基本操作
-- 実行環境の参照値: Kotlin 2.x（前作のサンプルは 2.2.20）、JDK 21、Gradle 8.x、kotlin.test / JUnit Platform。実装開始時にバージョンを再確認し、Gradle Wrapper と Nix で固定する
+- 実行環境: Kotlin 2.3.20、JDK 25、Gradle Wrapper、kotlin.test / JUnit Platform。JDK は Nix 開発環境と Gradle toolchain で 25 にそろえる
 
-現行リポジトリには Kotlin の Nix 開発環境および `apps/kotlin/` がない。執筆着手前に `ops/nix/environments/kotlin/shell.nix` と `flake.nix` の `.#kotlin` を追加し、Kotlin、JDK、Gradle Wrapper を再現可能な形で整備する。前作に記載された `nix develop .#kotlin` は参照手順として扱い、このリポジトリに環境を実装するまでは利用可能な環境として案内しない。
+Kotlin の Nix 開発環境と `apps/kotlin/` を用意し、`ops/nix/environments/kotlin/shell.nix` と `flake.nix` の `.#kotlin` で Kotlin、JDK 25、Gradle Wrapper を利用する。
 
 ### 開発・テスト方針
 
