@@ -5951,15 +5951,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#14" class="md-nav__link">
+  <a href="#15" class="md-nav__link">
     <span class="md-ellipsis">
       
-        バブルソートの 14 言語比較
+        バブルソートの 15 言語比較
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="バブルソートの 14 言語比較">
+    <nav class="md-nav" aria-label="バブルソートの 15 言語比較">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -7526,7 +7526,7 @@
 
 <h1 id="5">第 5 章 再帰とソートアルゴリズム比較<a class="headerlink" href="#5" title="Permanent link">&para;</a></h1>
 <h2 id="_1">はじめに<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>再帰は関数型言語の根幹をなす概念であり、ソートアルゴリズムは実装スタイルの違いが最も顕著に現れる題材です。本章では、再帰の表現力とソートの実装アプローチを 14 言語で比較します。</p>
+<p>再帰は関数型言語の根幹をなす概念であり、ソートアルゴリズムは実装スタイルの違いが最も顕著に現れる題材です。本章では、再帰の表現力とソートの実装アプローチを 15 言語で比較します。</p>
 <h2 id="_2">再帰の表現力比較<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <h3 id="factorial">階乗（factorial）の実装<a class="headerlink" href="#factorial" title="Permanent link">&para;</a></h3>
 <p>最もシンプルな再帰の例として、階乗の実装を比較します。</p>
@@ -7562,6 +7562,15 @@
 <span class="w">  </span><span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">&lt;= </span><span class="nv">n</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="mi">1</span>
 <span class="w">    </span><span class="p">(</span><span class="nb">* </span><span class="nv">n</span><span class="w"> </span><span class="p">(</span><span class="nf">factorial</span><span class="w"> </span><span class="p">(</span><span class="nb">dec </span><span class="nv">n</span><span class="p">)))))</span>
 </code></pre></div>
+<p><strong>なでしこ3（再帰関数）</strong>:</p>
+<div class="highlight"><pre><span></span><code>●(数で)階乗
+    もし、数 ≦ 1ならば
+        1を戻す
+    ここまで
+    (数 × ((数 - 1)で階乗))を戻す
+ここまで
+</code></pre></div>
+<p>基底条件と再帰呼び出しを <code>もし</code> と関数呼び出しで明示します。教材では末尾再帰最適化を前提にせず、深い再帰が必要な処理には反復版も用意しています。</p>
 <h3 id="tco">末尾再帰最適化（TCO）<a class="headerlink" href="#tco" title="Permanent link">&para;</a></h3>
 <p>末尾再帰最適化は、再帰をループと同等の効率で実行する仕組みです。</p>
 <table>
@@ -7643,6 +7652,11 @@
 <td><strong>あり</strong></td>
 <td>遅延評価と組み合わせて最適化</td>
 </tr>
+<tr>
+<td>なでしこ3</td>
+<td>前提にしない</td>
+<td>教材の再帰関数では TCO に依存せず、反復版も比較</td>
+</tr>
 </tbody>
 </table>
 <h3 id="_3">末尾再帰の書き方比較<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
@@ -7664,7 +7678,7 @@
 <span class="kd">defp</span><span class="w"> </span><span class="n">factorial</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">acc</span><span class="p">),</span><span class="w"> </span><span class="ss">do</span><span class="p">:</span><span class="w"> </span><span class="n">factorial</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">acc</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="_4">ソートアルゴリズムの実装スタイル<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
-<h3 id="14">バブルソートの 14 言語比較<a class="headerlink" href="#14" title="Permanent link">&para;</a></h3>
+<h3 id="15">バブルソートの 15 言語比較<a class="headerlink" href="#15" title="Permanent link">&para;</a></h3>
 <h4 id="in-place">破壊的ソート（in-place）<a class="headerlink" href="#in-place" title="Permanent link">&para;</a></h4>
 <p>配列を直接変更するアプローチ:</p>
 <p><strong>Python</strong>:</p>
@@ -7694,6 +7708,25 @@
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
+<p><strong>なでしこ3</strong>:</p>
+<div class="highlight"><pre><span></span><code>●(値一覧を)バブルソート
+    配列長 = 値一覧の配列要素数
+    もし、配列長 &gt; 1ならば
+        Iを0から(配列長 - 2)まで繰り返す
+            Jを0から(配列長 - I - 2)まで繰り返す
+                左 = 値一覧のJを配列参照
+                右位置 = J + 1
+                右 = 値一覧の右位置を配列参照
+                もし、左 &gt; 右ならば
+                    値一覧のJと右位置を配列入替
+                ここまで
+            ここまで
+        ここまで
+    ここまで
+    値一覧を戻す
+ここまで
+</code></pre></div>
+<p><code>配列入替</code> で要素を交換し、入力配列自体を更新します。添字への直接代入ではなく、配列操作命令を使う点が実装上の特徴です。</p>
 <h4 id="_5">非破壊的ソート（新しいリストを返す）<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
 <p>元のデータを変更せず、ソート済みの新しいリストを返すアプローチ:</p>
 <p><strong>Haskell</strong>:</p>
@@ -7731,7 +7764,7 @@
 <tbody>
 <tr>
 <td><strong>破壊的（配列直接操作）</strong></td>
-<td>Python, TS, Java, C#, Ruby, PHP, Go, C</td>
+<td>Python, TS, Java, C#, Ruby, PHP, Go, C, なでしこ3</td>
 <td>元の配列を変更。メモリ効率が良い</td>
 </tr>
 <tr>

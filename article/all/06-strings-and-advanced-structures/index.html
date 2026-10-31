@@ -7559,7 +7559,7 @@
 
 <h1 id="6">第 6 章 文字列処理と高度なデータ構造比較<a class="headerlink" href="#6" title="Permanent link">&para;</a></h1>
 <h2 id="_1">はじめに<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>文字列探索アルゴリズムと連結リスト・木構造は、言語ごとのポインタ操作・参照モデル・代数的データ型の違いが最も鮮明に現れるテーマです。本章では、これらの実装パターンを比較します。</p>
+<p>文字列探索アルゴリズムと連結リスト・木構造は、言語ごとのポインタ操作・参照モデル・代数的データ型の違いが最も鮮明に現れるテーマです。本章では、これらの実装パターンを比較します。なでしこ3 では、日本語の命令と配列・辞書を組み合わせて同じ構造を表現します。</p>
 <h2 id="_2">文字列探索の比較<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <h3 id="_3">文字列の基本的な扱い<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <table>
@@ -7670,6 +7670,13 @@
 <td>不変</td>
 <td><code>s !! i</code></td>
 <td>Unicode</td>
+</tr>
+<tr>
+<td>なでしこ3</td>
+<td>文字列</td>
+<td>文字配列に分解して操作</td>
+<td><code>文字列分解</code> 後に配列参照</td>
+<td>日本語文字列もテスト済み</td>
 </tr>
 </tbody>
 </table>
@@ -7798,6 +7805,23 @@
 <div class="highlight"><pre><span></span><code><span class="c1">;; Clojure のリストは連結リスト</span>
 <span class="p">(</span><span class="nb">cons </span><span class="nv">x</span><span class="w"> </span><span class="nv">xs</span><span class="p">)</span><span class="w">  </span><span class="c1">;; addFirst 相当</span>
 </code></pre></div>
+<p><strong>なでしこ3（辞書ノード + 配列）</strong>:</p>
+<div class="highlight"><pre><span></span><code>●(値と次ノードで)線形リストノード作成
+    {"data": 値, "next": 次ノード}を戻す
+ここまで
+
+●(リストと値で)線形リスト先頭追加
+    ノード一覧 = リスト["nodes"]
+    ノードID = ノード一覧の配列要素数
+    次ノード = リスト["head"]
+    ノード = 値と次ノードで線形リストノード作成
+    ノード一覧にノードを配列追加
+    リスト["head"] = ノードID
+    リスト["size"] = リスト["size"] + 1
+    ノードIDを戻す
+ここまで
+</code></pre></div>
+<p>各ノードを辞書で作り、ノード配列上の添字を次ノードへの参照として使います。<code>-1</code> は末尾を示すための番兵値で、データ値とは別に管理します。</p>
 <h3 id="_5">連結リスト実装の比較<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -7851,6 +7875,12 @@
 <td>Map / リスト</td>
 <td>BEAM VM / JVM GC</td>
 </tr>
+<tr>
+<td><strong>辞書 + 添字配列</strong></td>
+<td>なでしこ3</td>
+<td>辞書ノードを配列に格納</td>
+<td>添字と <code>-1</code> でリンク</td>
+</tr>
 </tbody>
 </table>
 <h2 id="_6">木構造（二分探索木）の比較<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
@@ -7896,6 +7926,12 @@
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
+<p><strong>なでしこ3（辞書ノード + 添字リンク）</strong>:</p>
+<div class="highlight"><pre><span></span><code>●(キーで)二分探索木ノード作成
+    {"key": キー, "left": -1, "right": -1}を戻す
+ここまで
+</code></pre></div>
+<p>ノードは辞書、左右の子はノード配列の添字で保持します。走査は再帰関数で実装し、辞書のキーを更新して二分探索木の順序を維持します。</p>
 <h3 id="_7">木構造の表現力<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -7955,6 +7991,12 @@
 <td>if-else</td>
 <td>やや冗長</td>
 </tr>
+<tr>
+<td>なでしこ3</td>
+<td>辞書 + 配列添字</td>
+<td>条件分岐と再帰関数</td>
+<td>配列・辞書操作で明示</td>
+</tr>
 </tbody>
 </table>
 <h2 id="_8">双方向リスト — 言語の限界が見える<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
@@ -7997,6 +8039,11 @@
 <td>Elixir</td>
 <td>プロセスベース / Map</td>
 <td>やや不自然</td>
+</tr>
+<tr>
+<td>なでしこ3</td>
+<td>番兵ノード付き循環双方向リスト</td>
+<td>配列の添字と辞書で前後リンクを明示</td>
 </tr>
 </tbody>
 </table>

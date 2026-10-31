@@ -5916,6 +5916,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#5-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        パターン 5: 配列 + 日本語命令（なでしこ3）
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -7526,7 +7537,7 @@
 
 <h1 id="4">第 4 章 データ構造の実装アプローチ比較<a class="headerlink" href="#4" title="Permanent link">&para;</a></h1>
 <h2 id="_1">はじめに<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>スタック・キューは基本的なデータ構造ですが、その実装は言語のパラダイムによって大きく異なります。本章では、クラス・構造体・モジュール・代数的データ型など、言語ごとの設計アプローチを比較します。</p>
+<p>スタック・キューは基本的なデータ構造ですが、その実装は言語のパラダイムによって大きく異なります。本章では、クラス・構造体・モジュール・代数的データ型・日本語命令など、言語ごとの設計アプローチを比較します。</p>
 <h2 id="_2">スタックの実装パターン<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <h3 id="1-oop">パターン 1: クラスベース（OOP 言語）<a class="headerlink" href="#1-oop" title="Permanent link">&para;</a></h3>
 <p>OOP 言語ではクラスにデータと操作をカプセル化します。</p>
@@ -7662,6 +7673,28 @@
 <span class="w">    </span><span class="p">(</span><span class="nf">swap!</span><span class="w"> </span><span class="nv">stack</span><span class="w"> </span><span class="nv">update</span><span class="w"> </span><span class="ss">:data</span><span class="w"> </span><span class="nv">pop</span><span class="p">)</span>
 <span class="w">    </span><span class="nv">top</span><span class="p">))</span>
 </code></pre></div>
+<h3 id="5-3">パターン 5: 配列 + 日本語命令（なでしこ3）<a class="headerlink" href="#5-3" title="Permanent link">&para;</a></h3>
+<p>なでしこ3 では、配列をスタックとして使い、追加・取り出しを関数にまとめます。空の取り出しは値と混同しないよう、成功状態と値の組で返します。</p>
+<div class="highlight"><pre><span></span><code>●スタック作成
+    []を戻す
+ここまで
+
+●(スタックと値で)スタックプッシュ
+    スタックに値を配列追加
+    はいを戻す
+ここまで
+
+●(スタックを)スタックポップ
+    もし、(スタックがスタック空)ならば
+        戻る値 = [いいえ, 0]
+        戻る値を戻す
+    ここまで
+    値 = スタックの配列ポップ
+    戻る値 = [はい, 値]
+    戻る値を戻す
+ここまで
+</code></pre></div>
+<p>配列は参照型の可変データです。<code>配列追加</code> と <code>配列ポップ</code> が元のスタックを変更し、<code>はい</code> / <code>いいえ</code> と値を含む配列で操作結果を表します。</p>
 <h2 id="_3">実装アプローチの比較<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -7715,6 +7748,13 @@
 <td>なし（データ指向）</td>
 <td>atom / Agent</td>
 <td>戻り値</td>
+</tr>
+<tr>
+<td><strong>配列 + 関数</strong></td>
+<td>なでしこ3</td>
+<td>関数単位で操作を整理</td>
+<td>配列命令で変更</td>
+<td><code>[成功, 値]</code></td>
 </tr>
 </tbody>
 </table>
@@ -7771,6 +7811,7 @@ front = (front + 1) % capacity  // dequeue 時
 </tr>
 </tbody>
 </table>
+<p>なでしこ3 の教材ではリングバッファではなく、2 つのスタックを使ってキューを実装します。入力スタックから出力スタックへ要素を移すことで、先入れ先出し（FIFO）の順序を保ちます。</p>
 <h2 id="_6">可変/不変データ構造のアプローチ<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
 <h3 id="in-placevs">破壊的操作（in-place）vs 非破壊的操作<a class="headerlink" href="#in-placevs" title="Permanent link">&para;</a></h3>
 <table>
@@ -7802,6 +7843,11 @@ front = (front + 1) % capacity  // dequeue 時
 <td>Clojure, Elixir</td>
 <td>新しいスタックが返される</td>
 </tr>
+<tr>
+<td><strong>破壊的（配列命令）</strong></td>
+<td>なでしこ3</td>
+<td><code>配列追加</code> / <code>配列ポップ</code> が元配列を変更</td>
+</tr>
 </tbody>
 </table>
 <pre class="mermaid"><code>graph LR
@@ -7811,6 +7857,7 @@ front = (front + 1) % capacity  // dequeue 時
     C --&gt; C1[Python, Java, Go, C]
     C --&gt; C2[Rust: &amp;mut self 明示]
     C --&gt; C3[Haskell: IORef in IO]
+    C --&gt; C4[なでしこ3: 配列を変更]
     D --&gt; D1[Clojure: 永続データ構造]
     D --&gt; D2[Elixir: イミュータブル]</code></pre>
 <h3 id="_7">ジェネリクス（型パラメータ）のサポート<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
@@ -7893,6 +7940,11 @@ front = (front + 1) % capacity  // dequeue 時
 <td><code>a</code></td>
 <td><code>Stack a</code></td>
 </tr>
+<tr>
+<td>なでしこ3</td>
+<td>なし</td>
+<td>動的型付き配列</td>
+</tr>
 </tbody>
 </table>
 <h2 id="_8">エラー処理パターン<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
@@ -7935,6 +7987,11 @@ front = (front + 1) % capacity  // dequeue 時
 <td><strong>nil</strong></td>
 <td>Clojure</td>
 <td><code>nil</code>（空スタックの pop）</td>
+</tr>
+<tr>
+<td><strong>真偽値と値の配列</strong></td>
+<td>なでしこ3</td>
+<td><code>[いいえ, 0]</code> / <code>[はい, 値]</code></td>
 </tr>
 </tbody>
 </table>

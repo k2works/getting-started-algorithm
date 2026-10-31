@@ -7487,7 +7487,7 @@
 
 <h1 id="1">第 1 章 言語概要と開発環境比較<a class="headerlink" href="#1" title="Permanent link">&para;</a></h1>
 <h2 id="_1">はじめに<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>本章では、シリーズで使用した 14 言語を <strong>パラダイム</strong>・<strong>型システム</strong>・<strong>メモリ管理</strong>・<strong>開発環境</strong> の観点から俯瞰的に比較します。アルゴリズム実装の具体的な違いに入る前に、各言語がどのような設計思想を持ち、どのような場面で使われているかを整理します。</p>
+<p>本章では、シリーズで使用した 15 言語を <strong>パラダイム</strong>・<strong>型システム</strong>・<strong>メモリ管理</strong>・<strong>開発環境</strong> の観点から俯瞰的に比較します。アルゴリズム実装の具体的な違いに入る前に、各言語がどのような設計思想を持ち、どのような場面で使われているかを整理します。</p>
 <h2 id="_2">言語パラダイム分類<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>プログラミング言語は、その設計思想に基づいていくつかのパラダイムに分類できます。</p>
 <pre class="mermaid"><code>graph TD
@@ -7508,7 +7508,9 @@
     D --&gt; D2[Scala]
     D --&gt; D3[Clojure]
     D --&gt; D4[Elixir]
-    D --&gt; D5[Haskell]</code></pre>
+    D --&gt; D5[Haskell]
+    A --&gt; F[日本語指向]
+    F --&gt; F1[なでしこ3]</code></pre>
 <h3 id="_3">パラダイム別グルーピング<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -7548,6 +7550,11 @@
 <td><strong>純粋関数型</strong></td>
 <td>Haskell</td>
 <td>副作用を型で管理。遅延評価。最も厳格な関数型</td>
+</tr>
+<tr>
+<td><strong>日本語指向のスクリプト言語</strong></td>
+<td>なでしこ3</td>
+<td>日本語の語順と助詞を使って命令や関数呼び出しを記述</td>
 </tr>
 </tbody>
 </table>
@@ -7661,6 +7668,13 @@
 <td>あり（型変数）</td>
 <td><code>Maybe a</code>（null なし）</td>
 </tr>
+<tr>
+<td>なでしこ3</td>
+<td>動的型付き</td>
+<td>実行時</td>
+<td>なし</td>
+<td>固定の型注釈・Null 安全性なし</td>
+</tr>
 </tbody>
 </table>
 <h3 id="_5">型システムの厳格さスペクトラム<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
@@ -7703,6 +7717,11 @@
 <td><strong>BEAM VM</strong></td>
 <td>Elixir</td>
 <td>プロセスごとの GC。軽量プロセスモデル</td>
+</tr>
+<tr>
+<td><strong>実行環境に委譲</strong></td>
+<td>なでしこ3</td>
+<td><code>gonako</code> など、実行環境が管理する</td>
 </tr>
 </tbody>
 </table>
@@ -7816,6 +7835,13 @@
 <td>HLint, stylish-haskell</td>
 <td>Cabal</td>
 </tr>
+<tr>
+<td>なでしこ3</td>
+<td><code>gonako</code> / Nix</td>
+<td>独自 helper の <code>検証</code></td>
+<td><code>gonako lint</code> / <code>gonako format</code></td>
+<td>Make</td>
+</tr>
 </tbody>
 </table>
 <h2 id="_8">実行モデル比較<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
@@ -7858,10 +7884,15 @@
 <td>Elixir</td>
 <td>Erlang 仮想マシン上で実行。軽量プロセスモデル</td>
 </tr>
+<tr>
+<td><strong>専用ランタイム</strong></td>
+<td>なでしこ3</td>
+<td>本教材では Go 製 CLI の <code>gonako run</code> で <code>.nako3</code> ファイルを実行</td>
+</tr>
 </tbody>
 </table>
 <h2 id="nix">Nix 開発環境<a class="headerlink" href="#nix" title="Permanent link">&para;</a></h2>
-<p>本プロジェクトでは、全 14 言語の開発環境を <strong>Nix</strong> で統一管理しています。</p>
+<p>本プロジェクトでは、全 15 言語の開発環境を <strong>Nix</strong> で統一管理しています。</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># 各言語の開発環境に入る</span>
 nix<span class="w"> </span>develop<span class="w"> </span>.#python
 nix<span class="w"> </span>develop<span class="w"> </span>.#node
@@ -7876,6 +7907,7 @@ nix<span class="w"> </span>develop<span class="w"> </span>.#scala
 nix<span class="w"> </span>develop<span class="w"> </span>.#clojure
 nix<span class="w"> </span>develop<span class="w"> </span>.#haskell
 nix<span class="w"> </span>develop<span class="w"> </span>.#elixir
+nix<span class="w"> </span>develop<span class="w"> </span>.#nadesiko
 </code></pre></div>
 <p>Nix を使うことで、言語処理系のバージョン差異に悩まされることなく、全言語で再現性のある開発環境を構築できます。</p>
 <h2 id="_9">言語の歴史と設計哲学<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
@@ -7973,16 +8005,23 @@ nix<span class="w"> </span>develop<span class="w"> </span>.#elixir
 <td>Jose Valim</td>
 <td>BEAM VM 上の関数型。耐障害性と並行処理</td>
 </tr>
+<tr>
+<td>なでしこ3</td>
+<td>2004（なでしこ初版）</td>
+<td>クジラ飛行机</td>
+<td>日本語の語順・助詞を構文に取り入れたプログラミング言語</td>
+</tr>
 </tbody>
 </table>
 <h2 id="_10">まとめ<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
-<p>14 言語は、以下の軸で大きく異なります:</p>
+<p>15 言語は、以下の軸で大きく異なります:</p>
 <ol>
 <li><strong>パラダイム</strong>: 手続き型 / OOP / 関数型 / 純粋関数型</li>
 <li><strong>型システム</strong>: 静的 vs 動的、型推論の有無、Null 安全性</li>
 <li><strong>メモリ管理</strong>: 手動 / GC / 所有権システム</li>
 <li><strong>実行モデル</strong>: ネイティブ / VM / インタプリタ</li>
 </ol>
+<p>なでしこ3 は、日本語で処理の流れを読み書きできる点が他の言語とは異なる切り口です。教材では <code>gonako</code> 3.8.8 と <code>make check</code> を使い、構文・書式・テストを確認します。</p>
 <p>次章以降では、これらの違いが実際のアルゴリズム実装にどう影響するかを、具体的なコード比較で見ていきます。</p>
 
 

@@ -5817,15 +5817,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#max3-14" class="md-nav__link">
+  <a href="#max3-15" class="md-nav__link">
     <span class="md-ellipsis">
       
-        max3 の 14 言語実装
+        max3 の 15 言語実装
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="max3 の 14 言語実装">
+    <nav class="md-nav" aria-label="max3 の 15 言語実装">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -5861,6 +5861,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        日本語指向のスクリプト言語
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -5872,7 +5883,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
       
         構文の比較ポイント
@@ -5884,7 +5895,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
       
         関数定義の構文
@@ -5895,7 +5906,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
+  <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
       
         実装アプローチの違い
@@ -5911,7 +5922,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_8" class="md-nav__link">
+  <a href="#_9" class="md-nav__link">
     <span class="md-ellipsis">
       
         変数宣言の比較
@@ -5923,7 +5934,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_9" class="md-nav__link">
+  <a href="#_10" class="md-nav__link">
     <span class="md-ellipsis">
       
         デフォルトの不変性
@@ -5939,7 +5950,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_10" class="md-nav__link">
+  <a href="#_11" class="md-nav__link">
     <span class="md-ellipsis">
       
         条件分岐の比較
@@ -5950,7 +5961,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_11" class="md-nav__link">
+  <a href="#_12" class="md-nav__link">
     <span class="md-ellipsis">
       
         テストの書き方比較
@@ -5961,7 +5972,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_12" class="md-nav__link">
+  <a href="#_13" class="md-nav__link">
     <span class="md-ellipsis">
       
         まとめ
@@ -7532,9 +7543,9 @@
 
 <h1 id="2">第 2 章 基本構文と制御フロー比較<a class="headerlink" href="#2" title="Permanent link">&para;</a></h1>
 <h2 id="_1">はじめに<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>同じアルゴリズムでも、言語によって構文の見た目は大きく異なります。本章では、最もシンプルなアルゴリズム —— <strong>3 値の最大値（max3）</strong> を題材に、14 言語の基本構文を比較します。</p>
+<p>同じアルゴリズムでも、言語によって構文の見た目は大きく異なります。本章では、最もシンプルなアルゴリズム —— <strong>3 値の最大値（max3）</strong> を題材に、15 言語の基本構文を比較します。</p>
 <h2 id="_2">関数定義の比較<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<h3 id="max3-14">max3 の 14 言語実装<a class="headerlink" href="#max3-14" title="Permanent link">&para;</a></h3>
+<h3 id="max3-15">max3 の 15 言語実装<a class="headerlink" href="#max3-15" title="Permanent link">&para;</a></h3>
 <h4 id="oop">OOP 言語グループ<a class="headerlink" href="#oop" title="Permanent link">&para;</a></h4>
 <p><strong>Python</strong>:</p>
 <div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">max3</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
@@ -7629,8 +7640,22 @@
 <div class="highlight"><pre><span></span><code><span class="nf">max3</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Ord</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">=&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">a</span>
 <span class="nf">max3</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">max</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="p">(</span><span class="n">max</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="n">c</span><span class="p">)</span>
 </code></pre></div>
-<h2 id="_5">構文の比較ポイント<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
-<h3 id="_6">関数定義の構文<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<h4 id="_5">日本語指向のスクリプト言語<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
+<p><strong>なでしこ3</strong>:</p>
+<div class="highlight"><pre><span></span><code>●(AとBとCで)三値最大
+    最大候補 = A
+    もし、B &gt; 最大候補ならば
+        最大候補 = B
+    ここまで
+    もし、C &gt; 最大候補ならば
+        最大候補 = C
+    ここまで
+    最大候補を戻す
+ここまで
+</code></pre></div>
+<p>関数定義の <code>●</code>、条件分岐の <code>もし ... ならば</code> / <code>ここまで</code>、戻り値の <code>を戻す</code> が日本語の語順で読めます。呼び出し側も <code>(3と2と1で三値最大)</code> のように助詞で引数を示します。</p>
+<h2 id="_6">構文の比較ポイント<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h3 id="_7">関数定義の構文<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -7755,12 +7780,20 @@
 <td>なし</td>
 <td>最後の式</td>
 </tr>
+<tr>
+<td>なでしこ3</td>
+<td><code>●</code></td>
+<td>なし</td>
+<td><code>ここまで</code></td>
+<td>なし</td>
+<td><code>を戻す</code></td>
+</tr>
 </tbody>
 </table>
-<h3 id="_7">実装アプローチの違い<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<h3 id="_8">実装アプローチの違い<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
 <p>上記の <code>max3</code> 実装を見ると、大きく <strong>3 つのアプローチ</strong> に分かれます:</p>
 <ol>
-<li><strong>命令型</strong>: 変数に代入しながら <code>if</code> で更新（Python, TypeScript, Java, C#, Go, C, Rust）</li>
+<li><strong>命令型</strong>: 変数に代入しながら <code>if</code> で更新（Python, TypeScript, Java, C#, Go, C, Rust, なでしこ3）</li>
 <li><strong>組み込み関数活用</strong>: 言語標準の <code>max</code> 関数やコレクション操作を利用（Ruby, PHP, Clojure, Elixir）</li>
 <li><strong>関数合成</strong>: <code>max</code> 関数を合成して表現（F#, Scala, Haskell）</li>
 </ol>
@@ -7769,11 +7802,11 @@
     A --&gt; C[組み込み関数活用]
     A --&gt; D[関数合成]
     B --&gt; B1[Python, TS, Java]
-    B --&gt; B2[C#, Go, C, Rust]
+    B --&gt; B2[C#, Go, C, Rust, なでしこ3]
     C --&gt; C1[Ruby, PHP]
     C --&gt; C2[Clojure, Elixir]
     D --&gt; D1[F#, Scala, Haskell]</code></pre>
-<h2 id="_8">変数宣言の比較<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<h2 id="_9">変数宣言の比較<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
@@ -7868,15 +7901,22 @@
 <td><code>IORef</code>（IO 内）</td>
 <td>推論あり</td>
 </tr>
+<tr>
+<td>なでしこ3</td>
+<td><code>x = 1</code></td>
+<td>同じ代入で更新</td>
+<td>実行時</td>
+</tr>
 </tbody>
 </table>
-<h3 id="_9">デフォルトの不変性<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<h3 id="_10">デフォルトの不変性<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
 <p>関数型言語は <strong>デフォルトが不変</strong>（immutable）で、可変にするには明示的な宣言が必要です:</p>
 <ul>
 <li><strong>デフォルト不変</strong>: Rust (<code>let</code>), F# (<code>let</code>), Scala (<code>val</code>), Haskell（全て不変）</li>
 <li><strong>デフォルト可変</strong>: Python, Java, C#, Ruby, PHP, Go, C</li>
 </ul>
-<h2 id="_10">条件分岐の比較<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<p>なでしこ3 は <code>最大候補 = B</code> のように代入して状態を更新する命令型の書き方です。変数に型注釈は付けず、値に応じて実行時に型が扱われます。</p>
+<h2 id="_11">条件分岐の比較<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
 <p><strong>if-else の構文</strong>:</p>
 <table>
 <thead>
@@ -7947,6 +7987,11 @@
 <td><code>if x &gt; 0 then ... else ...</code> / ガード</td>
 <td>式</td>
 </tr>
+<tr>
+<td>なでしこ3</td>
+<td><code>もし、x &gt; 0ならば ... 違えば ... ここまで</code></td>
+<td>文</td>
+</tr>
 </tbody>
 </table>
 <p><strong>パターンマッチング対応</strong>:</p>
@@ -7992,7 +8037,7 @@
 </tr>
 </tbody>
 </table>
-<h2 id="_11">テストの書き方比較<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<h2 id="_12">テストの書き方比較<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
 <p><code>max3</code> のテストを各言語で比較すると、テストフレームワークの違いが明確になります:</p>
 <p><strong>Python (pytest)</strong>:</p>
 <div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">test_max3_cases</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -8020,13 +8065,21 @@
 <span class="w">  </span><span class="n">assert</span><span class="w"> </span><span class="nc">BasicAlgorithms</span><span class="o">.</span><span class="n">max3</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">3</span>
 <span class="k">end</span>
 </code></pre></div>
-<h2 id="_12">まとめ<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<p><strong>なでしこ3 (<code>検証</code>)</strong>:</p>
+<div class="highlight"><pre><span></span><code>!「./helper.nako3」を取り込む
+!「../src/basic_algorithms.nako3」を取り込む
+
+「最大値: A&gt;B&gt;C」と(3と2と1で三値最大)と3で検証
+</code></pre></div>
+<p>なでしこ3 版はフレームワークのアサーションマクロではなく、教材の <code>helper.nako3</code> に定義した <code>検証</code> 関数を使います。章 1〜9 のテストは <code>gonako run</code> で実行し、Makefile の <code>make check</code> で lint・format・全章テストをまとめて確認します。</p>
+<h2 id="_13">まとめ<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>OOP 言語</strong>（Java, C#, Python, TypeScript）は似た構文で命令型のアプローチを取る</li>
 <li><strong>関数型言語</strong>（F#, Scala, Haskell）は関数合成による簡潔な表現が特徴</li>
 <li><strong>動的型付き言語</strong>（Ruby, PHP, Clojure, Elixir）は組み込み関数を活用した短い実装になる</li>
 <li><strong>パターンマッチング</strong>は関数型言語に共通する強力な機能で、<code>mid3</code> のような条件分岐で威力を発揮する</li>
 <li><strong>デフォルトの不変性</strong>は、関数型言語と Rust の重要な設計思想で、安全性と予測可能性を高める</li>
+<li><strong>なでしこ3</strong>は日本語の語順と助詞を構文に取り入れ、命令型の処理を文章のように追える</li>
 </ul>
 
 
