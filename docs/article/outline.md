@@ -430,7 +430,7 @@ Kotlin の Nix 開発環境と `apps/kotlin/` を用意し、`ops/nix/environmen
 | 2 | `02-arrays.md` | 配列 | `IntArray` の添字操作、`swap` 関数、基数変換と素数列挙を扱い、変更可能性とコピーを区別する |
 | 3 | `03-search-algorithms.md` | 探索アルゴリズム | 線形・番兵・二分探索とハッシュ法を実装する。`-1` と nullable / `Int?` の未発見表現を比較し、前提と境界をテストする |
 | 4 | `04-stack-and-queue.md` | スタックとキュー | `MutableList` や配列によるスタック、キューを実装し、空状態を `null` または明示的な結果型で表す。ジェネリック化の意義も示す |
-| 5 | `05-recursion.md` | 再帰アルゴリズム | 階乗・最大公約数・ハノイの塔を実装し、基底条件、末尾再帰（`tailrec` の適用条件）、反復版との計算量とスタック使用量を比較する |
+| 5 | `05-recursion.md` | 再帰アルゴリズム | Python 版に合わせ、階乗・最大公約数・ハノイの塔、複数回再帰と反復化、3 段階の 8 王妃問題、迷路探索を実装する。`tailrec`、基底条件、バックトラッキングを説明する |
 | 6 | `06-sort-algorithms.md` | ソートアルゴリズム | バブル・選択・挿入・クイック・マージソートを実装する。in-place の `IntArray` と非破壊的な `List` の契約をテストする |
 | 7 | `07-string-processing.md` | 文字列処理 | 文字列基本操作、力まかせ法・KMP 法・Boyer–Moore 法を扱う。Kotlin `String` の UTF-16 インデックスと文字単位処理の違いをテストする |
 | 8 | `08-lists.md` | リスト | 単方向・双方向リストをノードクラスまたは data class で実装する。nullable link と `var` による可変リンク、所有参照と更新責務を確認する |
