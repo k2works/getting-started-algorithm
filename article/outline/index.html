@@ -1136,6 +1136,230 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nadesiko/02-arrays/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 2 章 配列
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nadesiko/03-search-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 3 章 探索アルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nadesiko/04-stacks-and-queues/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 4 章 スタックとキュー
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nadesiko/05-recursion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 5 章 再帰アルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nadesiko/06-sort-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 6 章 ソートアルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nadesiko/07-string-processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 7 章 文字列処理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nadesiko/08-lists/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 8 章 リスト
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nadesiko/09-tree-structures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 9 章 木構造
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -8102,7 +8326,7 @@ nix<span class="w"> </span>develop<span class="w"> </span>.#elixir
 <tr>
 <td>9</td>
 <td>木構造</td>
-<td>二分木、探索木、ヒープ</td>
+<td>二分木・二分探索木（挿入・探索・削除・走査）、ヒープ</td>
 </tr>
 </tbody>
 </table>
@@ -8250,25 +8474,25 @@ nix<span class="w"> </span>develop<span class="w"> </span>.#elixir
 <td>2</td>
 <td><code>02-arrays.md</code></td>
 <td>配列</td>
-<td>配列の基本操作・探索・並べ替えを扱う。配列追加などの破壊的操作と、元配列を保つ処理をテストで区別する</td>
+<td>配列の走査・最大値・反転、基数変換、素数列挙を扱う。配列追加などの破壊的操作と、元配列を保つ処理をテストで区別する</td>
 </tr>
 <tr>
 <td>3</td>
 <td><code>03-search-algorithms.md</code></td>
 <td>探索アルゴリズム</td>
-<td>線形探索・二分探索・ハッシュ法を実装する。空配列、未発見、重複値、整列済みという前提をテストで明確にする</td>
+<td>線形探索・番兵法・二分探索・ハッシュ連鎖法を実装する。空配列、未発見、重複値、整列済みという前提と衝突をテストで明確にする</td>
 </tr>
 <tr>
 <td>4</td>
-<td><code>04-stack-and-queue.md</code></td>
+<td><code>04-stacks-and-queues.md</code></td>
 <td>スタックとキュー</td>
-<td>配列を用いた基本操作を TDD で実装し、空のときの振る舞いを仕様として決めてテストする</td>
+<td>配列末尾操作で LIFO スタックを実装し、2 つのスタックで FIFO キューを構成する。空の取り出しと途中の追加をテストする</td>
 </tr>
 <tr>
 <td>5</td>
 <td><code>05-recursion.md</code></td>
 <td>再帰アルゴリズム</td>
-<td>基底条件と再帰呼び出しをテストで確かめ、再帰と反復を比較する。再帰関数の定義・実行を <code>gonako</code> で検証する</td>
+<td>階乗・ユークリッドの互除法・ハノイの塔を実装し、基底条件と再帰呼び出しをテストする。反復版と計算量・スタック使用量を比較する</td>
 </tr>
 <tr>
 <td>6</td>
@@ -8280,7 +8504,7 @@ nix<span class="w"> </span>develop<span class="w"> </span>.#elixir
 <td>7</td>
 <td><code>07-string-processing.md</code></td>
 <td>文字列処理</td>
-<td>文字列の基本・探索・照合を扱う。日本語文字列と文字位置の扱いは、標準命令の仕様と実行結果を確認して記述する</td>
+<td>文字列長・出現回数・反転・回文判定、力まかせ法・KMP 法・Boyer–Moore 法を実装する。<code>文字列分解</code> を使い、日本語文字列での文字単位の位置をテストする</td>
 </tr>
 <tr>
 <td>8</td>
@@ -8292,7 +8516,7 @@ nix<span class="w"> </span>develop<span class="w"> </span>.#elixir
 <td>9</td>
 <td><code>09-tree-structures.md</code></td>
 <td>木構造</td>
-<td>二分木・探索木・ヒープを扱う。ノードの辞書表現、再帰走査、親子関係の不変条件をテストで確認する</td>
+<td>二分探索木の追加・探索・削除・走査と最小ヒープを扱う。ノードの辞書表現、削除の 3 ケース、再帰走査、親子関係の不変条件をテストで確認する</td>
 </tr>
 </tbody>
 </table>
@@ -8315,7 +8539,7 @@ apps/nadesiko/
 ├── Makefile              # make test / lint / format / doctest / check
 └── doctest/              # gonako doctest 用の受け入れテスト
 </code></pre></div>
-<p>各章は前作と同じく、仕様と TODO リストの整理、テスト作成（Red）、最小実装（Green）、リファクタリング、実行例と実装の同期確認の順に執筆する。全 9 章の完了後に <code>index.md</code> と MkDocs ナビゲーションを更新する。</p>
+<p>各章は前作と同じく、仕様と TODO リストの整理、テスト作成（Red）、最小実装（Green）、リファクタリング、実行例と実装の同期確認の順に執筆する。各章の完成に合わせて <code>index.md</code> と MkDocs ナビゲーションを更新する。</p>
 <h2 id="_19">ファイル構成<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code>docs/article/
 ├── index.md              # 記事トップページ（目次）
