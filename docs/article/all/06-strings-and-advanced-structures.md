@@ -13,6 +13,7 @@
 | Python | `str` | 不変 | `s[i]` | Unicode |
 | TypeScript | `string` | 不変 | `s[i]` / `charAt(i)` | UTF-16 |
 | Java | `String` | 不変 | `charAt(i)` | UTF-16 |
+| Kotlin | `String` | 不変 | `s[i]` / `get(i)` | UTF-16 |
 | C# | `string` | 不変 | `s[i]` | UTF-16 |
 | Ruby | `String` | 可変 | `s[i]` | UTF-8 |
 | PHP | `string` | 可変 | `$s[$i]` | バイト列 |
@@ -25,6 +26,8 @@
 | Elixir | `binary` | 不変 | `String.at(s, i)` | UTF-8 |
 | Haskell | `String`（`[Char]`） | 不変 | `s !! i` | Unicode |
 | なでしこ3 | 文字列 | 文字配列に分解して操作 | `文字列分解` 後に配列参照 | 日本語文字列もテスト済み |
+
+Kotlin の `String` は JVM と同じ UTF-16 のコード単位で添字アクセスします。したがって `s[i]` の `Char` は必ずしも Unicode code point 1 文字とは限らず、サロゲートペアを扱う処理ではコードポイント単位の走査が必要です。
 
 ### BF 法（力まかせ法）の比較
 
@@ -110,6 +113,22 @@ class SinglyLinkedList<T> {
     }
 }
 ```
+
+**Kotlin**:
+
+```kotlin
+class SinglyLinkedList<T : Any> {
+    private class Node<T>(val value: T, var next: Node<T>? = null)
+
+    private var head: Node<T>? = null
+
+    fun addFirst(value: T) {
+        head = Node(value, head)
+    }
+}
+```
+
+ノードのリンクは `Node<T>?` で表現し、null 安全な型検査の対象にします。`T : Any` は値要素を nullable にしない制約です。
 
 ### パターン 3: 所有権ベース（Rust）
 
@@ -217,7 +236,7 @@ end
 | アプローチ | 言語 | ノード表現 | 参照の管理 |
 |-----------|------|-----------|-----------|
 | **ポインタ** | C | `struct` + `*next` | 手動 `malloc`/`free` |
-| **参照** | Java, C#, Python, TS, Ruby, PHP | class + 参照型 | GC が管理 |
+| **参照** | Java, Kotlin, C#, Python, TS, Ruby, PHP | class + 参照型 | GC が管理 |
 | **所有権** | Rust | `struct` + `Option<Box<Node>>` | コンパイル時チェック |
 | **Union Type** | Scala | class + `T \| Null` | GC |
 | **代数的データ型** | Haskell, F# | `data`/判別共用体 | GC（不変） |
@@ -255,6 +274,22 @@ let rec insert x = function
     | Node(v, left, right) when x > v -> Node(v, left, insert x right)
     | node -> node
 ```
+
+**Kotlin（sealed class）**:
+
+```kotlin
+private sealed class Node<K : Comparable<K>, V : Any> {
+    class Empty<K : Comparable<K>, V : Any> : Node<K, V>()
+    class Branch<K : Comparable<K>, V : Any>(
+        val key: K,
+        val value: V,
+        val left: Node<K, V> = Empty(),
+        val right: Node<K, V> = Empty(),
+    ) : Node<K, V>()
+}
+```
+
+空の部分木と値を持つノードを sealed class のサブクラスで表します。`when` 式では全ケースを網羅でき、子ノードの不在を nullable にせず明示できます。
 
 **Java（クラス）**:
 
@@ -296,6 +331,7 @@ class BinarySearchTree<T extends Comparable<T>> {
 | Haskell | `data BST a = Empty \| Node ...` | 関数定義で直接 | 非常に自然 |
 | F# | `type BST = Empty \| Node of ...` | `match` 式 | 非常に自然 |
 | Scala | `sealed trait` + `case class` | `match` 式 | 自然 |
+| Kotlin | `sealed class` + `when` | `when` 式で網羅性を検査 | 自然 |
 | Rust | `enum` + `Box<T>` | `match` 式 | 自然 |
 | Elixir | Map / struct | `case` / 関数定義 | 自然 |
 | Java | class + null チェック | if-else | やや冗長 |
@@ -311,6 +347,7 @@ class BinarySearchTree<T extends Comparable<T>> {
 |------|---------|--------|
 | C | ポインタ（`prev`, `next`） | 自然 |
 | Java, Python | 参照（`prev`, `next`） | 自然 |
+| Kotlin | nullable な前後リンクを持つノード | 自然 |
 | Rust | `Rc<RefCell<Node>>` / `unsafe` | 困難（循環参照） |
 | Haskell | `IORef` による可変実装 | 不自然（純粋でない） |
 | Clojure | zipper パターン | やや不自然 |
@@ -323,6 +360,6 @@ class BinarySearchTree<T extends Comparable<T>> {
 
 - **文字列探索**: 言語間の差は比較的小さいが、Rust と Haskell の型安全な戻り値（`Option`/`Maybe`）が際立つ
 - **連結リスト**: C のポインタ、Java の参照、Rust の所有権、Haskell の代数的データ型 —— 最もメモリモデルの違いが現れる
-- **木構造**: 代数的データ型 + パターンマッチ（Haskell, F#, Scala）が最も自然で簡潔
+- **木構造**: 代数的データ型と網羅的なパターン分岐（Haskell, F#, Scala, Kotlin）が自然に表現できる
 - **双方向リスト**: 不変性を重視する言語ほど実装が困難。言語の設計思想の限界が見える
 - **パターンマッチ**: 再帰的データ構造の操作において、パターンマッチは圧倒的な可読性を提供する

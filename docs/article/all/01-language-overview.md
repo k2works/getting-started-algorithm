@@ -2,7 +2,7 @@
 
 ## はじめに
 
-本章では、シリーズで使用した 15 言語を **パラダイム**・**型システム**・**メモリ管理**・**開発環境** の観点から俯瞰的に比較します。アルゴリズム実装の具体的な違いに入る前に、各言語がどのような設計思想を持ち、どのような場面で使われているかを整理します。
+本章では、シリーズで使用した 16 言語を **パラダイム**・**型システム**・**メモリ管理**・**開発環境** の観点から俯瞰的に比較します。アルゴリズム実装の具体的な違いに入る前に、各言語がどのような設計思想を持ち、どのような場面で使われているかを整理します。
 
 ## 言語パラダイム分類
 
@@ -23,6 +23,7 @@ graph TD
     E --> E1[Python]
     E --> E2[TypeScript]
     E --> E3[Rust]
+    E --> E4[Kotlin]
     D --> D1[F#]
     D --> D2[Scala]
     D --> D3[Clojure]
@@ -37,7 +38,7 @@ graph TD
 | グループ | 言語 | 特徴 |
 |---------|------|------|
 | **OOP 中心** | Java, C#, Ruby, PHP | クラスベースのオブジェクト指向。継承・ポリモーフィズム・カプセル化が基本 |
-| **マルチパラダイム** | Python, TypeScript, Rust | OOP と関数型を柔軟に組み合わせ可能 |
+| **マルチパラダイム** | Python, TypeScript, Rust, Kotlin | OOP と関数型を柔軟に組み合わせ可能。Kotlin は JVM 上で簡潔な OOP と高階関数を使える |
 | **手続き型 / システム言語** | C, Go | シンプルな構文。低レベル制御（C）またはシンプルさ重視（Go） |
 | **関数型（OOP ハイブリッド）** | F#, Scala | .NET / JVM 上で関数型を主軸に OOP も活用 |
 | **関数型（動的）** | Clojure, Elixir | LISP 系（Clojure）/ BEAM VM（Elixir）。イミュータブルデータが基本 |
@@ -59,6 +60,7 @@ graph TD
 | Rust | 静的・強い | あり | あり | `Option<T>`（null なし） |
 | F# | 静的・強い | 強力 | あり | `Option<'T>` |
 | Scala | 静的・強い | 強力 | あり | `Option[T]` / Union Type |
+| Kotlin | 静的・強い | あり | あり（型消去） | `T?` を型で表現 |
 | Clojure | 動的・強い | - | なし（多相性） | nil |
 | Elixir | 動的・強い | - | なし | nil |
 | Haskell | 静的・強い | 強力 | あり（型変数） | `Maybe a`（null なし） |
@@ -70,7 +72,7 @@ graph TD
 弱い型付け                                              強い型付け
  ←─────────────────────────────────────────────────────→
  C    PHP         Python  Ruby     Go  Java    Rust  Haskell
-                  Elixir  Clojure  C#  TypeScript  F#  Scala
+                  Elixir  Clojure  C#  TypeScript  F#  Scala Kotlin
 ```
 
 ## メモリ管理方式
@@ -79,7 +81,7 @@ graph TD
 |------|------|------|
 | **手動管理** | C | `malloc`/`free` による明示的なメモリ管理 |
 | **所有権システム** | Rust | コンパイル時に所有権・借用をチェック。GC 不要 |
-| **ガベージコレクション（GC）** | Java, C#, Go, Python, Ruby, PHP, TypeScript, Scala, Clojure, Haskell | ランタイムが自動でメモリを回収 |
+| **ガベージコレクション（GC）** | Java, Kotlin, C#, Go, Python, Ruby, PHP, TypeScript, Scala, Clojure, Haskell | ランタイムが自動でメモリを回収 |
 | **参照カウント + GC** | Python, PHP, Elixir | 参照カウントを基本に、循環参照は GC で回収 |
 | **BEAM VM** | Elixir | プロセスごとの GC。軽量プロセスモデル |
 | **実行環境に委譲** | なでしこ3 | `gonako` など、実行環境が管理する |
@@ -99,6 +101,7 @@ graph TD
 | Rust | Cargo | cargo test（標準） | Clippy, rustfmt | Cargo |
 | F# | NuGet | xUnit | Fantomas | dotnet CLI |
 | Scala | sbt | ScalaTest | scalafmt, WartRemover | sbt |
+| Kotlin | Gradle Wrapper | `kotlin.test` / JUnit 5 | - | Gradle |
 | Clojure | Leiningen | clojure.test（標準） | Eastwood, cljfmt | Leiningen |
 | Elixir | Mix | ExUnit（標準） | Credo, Dialyxir | Mix |
 | Haskell | Cabal | HSpec | HLint, stylish-haskell | Cabal |
@@ -109,7 +112,7 @@ graph TD
 | 実行モデル | 言語 | 説明 |
 |-----------|------|------|
 | **ネイティブコンパイル** | C, Go, Rust, Haskell | ソースコードを直接機械語にコンパイル |
-| **JVM バイトコード** | Java, Scala, Clojure | Java 仮想マシン上で実行。JIT コンパイル |
+| **JVM バイトコード** | Java, Kotlin, Scala, Clojure | Java 仮想マシン上で実行。JIT コンパイル |
 | **.NET IL** | C#, F# | .NET ランタイム上で実行。JIT/AOT コンパイル |
 | **インタプリタ** | Python, Ruby, PHP | ソースコードを逐次解釈して実行 |
 | **トランスパイル** | TypeScript | JavaScript に変換後、Node.js / ブラウザで実行 |
@@ -118,13 +121,14 @@ graph TD
 
 ## Nix 開発環境
 
-本プロジェクトでは、全 15 言語の開発環境を **Nix** で統一管理しています。
+本プロジェクトでは、全 16 言語の開発環境を **Nix** で統一管理しています。
 
 ```bash
 # 各言語の開発環境に入る
 nix develop .#python
 nix develop .#node
 nix develop .#java
+nix develop .#kotlin
 nix develop .#dotnet    # C# / F#
 nix develop .#ruby
 nix develop .#php
@@ -156,13 +160,14 @@ Nix を使うことで、言語処理系のバージョン差異に悩まされ�
 | Clojure | 2007 | Rich Hickey | JVM 上の LISP。永続データ構造と並行処理 |
 | Go | 2009 | Rob Pike, Ken Thompson | シンプルさと並行処理。コンパイル速度 |
 | Rust | 2010 | Graydon Hoare | メモリ安全性とパフォーマンスの両立 |
+| Kotlin | 2011 | JetBrains | JVM との相互運用を重視し、簡潔で安全な OOP と FP を統合 |
 | TypeScript | 2012 | Anders Hejlsberg | JavaScript に型安全性を追加 |
 | Elixir | 2012 | Jose Valim | BEAM VM 上の関数型。耐障害性と並行処理 |
 | なでしこ3 | 2004（なでしこ初版） | クジラ飛行机 | 日本語の語順・助詞を構文に取り入れたプログラミング言語 |
 
 ## まとめ
 
-15 言語は、以下の軸で大きく異なります:
+16 言語は、以下の軸で大きく異なります:
 
 1. **パラダイム**: 手続き型 / OOP / 関数型 / 純粋関数型
 2. **型システム**: 静的 vs 動的、型推論の有無、Null 安全性
@@ -170,5 +175,7 @@ Nix を使うことで、言語処理系のバージョン差異に悩まされ�
 4. **実行モデル**: ネイティブ / VM / インタプリタ
 
 なでしこ3 は、日本語で処理の流れを読み書きできる点が他の言語とは異なる切り口です。教材では `gonako` 3.8.8 と `make check` を使い、構文・書式・テストを確認します。
+
+Kotlin は JVM の豊富なライブラリを利用しながら、`val` / `var` による可変性の明示、nullable 型、sealed class で安全なモデルを表現できます。`tailrec` を付けた末尾再帰はコンパイラがループへ変換しますが、適用条件を満たす再帰に限られます。
 
 次章以降では、これらの違いが実際のアルゴリズム実装にどう影響するかを、具体的なコード比較で見ていきます。

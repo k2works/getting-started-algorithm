@@ -2,11 +2,11 @@
 
 ## はじめに
 
-同じアルゴリズムでも、言語によって構文の見た目は大きく異なります。本章では、最もシンプルなアルゴリズム —— **3 値の最大値（max3）** を題材に、15 言語の基本構文を比較します。
+同じアルゴリズムでも、言語によって構文の見た目は大きく異なります。本章では、最もシンプルなアルゴリズム —— **3 値の最大値（max3）** を題材に、16 言語の基本構文を比較します。
 
 ## 関数定義の比較
 
-### max3 の 15 言語実装
+### max3 の 16 言語実装
 
 #### OOP 言語グループ
 
@@ -42,6 +42,13 @@ public static int max3(int a, int b, int c) {
     if (c > max) max = c;
     return max;
 }
+```
+
+**Kotlin**:
+
+```kotlin
+fun max3(a: Int, b: Int, c: Int): Int =
+    maxOf(a, b, c)
 ```
 
 **C#**:
@@ -175,6 +182,7 @@ max3 a b c = max a (max b c)
 | Python | `def` | 型ヒント（任意） | なし（インデント） | なし | `return` |
 | TypeScript | `function` | 必須 | `{}` | あり | `return` |
 | Java | 型名 | 必須 | `{}` | あり | `return` |
+| Kotlin | `fun` | 推論可能 | `{}` | なし | 式または `return` |
 | C# | 型名 | 必須 | `{}` | あり | `return` |
 | Ruby | `def` | なし | `end` | なし | 最後の式 |
 | PHP | `function` | 任意（推奨） | `{}` | あり | `return` |
@@ -223,6 +231,7 @@ graph LR
 | Rust | `let x = 1` | `let mut x = 1` | 推論あり |
 | F# | `let x = 1` | `let mutable x = 1` | 推論あり |
 | Scala | `val x = 1` | `var x = 1` | 推論あり |
+| Kotlin | `val x = 1` | `var x = 1` | 推論あり |
 | Clojure | `(def x 1)` | `(atom 1)` | 常に推論 |
 | Elixir | `x = 1` | -（再束縛可） | 常に推論 |
 | Haskell | `x = 1`（全て不変） | `IORef`（IO 内） | 推論あり |
@@ -232,10 +241,12 @@ graph LR
 
 関数型言語は **デフォルトが不変**（immutable）で、可変にするには明示的な宣言が必要です:
 
-- **デフォルト不変**: Rust (`let`), F# (`let`), Scala (`val`), Haskell（全て不変）
+- **デフォルト不変**: Rust (`let`), F# (`let`), Scala (`val`), Kotlin (`val`), Haskell（全て不変）
 - **デフォルト可変**: Python, Java, C#, Ruby, PHP, Go, C
 
 なでしこ3 は `最大候補 = B` のように代入して状態を更新する命令型の書き方です。変数に型注釈は付けず、値に応じて実行時に型が扱われます。
+
+Kotlin は `val` を優先して再代入を防ぎ、状態を更新する必要がある場合だけ `var` を使います。型は初期値から推論できますが、関数引数や公開 API では型を明示するのが基本です。
 
 ## 条件分岐の比較
 
@@ -246,6 +257,7 @@ graph LR
 | Python | `if x > 0: ... elif: ... else: ...` | 式（三項） |
 | TypeScript | `if (x > 0) { } else if { } else { }` | 文 |
 | Java | `if (x > 0) { } else if { } else { }` | 文 |
+| Kotlin | `if (x > 0) { ... } else { ... }` | 式 |
 | Ruby | `if x > 0 ... elsif ... else ... end` | 式 |
 | Go | `if x > 0 { } else if { } else { }` | 文 |
 | C | `if (x > 0) { } else if { } else { }` | 文 |
@@ -269,6 +281,7 @@ graph LR
 | Clojure | `condp`、`case`、マルチメソッド |
 | C# | `switch` 式（8.0+パターンマッチング） |
 | Java | `switch` 式（14+） |
+| Kotlin | `when` 式。sealed class と組み合わせると全ケースを網羅できる |
 
 ## テストの書き方比較
 
@@ -290,6 +303,15 @@ def test_max3_cases(self):
     int[][] cases = {{3,2,1,3}, {1,3,2,3}, {1,2,3,3}};
     for (int[] c : cases)
         assertEquals(c[3], BasicAlgorithms.max3(c[0], c[1], c[2]));
+}
+```
+
+**Kotlin (`kotlin.test`)**:
+
+```kotlin
+@Test
+fun max3ReturnsMaximum() {
+    assertEquals(3, BasicAlgorithms.max3(3, 2, 1))
 }
 ```
 
@@ -326,6 +348,7 @@ end
 ## まとめ
 
 - **OOP 言語**（Java, C#, Python, TypeScript）は似た構文で命令型のアプローチを取る
+- **Kotlin** は JVM のクラスベース OOP に式指向構文、高階関数、null 安全な型を組み合わせる
 - **関数型言語**（F#, Scala, Haskell）は関数合成による簡潔な表現が特徴
 - **動的型付き言語**（Ruby, PHP, Clojure, Elixir）は組み込み関数を活用した短い実装になる
 - **パターンマッチング**は関数型言語に共通する強力な機能で、`mid3` のような条件分岐で威力を発揮する

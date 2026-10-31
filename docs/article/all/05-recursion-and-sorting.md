@@ -2,7 +2,7 @@
 
 ## はじめに
 
-再帰は関数型言語の根幹をなす概念であり、ソートアルゴリズムは実装スタイルの違いが最も顕著に現れる題材です。本章では、再帰の表現力とソートの実装アプローチを 15 言語で比較します。
+再帰は関数型言語の根幹をなす概念であり、ソートアルゴリズムは実装スタイルの違いが最も顕著に現れる題材です。本章では、再帰の表現力とソートの実装アプローチを 16 言語で比較します。
 
 ## 再帰の表現力比較
 
@@ -24,6 +24,15 @@ def factorial(n):
 static int factorial(int n) {
     if (n <= 1) return 1;
     return n * factorial(n - 1);
+}
+```
+
+**Kotlin**:
+
+```kotlin
+fun factorial(n: Int): Long {
+    if (n <= 1) return 1
+    return n * factorial(n - 1)
 }
 ```
 
@@ -86,6 +95,7 @@ def factorial(n), do: n * factorial(n - 1)
 | **Rust** | **なし（保証なし）** | LLVM が最適化する場合あり |
 | **F#** | **あり** | `rec` キーワードで明示 |
 | **Scala** | **あり** | `@tailrec` アノテーションで検証 |
+| Kotlin | あり（`tailrec`） | 条件を満たす末尾再帰をコンパイラがループに変換 |
 | **Clojure** | **`recur` で明示** | `recur` 特殊形式で末尾再帰 |
 | **Elixir** | **あり** | BEAM VM がネイティブサポート |
 | **Haskell** | **あり** | 遅延評価と組み合わせて最適化 |
@@ -121,7 +131,7 @@ defp factorial(n, acc), do: factorial(n - 1, n * acc)
 
 ## ソートアルゴリズムの実装スタイル
 
-### バブルソートの 15 言語比較
+### バブルソートの 16 言語比較
 
 #### 破壊的ソート（in-place）
 
@@ -147,6 +157,22 @@ static void bubbleSort(int[] a) {
             if (a[j - 1] > a[j]) {
                 int tmp = a[j - 1]; a[j - 1] = a[j]; a[j] = tmp;
             }
+}
+```
+
+**Kotlin**:
+
+```kotlin
+fun bubbleSort(a: IntArray) {
+    for (i in 0 until a.size - 1) {
+        for (j in a.lastIndex downTo i + 1) {
+            if (a[j - 1] > a[j]) {
+                val tmp = a[j - 1]
+                a[j - 1] = a[j]
+                a[j] = tmp
+            }
+        }
+    }
 }
 ```
 
@@ -223,7 +249,7 @@ bubbleSort xs = let (sorted, rest) = bubble xs
 
 | スタイル | 言語 | 特徴 |
 |---------|------|------|
-| **破壊的（配列直接操作）** | Python, TS, Java, C#, Ruby, PHP, Go, C, なでしこ3 | 元の配列を変更。メモリ効率が良い |
+| **破壊的（配列直接操作）** | Python, TS, Java, Kotlin, C#, Ruby, PHP, Go, C, なでしこ3 | 元の配列を変更。メモリ効率が良い |
 | **破壊的（&mut）** | Rust | 可変参照を明示。安全性を保証 |
 | **破壊的（IORef/mutable）** | F#, Haskell | IO 内で可変配列を操作 |
 | **非破壊的（新リスト）** | Clojure, Elixir | 元のデータは不変。新しいリストを返す |
@@ -306,7 +332,7 @@ Haskell のクイックソートは **3 行** で表現でき、アルゴリズ�
 ## まとめ
 
 - **再帰**: 関数型言語はパターンマッチで直感的に書ける。命令型言語でも再帰は使えるが、TCO が保証されないことが多い
-- **末尾再帰**: F#, Scala, Elixir, Haskell は TCO を保証。Clojure は `recur` で明示
+- **末尾再帰**: F#, Scala, Kotlin, Elixir, Haskell は対応。Kotlin は `tailrec` と適用条件が必要で、Clojure は `recur` で明示
 - **ソートの破壊的/非破壊的**: OOP 言語は in-place ソートが基本。関数型言語は新しいリストを返す
 - **クイックソート**: 関数型言語のリスト内包表記やパターンマッチにより、アルゴリズムの本質を最も簡潔に表現できる
 - **言語選択の指針**: アルゴリズムの可読性を重視するなら関数型、パフォーマンスを重視するなら C/Rust/Go

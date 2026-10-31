@@ -2,7 +2,7 @@
 
 ## はじめに
 
-配列やリストは、ほぼすべてのアルゴリズムの基盤となるデータ構造です。本章では、15 言語における配列・コレクションの扱いと、線形探索・二分探索の実装パターンを比較します。
+配列やリストは、ほぼすべてのアルゴリズムの基盤となるデータ構造です。本章では、16 言語における配列・コレクションの扱いと、線形探索・二分探索の実装パターンを比較します。
 
 ## 配列 / リスト / コレクションの分類
 
@@ -11,6 +11,7 @@
 | Python | `list` | 可変 | 可変長 | 任意（動的） |
 | TypeScript | `Array<T>` | 可変 | 可変長 | 同一型（ジェネリクス） |
 | Java | `int[]` / `ArrayList<T>` | 配列: 可変 / List: 可変 | 配列: 固定 / List: 可変 | 同一型 |
+| Kotlin | `IntArray` / `List<T>` / `MutableList<T>` | 配列: 可変 / List: 読み取り専用インターフェース | 配列: 固定 / List: 可変長 | 同一型 |
 | C# | `int[]` / `List<T>` | 可変 | 配列: 固定 / List: 可変 | 同一型 |
 | Ruby | `Array` | 可変 | 可変長 | 任意（動的） |
 | PHP | `array` | 可変 | 可変長 | 任意（動的） |
@@ -35,6 +36,7 @@ graph TD
     C --> C1[Rust: let vs let mut]
     C --> C2[F#: list 不変 / array 可変]
     C --> C3[Scala: List 不変 / Array 可変]
+    C --> C7[Kotlin: List 読み取り専用 / MutableList 可変]
     C --> C4[Clojure: 永続データ構造]
     C --> C5[Elixir: 全て不変]
     C --> C6[Haskell: 全て不変]
@@ -63,6 +65,17 @@ static int linearSearch(int[] a, int key) {
     for (int i = 0; i < a.length; i++)
         if (a[i] == key) return i;
     return -1;
+}
+```
+
+**Kotlin**:
+
+```kotlin
+fun linearSearch(a: IntArray, key: Int): Int {
+    for (i in a.indices) {
+        if (a[i] == key) return i
+    }
+    return -1
 }
 ```
 
@@ -168,6 +181,7 @@ linearSearch xs key = elemIndex key xs
 | Clojure | `-1` | いいえ |
 | **Elixir** | `nil` | 部分的 |
 | **Haskell** | `Nothing`（`Maybe Int`） | **はい** |
+| Kotlin | `-1`（添字）/ nullable 型（値検索） | 選択可能 |
 | なでしこ3 | `-1` | いいえ |
 
 型安全な言語（Rust, F#, Haskell）では、「見つからない」ケースをコンパイル時に強制的にハンドリングさせることができます。
@@ -266,6 +280,7 @@ binarySearch xs target = go 0 (length xs - 1)
 | Python | `class ChainedHash` + `list` | チェイン法（リスト） |
 | TypeScript | `class ChainedHash` + `Array` | チェイン法（配列） |
 | Java | `class ChainedHash` + `LinkedList` | チェイン法 |
+| Kotlin | `class ChainedHash` + `MutableList` | チェイン法 |
 | C# | `class ChainedHash` + `List<T>` | チェイン法 |
 | Ruby | `class ChainedHash` + `Array` | チェイン法 |
 | PHP | `class ChainedHash` + `array` | チェイン法 |
@@ -288,6 +303,7 @@ binarySearch xs target = go 0 (length xs - 1)
 | Python | `[x for x in arr if x % 2 == 0]` |
 | TypeScript | `arr.filter(x => x % 2 === 0)` |
 | Java | `Arrays.stream(arr).filter(x -> x % 2 == 0).toArray()` |
+| Kotlin | `arr.filter { it % 2 == 0 }` |
 | C# | `arr.Where(x => x % 2 == 0).ToArray()` |
 | Ruby | `arr.select { \|x\| x.even? }` |
 | PHP | `array_filter($arr, fn($x) => $x % 2 === 0)` |
@@ -313,7 +329,8 @@ binarySearch xs target = go 0 (length xs - 1)
 
 ## まとめ
 
-- **配列の可変性**: OOP 言語はデフォルト可変、関数型言語はデフォルト不変
+- **コレクションの可変性**: 言語ごとに異なり、Kotlin は読み取り専用 `List` と変更可能な `MutableList` を型で分ける
+- **Kotlin のコレクション**: `List<T>` は読み取り専用 API、`MutableList<T>` は変更 API を提供する（読み取り専用型が常に不変性を保証するわけではない）
 - **探索の戻り値**: 型安全な言語（Rust, F#, Haskell）は `Option`/`Maybe` で「見つからない」を表現
 - **二分探索**: 命令型は while ループ、関数型は再帰で実装するのが自然
 - **高階関数**: `filter`, `map`, `find` などは関数型言語で最も簡潔に書ける

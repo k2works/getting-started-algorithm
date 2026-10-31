@@ -52,6 +52,27 @@ public class FixedStack<T> {
 }
 ```
 
+**Kotlin**:
+
+```kotlin
+class FixedStack<T : Any>(private val capacity: Int) {
+    private val elements: Array<Any?>
+    private var pointer = 0
+
+    init {
+        require(capacity > 0)
+        elements = arrayOfNulls(capacity)
+    }
+
+    fun push(value: T) {
+        check(pointer < capacity) { "Stack is full" }
+        elements[pointer++] = value
+    }
+}
+```
+
+型パラメータ `T : Any` で nullable な要素を除外し、`private` な配列とポインターをクラス内に隠します。教材の実装では満杯・空の状態を `check` で検査し、違反時は例外を送出します。
+
 ### パターン 2: 構造体 + 関数（手続き型 / システム言語）
 
 **Go**:
@@ -203,7 +224,7 @@ pop stack = do
 
 | アプローチ | 言語 | データ隠蔽 | 可変状態 | エラー処理 |
 |-----------|------|-----------|---------|-----------|
-| **クラス** | Python, TS, Java, C#, Ruby, PHP | private/public | メソッド内で変更 | 例外 |
+| **クラス** | Python, TS, Java, Kotlin, C#, Ruby, PHP | private/public | メソッド内で変更 | 例外 |
 | **構造体 + 関数** | Go, C | アクセス修飾子（Go）/ なし（C） | ポインタ経由 | 戻り値（error） |
 | **構造体 + impl** | Rust | pub/private | `&mut self` | `Result<T, E>` |
 | **モジュール + 型** | F#, Scala | モジュール境界 | mutable 明示 | 例外 / Option |
@@ -228,6 +249,7 @@ front = (front + 1) % capacity  // dequeue 時
 |------|-----------|--------|
 | Python | `%` | `self.rear = (self.rear + 1) % self.capacity` |
 | Java | `%` | `rear = (rear + 1) % capacity;` |
+| Kotlin | `%` | `rear = (rear + 1) % capacity` |
 | Go | `%` | `q.rear = (q.rear + 1) % q.capacity` |
 | Rust | `%` | `self.rear = (self.rear + 1) % self.capacity;` |
 | F# | `%` | `queue.rear <- (queue.rear + 1) % queue.capacity` |
@@ -242,7 +264,7 @@ front = (front + 1) % capacity  // dequeue 時
 
 | アプローチ | 言語 | push の結果 |
 |-----------|------|-----------|
-| **破壊的** | Python, TS, Java, C#, Ruby, PHP, Go, C | 元のスタックが変更される |
+| **破壊的** | Python, TS, Java, Kotlin, C#, Ruby, PHP, Go, C | 元のスタックが変更される |
 | **破壊的（明示的）** | Rust | `&mut self` で可変参照を明示 |
 | **破壊的（IORef）** | Haskell, F# | IO モナド / mutable 内で変更 |
 | **非破壊的** | Clojure, Elixir | 新しいスタックが返される |
@@ -268,6 +290,7 @@ graph LR
 | Python | なし（動的型付き） | `FixedStack` |
 | TypeScript | `T` | `FixedStack<T>` |
 | Java | `T` | `FixedStack<T>` |
+| Kotlin | `T : Any` | `FixedStack<T>` |
 | C# | `T` | `FixedStack<T>` |
 | Ruby | なし（動的型付き） | `FixedStack` |
 | PHP | なし（動的型付き） | `FixedStack` |
@@ -287,7 +310,7 @@ graph LR
 
 | パターン | 言語 | 例 |
 |---------|------|-----|
-| **例外** | Python, Java, C#, Ruby, PHP | `raise OverflowError` / `throw new ...` |
+| **例外** | Python, Java, Kotlin, C#, Ruby, PHP | `raise OverflowError` / `throw new ...` |
 | **戻り値（error）** | Go | `return nil, ErrOverflow` |
 | **Result 型** | Rust | `Err("Stack overflow")` |
 | **Option/Maybe** | Haskell, F# | `Nothing` / `None` |
@@ -298,6 +321,7 @@ graph LR
 ## まとめ
 
 - **OOP 言語**: クラスでデータと操作をカプセル化。例外でエラーを通知
+- **Kotlin**: `private` な可変状態とジェネリクスをクラスにまとめ、`check` / `require` で不変条件を検査
 - **システム言語（Go, C）**: 構造体 + 関数。エラーは戻り値で返す
 - **Rust**: 構造体 + impl。所有権システムと `Result` 型で安全性を保証
 - **関数型言語**: モジュール / 代数的データ型。不変データを基本とし、可変状態は明示的に管理
