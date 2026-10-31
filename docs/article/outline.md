@@ -2,7 +2,7 @@
 
 ## 概要
 
-「アルゴリズムから始めるプログラミング入門」シリーズの執筆計画。Wiki 記事のうち最も完成度の高い Python 版を原本として再構成し、既存対象言語へ多言語展開する。加えて、TDD 入門を終えた読者向けに、なでしこ3 でアルゴリズムとデータ構造を学ぶ続編を執筆する。
+「アルゴリズムから始めるプログラミング入門」シリーズの執筆計画。Wiki 記事のうち最も完成度の高い Python 版を原本として再構成し、既存対象言語へ多言語展開する。加えて、TDD 入門を終えた読者向けに、なでしこ3 と Kotlin でアルゴリズムとデータ構造を学ぶ続編を執筆する。
 
 ## 対象言語
 
@@ -24,6 +24,7 @@
 | haskell | Haskell | あり（補助参照） | Python | 純粋関数型 |
 | elixir | Elixir | なし | Python | BEAM VM、並行関数型 |
 | nadesiko | なでしこ3 | なし（TDD 入門はあり） | Python と TDD 入門 | 日本語プログラミング。Nix 開発環境の追加が前提 |
+| kotlin | Kotlin | なし（TDD 入門はあり） | Python と TDD 入門 | JVM 上の静的型付け。Nix 開発環境の追加が前提 |
 
 ## 環境構築方針
 
@@ -45,6 +46,7 @@ nix develop .#clojure
 nix develop .#scala
 nix develop .#haskell
 nix develop .#elixir
+nix develop .#kotlin
 ```
 
 Nix 環境に入ることで、言語処理系・ビルドツール・パッケージマネージャーがすべて利用可能になる。ホスト環境に言語をインストールする必要はない。
@@ -75,6 +77,7 @@ Nix 環境に入ることで、言語処理系・ビルドツール・パッケ�
 | Clojure | Leiningen | `project.clj` | Eastwood, Kibit, cljfmt | Leiningen tasks | clojure.test |
 | Haskell | Stack | `package.yaml`, `stack.yaml`, `.hlint.yaml` | HLint, stylish-haskell | stack | Hspec |
 | Elixir | Mix | `mix.exs` | Credo, Dialyxir | mix tasks | ExUnit |
+| Kotlin | Gradle | `build.gradle.kts`, `settings.gradle.kts` | detekt, ktlint（採用時） | Gradle | kotlin.test (JUnit Platform) |
 
 ### 各言語の apps/ ディレクトリ構造
 
@@ -210,6 +213,17 @@ apps/elixir/
 └── .credo.exs              # Credo 設定
 ```
 
+#### Kotlin (`apps/kotlin/`)
+
+```
+apps/kotlin/
+├── src/main/kotlin/algorithm/  # プロダクションコード
+├── src/test/kotlin/algorithm/  # kotlin.test によるテスト
+├── build.gradle.kts            # Kotlin/JVM、JUnit Platform、品質タスク
+├── settings.gradle.kts         # Gradle プロジェクト名
+└── gradlew                     # Gradle Wrapper
+```
+
 ## 執筆方針
 
 ### Python 原本方式
@@ -285,6 +299,7 @@ Wiki 記事の 9 章構成をそのまま維持する。各章はアルゴリズ
 | Python | リスト内包表記、ジェネレータ、動的型付き |
 | Ruby | ブロック、Enumerable、動的型付き |
 | PHP | SPL データ構造、ジェネレータ |
+| Kotlin | JVM、null 安全、data / sealed class、OOP と FP の融合 |
 
 ### システム言語（メモリ管理・パフォーマンス志向）
 
@@ -374,6 +389,73 @@ apps/nadesiko/
 
 各章は前作と同じく、仕様と TODO リストの整理、テスト作成（Red）、最小実装（Green）、リファクタリング、実行例と実装の同期確認の順に執筆する。各章の完成に合わせて `index.md` と MkDocs ナビゲーションを更新する。
 
+## Kotlin 版（TDD 入門の続編）
+
+### 位置づけと対象読者
+
+`tmp/getting-started-tdd/docs/article/kotlin/` の「テスト駆動開発から始める Kotlin 入門」を修了し、Kotlin の基本文法、Gradle によるテスト実行、TDD の Red → Green → Refactor を理解した読者を対象とする。前作の FizzBuzz で扱った TDD の基本、Git、Gradle、CI/CD、オブジェクト指向設計、関数型プログラミングの解説は繰り返さず、アルゴリズムとデータ構造の実装に焦点を当てる。
+
+章の題材と学習順序は Python 版の 9 章に対応させる。前作は Kotlin 固有機能を使った 12 章構成だが、本続編ではその構成をそのまま複製せず、各アルゴリズムを Kotlin の型システム・コレクション・関数表現に翻訳する。静的型付けによるコンパイルエラーも Red として扱い、`IntArray` / `MutableList`、null 安全、ジェネリクス、data / sealed class、拡張関数、高階関数の適切な使い分けを示す。
+
+### 参照資料と前提条件
+
+- TDD 入門の全体構成と Kotlin の言語特性: `tmp/getting-started-tdd/docs/article/kotlin/index.md`
+- 前作のテスト・Gradle・静的解析・CI/CD の設定例: `tmp/getting-started-tdd/docs/article/kotlin/01-todo-list-and-first-test.md`、`05-package-management-and-static-analysis.md`、`06-task-runner-and-ci-cd.md`
+- 前作の OOP / FP / null 安全の設計例: `tmp/getting-started-tdd/docs/article/kotlin/07-encapsulation-and-polymorphism.md` 〜 `12-error-handling-and-type-safety.md`
+- アルゴリズムの仕様と章範囲: 本アウトラインの「章構成」、Python 版の記事
+- 読者の前提: Kotlin 基本文法、TDD、Git、Gradle の基本操作
+- 実行環境の参照値: Kotlin 2.x（前作のサンプルは 2.2.20）、JDK 21、Gradle 8.x、kotlin.test / JUnit Platform。実装開始時にバージョンを再確認し、Gradle Wrapper と Nix で固定する
+
+現行リポジトリには Kotlin の Nix 開発環境および `apps/kotlin/` がない。執筆着手前に `ops/nix/environments/kotlin/shell.nix` と `flake.nix` の `.#kotlin` を追加し、Kotlin、JDK、Gradle Wrapper を再現可能な形で整備する。前作に記載された `nix develop .#kotlin` は参照手順として扱い、このリポジトリに環境を実装するまでは利用可能な環境として案内しない。
+
+### 開発・テスト方針
+
+- 記事は `docs/article/kotlin/`、実装は `apps/kotlin/` に置く。ソースは `src/main/kotlin/algorithm/`、テストは `src/test/kotlin/algorithm/` に分ける。
+- `kotlin.test` と JUnit Platform を使い、テストを先に書く。期待値・境界値・重複値・未発見・空入力などを明示し、テスト実行は Gradle Wrapper の `./gradlew test` を基準とする。
+- `build.gradle.kts` に必要な依存とタスクを定義し、プロジェクト内で再現できる `check` を品質ゲートにする。detekt、ktlint、カバレッジ計測は前作の導入例を検証し、依存追加と保守コストに見合うものだけ採用する。
+- `IntArray` と可変コレクションによる in-place 操作では、入力が変更される契約をテストする。非破壊的な処理では読み取り専用 `List` を使い、コピーの有無と計算量を解説する。
+- 木やリストのノードは、クラス、data class、sealed class、nullable link などから教材上の目的に合う表現を選ぶ。ジェネリクスを使う場合は比較制約を型で表し、再帰ではスタック使用量も扱う。
+- コード例は実際の Kotlin コンパイラとテストで検証する。記事・実装・テストの内容を同期し、環境構築後に CI でも `./gradlew check` を実行する。
+
+### 章構成と執筆時の重点
+
+| 章 | 記事ファイル | テーマ | Kotlin で扱う重点 |
+|----|-------------|--------|------------------|
+| 1 | `01-basic-algorithms.md` | 基本的なアルゴリズム | `Int` の明示型と型推論、`if` 式、範囲ループで最大値・中央値・条件分岐をテストする |
+| 2 | `02-arrays.md` | 配列 | `IntArray` の添字操作、`swap` 関数、基数変換と素数列挙を扱い、変更可能性とコピーを区別する |
+| 3 | `03-search-algorithms.md` | 探索アルゴリズム | 線形・番兵・二分探索とハッシュ法を実装する。`-1` と nullable / `Int?` の未発見表現を比較し、前提と境界をテストする |
+| 4 | `04-stack-and-queue.md` | スタックとキュー | `MutableList` や配列によるスタック、キューを実装し、空状態を `null` または明示的な結果型で表す。ジェネリック化の意義も示す |
+| 5 | `05-recursion.md` | 再帰アルゴリズム | 階乗・最大公約数・ハノイの塔を実装し、基底条件、末尾再帰（`tailrec` の適用条件）、反復版との計算量とスタック使用量を比較する |
+| 6 | `06-sort-algorithms.md` | ソートアルゴリズム | バブル・選択・挿入・クイック・マージソートを実装する。in-place の `IntArray` と非破壊的な `List` の契約をテストする |
+| 7 | `07-string-processing.md` | 文字列処理 | 文字列基本操作、力まかせ法・KMP 法・Boyer–Moore 法を扱う。Kotlin `String` の UTF-16 インデックスと文字単位処理の違いをテストする |
+| 8 | `08-lists.md` | リスト | 単方向・双方向リストをノードクラスまたは data class で実装する。nullable link と `var` による可変リンク、所有参照と更新責務を確認する |
+| 9 | `09-tree-structures.md` | 木構造 | 二分探索木の追加・探索・削除・走査と最小ヒープを扱う。ジェネリクスの比較制約、sealed class による空 / ノード表現、削除の各ケースをテストする |
+
+### ファイル構成
+
+```text
+docs/article/kotlin/
+├── index.md
+├── 01-basic-algorithms.md
+├── 02-arrays.md
+├── 03-search-algorithms.md
+├── 04-stack-and-queue.md
+├── 05-recursion.md
+├── 06-sort-algorithms.md
+├── 07-string-processing.md
+├── 08-lists.md
+└── 09-tree-structures.md
+
+apps/kotlin/
+├── src/main/kotlin/algorithm/  # アルゴリズム実装
+├── src/test/kotlin/algorithm/  # kotlin.test によるテスト
+├── build.gradle.kts
+├── settings.gradle.kts
+└── gradlew                     # Gradle Wrapper
+```
+
+各章は前作と同じ Red → Green → Refactor の小さなサイクルで執筆する。章ごとのテストと `./gradlew check` を実行し、完成した記事は `docs/article/kotlin/index.md`、`docs/article/index.md`、`mkdocs.yml` に反映する。
+
 ## ファイル構成
 
 ```
@@ -432,6 +514,10 @@ docs/article/
 │   ├── index.md
 │   ├── 01-basic-algorithms.md
 │   └── ...
+├── kotlin/               # Kotlin（TDD 入門の続編）
+│   ├── index.md
+│   ├── 01-basic-algorithms.md
+│   └── ...
 └── all/                  # 多言語統合解説
     ├── index.md
     └── ...
@@ -455,7 +541,8 @@ apps/
 ├── scala/                # Scala プロジェクト
 ├── haskell/              # Haskell プロジェクト
 ├── elixir/               # Elixir プロジェクト
-└── nadesiko/             # なでしこ3 プロジェクト
+├── nadesiko/             # なでしこ3 プロジェクト
+└── kotlin/               # Kotlin プロジェクト（Gradle）
 ```
 
 ## Wiki 記事との対応
