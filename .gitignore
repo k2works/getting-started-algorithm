@@ -25,6 +25,7 @@ build/
 .gradle/
 apps/java/bin/
 apps/java/out/
+apps/nadesiko/bin/
 
 # Logs
 *.log
