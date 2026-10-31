@@ -38,4 +38,4 @@ jobs:
             experimental-features = nix-command flakes
 
       - name: Run checks
-        run: nix develop .#kotlin --command bash -c "cd apps/kotlin && ./gradlew check"
+        run: nix develop .#kotlin --command bash -c "cd apps/kotlin && bash ./gradlew check"
