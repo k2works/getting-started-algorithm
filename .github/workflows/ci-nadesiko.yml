@@ -1,0 +1,41 @@
+name: CI Nadesiko
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+    paths:
+      - 'apps/nadesiko/**'
+      - 'ops/nix/environments/nadesiko/**'
+      - '.github/workflows/ci-nadesiko.yml'
+      - 'flake.nix'
+      - 'flake.lock'
+  pull_request:
+    branches:
+      - main
+      - develop
+    paths:
+      - 'apps/nadesiko/**'
+      - 'ops/nix/environments/nadesiko/**'
+      - '.github/workflows/ci-nadesiko.yml'
+      - 'flake.nix'
+      - 'flake.lock'
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v30
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+
+      - name: Run checks
+        run: nix develop .#nadesiko --command bash -c "cd apps/nadesiko && make check"
