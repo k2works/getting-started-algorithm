@@ -2,7 +2,7 @@
 
 ## はじめに
 
-配列やリストは、ほぼすべてのアルゴリズムの基盤となるデータ構造です。本章では、16 言語における配列・コレクションの扱いと、線形探索・二分探索の実装パターンを比較します。
+配列やリストは、ほぼすべてのアルゴリズムの基盤となるデータ構造です。本章では、17 言語における配列・コレクションの扱いと、線形探索・二分探索の実装パターンを比較します。
 
 ## 配列 / リスト / コレクションの分類
 
@@ -23,6 +23,7 @@
 | Clojure | `vector` `[1 2 3]` | 不変（永続的） | 可変長 | 任意（動的） |
 | Elixir | `list` `[1, 2, 3]` | 不変 | 可変長 | 任意（動的） |
 | Haskell | `[a]`（リスト） / `Data.Array` | リスト: 不変 / Array: 不変 | 可変長 | 同一型 |
+| Flix | `List[a]` / `Array[a, r]` | リスト: 不変 / Array: 可変 | リスト: 可変長 / Array: 固定 | 同一型 |
 | なでしこ3 | 配列 `[]` | 可変 | 可変長 | 任意（動的） |
 
 ### 不変 vs 可変のアプローチ
@@ -40,6 +41,7 @@ graph TD
     C --> C4[Clojure: 永続データ構造]
     C --> C5[Elixir: 全て不変]
     C --> C6[Haskell: 全て不変]
+    C --> C8[Flix: List 不変 / Array 可変]
 ```
 
 ## 線形探索の比較
@@ -163,6 +165,23 @@ linearSearch :: Eq a => [a] -> a -> Maybe Int
 linearSearch xs key = elemIndex key xs
 ```
 
+**Flix**:
+
+```flix
+pub def linearSearch(values: Array[Int32, r], key: Int32): Option[Int32] \ r =
+    let length = Array.length(values);
+    def loop(i) =
+        if (i >= length)
+            None
+        else if (Array.get(i, values) == key)
+            Some(i)
+        else
+            loop(i + 1);
+    loop(0)
+```
+
+見つからない場合を `None`、位置を `Some(index)` で表します。配列を読む API にも領域 `r` が型に現れますが、この探索自体は配列を書き換えません。
+
 ### 戻り値の型安全性
 
 | 言語 | 「見つからない」の表現 | 型安全 |
@@ -181,10 +200,11 @@ linearSearch xs key = elemIndex key xs
 | Clojure | `-1` | いいえ |
 | **Elixir** | `nil` | 部分的 |
 | **Haskell** | `Nothing`（`Maybe Int`） | **はい** |
+| **Flix** | `None`（`Option[Int32]`） | **はい** |
 | Kotlin | `-1`（添字）/ nullable 型（値検索） | 選択可能 |
 | なでしこ3 | `-1` | いいえ |
 
-型安全な言語（Rust, F#, Haskell）では、「見つからない」ケースをコンパイル時に強制的にハンドリングさせることができます。
+型安全な言語（Rust, F#, Haskell, Flix）では、「見つからない」ケースをコンパイル時に強制的にハンドリングさせることができます。
 
 ## 二分探索の比較
 
@@ -261,6 +281,30 @@ binarySearch xs target = go 0 (length xs - 1)
       where mid = (lo + hi) `div` 2
 ```
 
+**Flix**:
+
+```flix
+pub def binarySearch(values: Array[Int32, r], key: Int32): Option[Int32] \ r =
+    let length = Array.length(values);
+    def lowerBound(left, right) =
+        if (left >= right)
+            left
+        else {
+            let middle = left + (right - left) / 2;
+            if (Array.get(middle, values) < key)
+                lowerBound(middle + 1, right)
+            else
+                lowerBound(left, middle)
+        };
+    let index = lowerBound(0, length);
+    if (index < length and Array.get(index, values) == key)
+        Some(index)
+    else
+        None
+```
+
+下限（lower bound）を再帰で探すため、重複値があれば最初の一致位置を返します。入力が昇順に整列済みであることが前提です。
+
 ### 実装スタイルの違い
 
 | アプローチ | 言語 | 特徴 |
@@ -268,6 +312,7 @@ binarySearch xs target = go 0 (length xs - 1)
 | **while ループ** | Python, TypeScript, Java, C#, PHP, Go, C, なでしこ3 | 命令型。インデックスを可変変数で管理 |
 | **while + match** | Rust | 命令型 + パターンマッチで比較結果を分岐 |
 | **再帰** | F#, Haskell | 関数型。ループの代わりに再帰呼び出し |
+| **再帰 + `Option`** | Flix | 下限を再帰で求め、未発見を `None` で表現 |
 | **メソッドチェーン** | Scala, Clojure | 標準ライブラリの探索メソッドを活用 |
 | **ガード** | Haskell, Elixir | 条件分岐をガード式で表現 |
 
@@ -292,6 +337,7 @@ binarySearch xs target = go 0 (length xs - 1)
 | Clojure | `defn` + `atom` + `vector` | チェイン法 |
 | Elixir | `defmodule` + `Map` | チェイン法 |
 | Haskell | `IORef` + `Data.Map` | チェイン法 |
+| Flix | `Array[List[(Int32, String)], r]` | チェイン法。配列バケットを更新 |
 | なでしこ3 | 配列の配列 | チェイン法 |
 
 ## 配列操作のイディオム比較
@@ -315,6 +361,7 @@ binarySearch xs target = go 0 (length xs - 1)
 | Clojure | `(filter even? arr)` |
 | Elixir | `Enum.filter(arr, &(rem(&1, 2) == 0))` |
 | Haskell | `filter even arr` |
+| Flix | ``List.filter(x -> x `Int32.remainder` 2 == 0, values)`` |
 | なでしこ3 | 手動ループで条件に合う要素を別配列へ追加 |
 
 ### 簡潔さのスペクトラム
@@ -324,7 +371,7 @@ binarySearch xs target = go 0 (length xs - 1)
  ←─────────────────────────────────────────────────────→
  C    Go    Java    C#    Python  TypeScript  Ruby  Haskell
                     PHP   Rust    Elixir      Scala Clojure
-                                              F#
+                                              F#  Flix
 ```
 
 ## まとめ
@@ -332,6 +379,7 @@ binarySearch xs target = go 0 (length xs - 1)
 - **コレクションの可変性**: 言語ごとに異なり、Kotlin は読み取り専用 `List` と変更可能な `MutableList` を型で分ける
 - **Kotlin のコレクション**: `List<T>` は読み取り専用 API、`MutableList<T>` は変更 API を提供する（読み取り専用型が常に不変性を保証するわけではない）
 - **探索の戻り値**: 型安全な言語（Rust, F#, Haskell）は `Option`/`Maybe` で「見つからない」を表現
+- **Flix**: 不変な `List` と領域付き可変 `Array` を使い分け、配列操作の効果を関数の型に表す
 - **二分探索**: 命令型は while ループ、関数型は再帰で実装するのが自然
 - **高階関数**: `filter`, `map`, `find` などは関数型言語で最も簡潔に書ける
 - **C と Go**: 高階関数が限定的で、手動ループが基本

@@ -2,7 +2,7 @@
 
 ## はじめに
 
-再帰は関数型言語の根幹をなす概念であり、ソートアルゴリズムは実装スタイルの違いが最も顕著に現れる題材です。本章では、再帰の表現力とソートの実装アプローチを 16 言語で比較します。
+再帰は関数型言語の根幹をなす概念であり、ソートアルゴリズムは実装スタイルの違いが最も顕著に現れる題材です。本章では、再帰の表現力とソートの実装アプローチを 17 言語で比較します。
 
 ## 再帰の表現力比較
 
@@ -52,6 +52,24 @@ factorial 0 = 1
 factorial n = n * factorial (n - 1)
 ```
 
+**Flix**:
+
+```flix
+pub def factorial(n: Int32): Option[Int32] =
+    if (n < 0 or n > 12) {
+        None
+    } else {
+        def loop(value): Int32 =
+            if (value <= 1)
+                1
+            else
+                value * loop(value - 1);
+        Some(loop(n))
+    }
+```
+
+この教材では `Int32` の階乗がオーバーフローしない入力範囲に制限し、範囲外を `None` で返します。Flix では再帰の形をそのまま関数として記述し、明示的な反復版や `@Tailrec` で検証する末尾再帰版も題材にしています。
+
 ```elixir
 # Elixir
 def factorial(0), do: 1
@@ -100,6 +118,7 @@ def factorial(n), do: n * factorial(n - 1)
 | **Elixir** | **あり** | BEAM VM がネイティブサポート |
 | **Haskell** | **あり** | 遅延評価と組み合わせて最適化 |
 | なでしこ3 | 前提にしない | 教材の再帰関数では TCO に依存せず、反復版も比較 |
+| Flix | `@Tailrec` で末尾位置を検査 | 教材では通常の再帰と明示的なスタック版も比較 |
 
 ### 末尾再帰の書き方比較
 
@@ -131,7 +150,7 @@ defp factorial(n, acc), do: factorial(n - 1, n * acc)
 
 ## ソートアルゴリズムの実装スタイル
 
-### バブルソートの 16 言語比較
+### バブルソートの 17 言語比較
 
 #### 破壊的ソート（in-place）
 
@@ -188,6 +207,36 @@ pub fn bubble_sort(a: &mut Vec<i32>) {
     }
 }
 ```
+
+**Flix**:
+
+```flix
+pub def bubbleSort(values: Array[Int32, r]): Unit \ r =
+    let length = Array.length(values);
+    def pass(i) =
+        if (i >= length - 1) {
+            ()
+        } else {
+            def compare(j, swapped) =
+                if (j <= i) {
+                    if (swapped) pass(i + 1) else ()
+                } else {
+                    let left = Array.get(j - 1, values);
+                    let right = Array.get(j, values);
+                    if (left > right) {
+                        Array.put(right, j - 1, values);
+                        Array.put(left, j, values);
+                        compare(j - 1, true)
+                    } else {
+                        compare(j - 1, swapped)
+                    }
+                };
+            compare(length - 1, false)
+        };
+    pass(0)
+```
+
+配列を in-place で更新し、交換がなかった走査で早期終了します。戻り値の `Unit \ r` は配列の領域を更新する効果を示します。
 
 **なでしこ3**:
 
@@ -253,6 +302,7 @@ bubbleSort xs = let (sorted, rest) = bubble xs
 | **破壊的（&mut）** | Rust | 可変参照を明示。安全性を保証 |
 | **破壊的（IORef/mutable）** | F#, Haskell | IO 内で可変配列を操作 |
 | **非破壊的（新リスト）** | Clojure, Elixir | 元のデータは不変。新しいリストを返す |
+| **両方を使い分ける** | Flix | 配列ソートは in-place、クイックソートは不変 `List` を返す |
 
 ### クイックソートの比較
 
@@ -303,6 +353,35 @@ def quick_sort([pivot | rest]) do
 end
 ```
 
+**Flix（パターンマッチ + 不変リスト）**:
+
+```flix
+pub def quickSort(values: List[Int32]): List[Int32] =
+    def append(xs, ys) = match xs {
+        case Nil => ys
+        case head :: tail => head :: append(tail, ys)
+    };
+
+    def partition(xs, pivot, less, greater) = match xs {
+        case Nil => (less, greater)
+        case head :: tail =>
+            if (head < pivot)
+                partition(tail, pivot, head :: less, greater)
+            else
+                partition(tail, pivot, less, head :: greater)
+    };
+
+    def sort(xs) = match xs {
+        case Nil => Nil
+        case pivot :: tail =>
+            let (less, greater) = partition(tail, pivot, Nil, Nil);
+            append(sort(less), pivot :: sort(greater))
+    };
+    sort(values)
+```
+
+分割と連結も新しい `List` を返す純粋な実装です。章の Flix 版では、クイックソートのほかマージソートや基本ソートを配列更新で実装し、同じ言語内で不変・可変の選択を比較します。
+
 ### クイックソートの表現力スペクトラム
 
 ```
@@ -333,6 +412,7 @@ Haskell のクイックソートは **3 行** で表現でき、アルゴリズ�
 
 - **再帰**: 関数型言語はパターンマッチで直感的に書ける。命令型言語でも再帰は使えるが、TCO が保証されないことが多い
 - **末尾再帰**: F#, Scala, Kotlin, Elixir, Haskell は対応。Kotlin は `tailrec` と適用条件が必要で、Clojure は `recur` で明示
+- **Flix**: 再帰関数は不変リストを自然に処理でき、配列を使う in-place ソートでは可変効果を型に示す
 - **ソートの破壊的/非破壊的**: OOP 言語は in-place ソートが基本。関数型言語は新しいリストを返す
 - **クイックソート**: 関数型言語のリスト内包表記やパターンマッチにより、アルゴリズムの本質を最も簡潔に表現できる
 - **言語選択の指針**: アルゴリズムの可読性を重視するなら関数型、パフォーマンスを重視するなら C/Rust/Go

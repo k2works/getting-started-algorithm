@@ -2,7 +2,7 @@
 
 ## はじめに
 
-本章では、シリーズで使用した 16 言語を **パラダイム**・**型システム**・**メモリ管理**・**開発環境** の観点から俯瞰的に比較します。アルゴリズム実装の具体的な違いに入る前に、各言語がどのような設計思想を持ち、どのような場面で使われているかを整理します。
+本章では、シリーズで使用した 17 言語を **パラダイム**・**型システム**・**メモリ管理**・**開発環境** の観点から俯瞰的に比較します。アルゴリズム実装の具体的な違いに入る前に、各言語がどのような設計思想を持ち、どのような場面で使われているかを整理します。
 
 ## 言語パラダイム分類
 
@@ -29,6 +29,7 @@ graph TD
     D --> D3[Clojure]
     D --> D4[Elixir]
     D --> D5[Haskell]
+    D --> D6[Flix]
     A --> F[日本語指向]
     F --> F1[なでしこ3]
 ```
@@ -43,6 +44,7 @@ graph TD
 | **関数型（OOP ハイブリッド）** | F#, Scala | .NET / JVM 上で関数型を主軸に OOP も活用 |
 | **関数型（動的）** | Clojure, Elixir | LISP 系（Clojure）/ BEAM VM（Elixir）。イミュータブルデータが基本 |
 | **純粋関数型** | Haskell | 副作用を型で管理。遅延評価。最も厳格な関数型 |
+| **関数型ファースト（JVM）** | Flix | 不変データと代数的データ型を基本とし、可変操作を型付き効果で表現 |
 | **日本語指向のスクリプト言語** | なでしこ3 | 日本語の語順と助詞を使って命令や関数呼び出しを記述 |
 
 ## 型システム比較
@@ -59,6 +61,7 @@ graph TD
 | C | 静的・弱い | なし | なし（マクロ/void*） | NULL ポインタ |
 | Rust | 静的・強い | あり | あり | `Option<T>`（null なし） |
 | F# | 静的・強い | 強力 | あり | `Option<'T>` |
+| Flix | 静的・強い | あり | あり（型パラメータ） | `Option[a]` |
 | Scala | 静的・強い | 強力 | あり | `Option[T]` / Union Type |
 | Kotlin | 静的・強い | あり | あり（型消去） | `T?` を型で表現 |
 | Clojure | 動的・強い | - | なし（多相性） | nil |
@@ -81,7 +84,7 @@ graph TD
 |------|------|------|
 | **手動管理** | C | `malloc`/`free` による明示的なメモリ管理 |
 | **所有権システム** | Rust | コンパイル時に所有権・借用をチェック。GC 不要 |
-| **ガベージコレクション（GC）** | Java, Kotlin, C#, Go, Python, Ruby, PHP, TypeScript, Scala, Clojure, Haskell | ランタイムが自動でメモリを回収 |
+| **ガベージコレクション（GC）** | Java, Kotlin, C#, Go, Python, Ruby, PHP, TypeScript, Scala, Clojure, Haskell, Flix | ランタイムが自動でメモリを回収 |
 | **参照カウント + GC** | Python, PHP, Elixir | 参照カウントを基本に、循環参照は GC で回収 |
 | **BEAM VM** | Elixir | プロセスごとの GC。軽量プロセスモデル |
 | **実行環境に委譲** | なでしこ3 | `gonako` など、実行環境が管理する |
@@ -106,13 +109,14 @@ graph TD
 | Elixir | Mix | ExUnit（標準） | Credo, Dialyxir | Mix |
 | Haskell | Cabal | HSpec | HLint, stylish-haskell | Cabal |
 | なでしこ3 | `gonako` / Nix | 独自 helper の `検証` | `gonako lint` / `gonako format` | Make |
+| Flix | Flix 標準ツール | Flix 標準 `@Test` / `Assert` | Flix formatter | Flix CLI / Make |
 
 ## 実行モデル比較
 
 | 実行モデル | 言語 | 説明 |
 |-----------|------|------|
 | **ネイティブコンパイル** | C, Go, Rust, Haskell | ソースコードを直接機械語にコンパイル |
-| **JVM バイトコード** | Java, Kotlin, Scala, Clojure | Java 仮想マシン上で実行。JIT コンパイル |
+| **JVM バイトコード** | Java, Kotlin, Scala, Clojure, Flix | Java 仮想マシン上で実行。JIT コンパイル |
 | **.NET IL** | C#, F# | .NET ランタイム上で実行。JIT/AOT コンパイル |
 | **インタプリタ** | Python, Ruby, PHP | ソースコードを逐次解釈して実行 |
 | **トランスパイル** | TypeScript | JavaScript に変換後、Node.js / ブラウザで実行 |
@@ -121,7 +125,7 @@ graph TD
 
 ## Nix 開発環境
 
-本プロジェクトでは、全 16 言語の開発環境を **Nix** で統一管理しています。
+本プロジェクトでは、全 17 言語の開発環境を **Nix** で統一管理しています。
 
 ```bash
 # 各言語の開発環境に入る
@@ -140,6 +144,7 @@ nix develop .#clojure
 nix develop .#haskell
 nix develop .#elixir
 nix develop .#nadesiko
+nix develop .#flix
 ```
 
 Nix を使うことで、言語処理系のバージョン差異に悩まされることなく、全言語で再現性のある開発環境を構築できます。
@@ -164,10 +169,11 @@ Nix を使うことで、言語処理系のバージョン差異に悩まされ�
 | TypeScript | 2012 | Anders Hejlsberg | JavaScript に型安全性を追加 |
 | Elixir | 2012 | Jose Valim | BEAM VM 上の関数型。耐障害性と並行処理 |
 | なでしこ3 | 2004（なでしこ初版） | クジラ飛行机 | 日本語の語順・助詞を構文に取り入れたプログラミング言語 |
+| Flix | 2015 | Magnus Madsen ほか | JVM 上で関数型と命令型を統合し、型・効果システムで副作用を表現 |
 
 ## まとめ
 
-16 言語は、以下の軸で大きく異なります:
+17 言語は、以下の軸で大きく異なります:
 
 1. **パラダイム**: 手続き型 / OOP / 関数型 / 純粋関数型
 2. **型システム**: 静的 vs 動的、型推論の有無、Null 安全性

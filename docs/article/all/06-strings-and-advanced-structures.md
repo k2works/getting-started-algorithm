@@ -25,9 +25,12 @@
 | Clojure | `String`（Java） | 不変 | `(.charAt s i)` / `(nth s i)` | UTF-16 |
 | Elixir | `binary` | 不変 | `String.at(s, i)` | UTF-8 |
 | Haskell | `String`（`[Char]`） | 不変 | `s !! i` | Unicode |
+| Flix | `String` | 不変 | `String.get(i, s)` | UTF-16 `Char` 単位 |
 | なでしこ3 | 文字列 | 文字配列に分解して操作 | `文字列分解` 後に配列参照 | 日本語文字列もテスト済み |
 
 Kotlin の `String` は JVM と同じ UTF-16 のコード単位で添字アクセスします。したがって `s[i]` の `Char` は必ずしも Unicode code point 1 文字とは限らず、サロゲートペアを扱う処理ではコードポイント単位の走査が必要です。
+
+Flix の文字列処理も `String.length` と `String.get` による UTF-16 `Char` 単位です。教材では日本語文字列のテストを含みますが、サロゲートペアを含む文字列を Unicode code point 単位で処理する場合は別途変換が必要です。
 
 ### BF 法（力まかせ法）の比較
 
@@ -72,6 +75,41 @@ bfMatch txt pat = go 0
       | take m (drop i txt) == pat = Just i
       | otherwise = go (i + 1)
 ```
+
+**Flix**:
+
+```flix
+pub def bfMatch(text: String, pattern: String): Option[Int32] =
+    let textLength = String.length(text);
+    let patternLength = String.length(pattern);
+    if (patternLength == 0) {
+        Some(0)
+    } else if (patternLength > textLength) {
+        None
+    } else region rc {
+        let textChars = String.toArray(rc, text);
+        let patternChars = String.toArray(rc, pattern);
+
+        def search(start) =
+            if (start > textLength - patternLength) {
+                None
+            } else {
+                def compare(offset) =
+                    if (offset >= patternLength) {
+                        Some(start)
+                    } else if (Array.get(start + offset, textChars) == Array.get(offset, patternChars)) {
+                        compare(offset + 1)
+                    } else {
+                        search(start + 1)
+                    };
+                compare(0)
+            };
+
+        search(0)
+    }
+```
+
+空パターンは位置 0、パターンがテキストより長い場合や一致しない場合は `None` を返します。文字列を一時配列に変換して添字比較するため、探索位置は UTF-16 `Char` 単位です。
 
 ## 連結リストの実装パターン
 
@@ -188,6 +226,22 @@ addFirst x xs = Cons x xs
 let addFirst x xs = x :: xs  // cons 演算子
 ```
 
+**Flix（再帰 enum）**:
+
+```flix
+pub enum Chain[a] {
+    case ChainEmpty
+    case ChainNode(a, Chain[a])
+}
+
+pub def chainRemoveFirst(values: Chain[a]): Option[(a, Chain[a])] = match values {
+    case Chain.ChainEmpty => None
+    case Chain.ChainNode(value, tail) => Some((value, tail))
+}
+```
+
+標準 `List[a]` も不変な単方向リストです。独自 enum の例では空とノードを明示し、空リストからの削除を `None` で表します。
+
 ### パターン 6: プロセスベース / Map ベース
 
 **Elixir**:
@@ -240,6 +294,7 @@ end
 | **所有権** | Rust | `struct` + `Option<Box<Node>>` | コンパイル時チェック |
 | **Union Type** | Scala | class + `T \| Null` | GC |
 | **代数的データ型** | Haskell, F# | `data`/判別共用体 | GC（不変） |
+| **代数的データ型** | Flix | 再帰 `enum` とパターンマッチ | JVM GC（不変） |
 | **Map/構造体** | Go | `struct` + `*Node` | GC |
 | **Map** | Elixir, Clojure | Map / リスト | BEAM VM / JVM GC |
 | **辞書 + 添字配列** | なでしこ3 | 辞書ノードを配列に格納 | 添字と `-1` でリンク |
@@ -274,6 +329,28 @@ let rec insert x = function
     | Node(v, left, right) when x > v -> Node(v, left, insert x right)
     | node -> node
 ```
+
+**Flix（再帰 enum）**:
+
+```flix
+pub enum BST[a] {
+    case Empty
+    case Node(Int32, a, BST[a], BST[a])
+}
+
+pub def search(key: Int32, tree: BST[a]): Option[a] = match tree {
+    case BST.Empty => None
+    case BST.Node(nodeKey, value, left, right) =>
+        if (key == nodeKey)
+            Some(value)
+        else if (key < nodeKey)
+            search(key, left)
+        else
+            search(key, right)
+}
+```
+
+空木とノードを enum の variant にし、再帰的な探索を網羅的な `match` で記述します。キーは `Int32`、値は型パラメータ `a` で表し、未発見は `Option` で返します。
 
 **Kotlin（sealed class）**:
 
@@ -329,6 +406,7 @@ class BinarySearchTree<T extends Comparable<T>> {
 | 言語 | 木の定義 | パターンマッチ | 再帰の自然さ |
 |------|---------|-------------|------------|
 | Haskell | `data BST a = Empty \| Node ...` | 関数定義で直接 | 非常に自然 |
+| Flix | `enum BST[a] = Empty \| Node ...` | `match` 式（網羅性検査） | 非常に自然 |
 | F# | `type BST = Empty \| Node of ...` | `match` 式 | 非常に自然 |
 | Scala | `sealed trait` + `case class` | `match` 式 | 自然 |
 | Kotlin | `sealed class` + `when` | `when` 式で網羅性を検査 | 自然 |
@@ -350,6 +428,7 @@ class BinarySearchTree<T extends Comparable<T>> {
 | Kotlin | nullable な前後リンクを持つノード | 自然 |
 | Rust | `Rc<RefCell<Node>>` / `unsafe` | 困難（循環参照） |
 | Haskell | `IORef` による可変実装 | 不自然（純粋でない） |
+| Flix | 不変リストの zipper | zipper で注目位置を移動 |
 | Clojure | zipper パターン | やや不自然 |
 | Elixir | プロセスベース / Map | やや不自然 |
 | なでしこ3 | 番兵ノード付き循環双方向リスト | 配列の添字と辞書で前後リンクを明示 |
@@ -360,6 +439,6 @@ class BinarySearchTree<T extends Comparable<T>> {
 
 - **文字列探索**: 言語間の差は比較的小さいが、Rust と Haskell の型安全な戻り値（`Option`/`Maybe`）が際立つ
 - **連結リスト**: C のポインタ、Java の参照、Rust の所有権、Haskell の代数的データ型 —— 最もメモリモデルの違いが現れる
-- **木構造**: 代数的データ型と網羅的なパターン分岐（Haskell, F#, Scala, Kotlin）が自然に表現できる
+- **木構造**: 代数的データ型と網羅的なパターン分岐（Haskell, F#, Flix, Scala, Kotlin）が自然に表現できる
 - **双方向リスト**: 不変性を重視する言語ほど実装が困難。言語の設計思想の限界が見える
 - **パターンマッチ**: 再帰的データ構造の操作において、パターンマッチは圧倒的な可読性を提供する

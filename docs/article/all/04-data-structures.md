@@ -157,6 +157,21 @@ defmodule FixedStack do
 end
 ```
 
+**Flix（モジュール関数 + 状態の明示）**:
+
+```flix
+pub def stackPush(value: a, values: Array[a, r], size: Int32): Option[Int32] \ r =
+    let capacity = Array.length(values);
+    if (size < 0 or size >= capacity) {
+        None
+    } else {
+        Array.put(value, size, values);
+        Some(size + 1)
+    }
+```
+
+Flix の固定長スタックはデータを領域 `r` の配列に保持し、サイズは別の値として受け渡します。配列更新の効果 `\ r` をシグネチャに示し、満杯や不正なサイズは `None` で表します。
+
 ### パターン 4: 代数的データ型 / リスト（純粋関数型）
 
 **Haskell（IORef ベース）**:
@@ -228,6 +243,7 @@ pop stack = do
 | **構造体 + 関数** | Go, C | アクセス修飾子（Go）/ なし（C） | ポインタ経由 | 戻り値（error） |
 | **構造体 + impl** | Rust | pub/private | `&mut self` | `Result<T, E>` |
 | **モジュール + 型** | F#, Scala | モジュール境界 | mutable 明示 | 例外 / Option |
+| **モジュール関数 + 領域付き配列** | Flix | モジュール境界 | `\ r` 効果を型に記述 | `Option` |
 | **不変データ + IORef** | Haskell | 型で保護 | IO モナド内 | `Maybe` / `Either` |
 | **不変データ + atom** | Clojure, Elixir | なし（データ指向） | atom / Agent | 戻り値 |
 | **配列 + 関数** | なでしこ3 | 関数単位で操作を整理 | 配列命令で変更 | `[成功, 値]` |
@@ -255,6 +271,7 @@ front = (front + 1) % capacity  // dequeue 時
 | F# | `%` | `queue.rear <- (queue.rear + 1) % queue.capacity` |
 | Haskell | `` `mod` `` | `(rear + 1) \`mod\` capacity` |
 | Clojure | `mod` | `(mod (inc rear) capacity)` |
+| Flix | `%` | `if (rear + 1 == capacity) 0 else rear + 1` |
 
 なでしこ3 の教材ではリングバッファではなく、2 つのスタックを使ってキューを実装します。入力スタックから出力スタックへ要素を移すことで、先入れ先出し（FIFO）の順序を保ちます。
 
@@ -269,6 +286,7 @@ front = (front + 1) % capacity  // dequeue 時
 | **破壊的（IORef）** | Haskell, F# | IO モナド / mutable 内で変更 |
 | **非破壊的** | Clojure, Elixir | 新しいスタックが返される |
 | **破壊的（配列命令）** | なでしこ3 | `配列追加` / `配列ポップ` が元配列を変更 |
+| **破壊的（領域付き配列）** | Flix | `Array.put` で更新し、領域効果を型に記述 |
 
 ```mermaid
 graph LR
@@ -279,6 +297,7 @@ graph LR
     C --> C2[Rust: &mut self 明示]
     C --> C3[Haskell: IORef in IO]
     C --> C4[なでしこ3: 配列を変更]
+    C --> C5[Flix: 領域効果を明示]
     D --> D1[Clojure: 永続データ構造]
     D --> D2[Elixir: イミュータブル]
 ```
@@ -302,6 +321,7 @@ graph LR
 | Clojure | なし（動的型付き） | `(new-stack capacity)` |
 | Elixir | なし（動的型付き） | `%FixedStack{}` |
 | Haskell | `a` | `Stack a` |
+| Flix | `a` | `Array[a, r]`（配列要素の型） |
 | なでしこ3 | なし | 動的型付き配列 |
 
 ## エラー処理パターン
@@ -317,6 +337,7 @@ graph LR
 | **タプル** | Elixir | `{:error, :overflow}` |
 | **nil** | Clojure | `nil`（空スタックの pop） |
 | **真偽値と値の配列** | なでしこ3 | `[いいえ, 0]` / `[はい, 値]` |
+| **Option** | Flix | `None` / `Some(value)` |
 
 ## まとめ
 
@@ -324,6 +345,7 @@ graph LR
 - **Kotlin**: `private` な可変状態とジェネリクスをクラスにまとめ、`check` / `require` で不変条件を検査
 - **システム言語（Go, C）**: 構造体 + 関数。エラーは戻り値で返す
 - **Rust**: 構造体 + impl。所有権システムと `Result` 型で安全性を保証
+- **Flix**: 配列とサイズ状態を関数間で受け渡し、配列の可変領域を型付き効果で明示
 - **関数型言語**: モジュール / 代数的データ型。不変データを基本とし、可変状態は明示的に管理
 - **Haskell**: 最も厳格。可変状態は `IORef` を通じて IO モナド内でのみ許可
 - **Clojure/Elixir**: 不変データ構造を基本とし、状態管理は `atom` / プロセスで行う

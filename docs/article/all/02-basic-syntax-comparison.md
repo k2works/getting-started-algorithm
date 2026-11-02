@@ -2,11 +2,11 @@
 
 ## はじめに
 
-同じアルゴリズムでも、言語によって構文の見た目は大きく異なります。本章では、最もシンプルなアルゴリズム —— **3 値の最大値（max3）** を題材に、16 言語の基本構文を比較します。
+同じアルゴリズムでも、言語によって構文の見た目は大きく異なります。本章では、最もシンプルなアルゴリズム —— **3 値の最大値（max3）** を題材に、17 言語の基本構文を比較します。
 
 ## 関数定義の比較
 
-### max3 の 16 言語実装
+### max3 の 17 言語実装
 
 #### OOP 言語グループ
 
@@ -154,6 +154,18 @@ max3 :: Ord a => a -> a -> a -> a
 max3 a b c = max a (max b c)
 ```
 
+**Flix**:
+
+```flix
+pub def max3(a: Int32, b: Int32, c: Int32): Int32 =
+    if (a >= b)
+        if (a >= c) a else c
+    else
+        if (b >= c) b else c
+```
+
+Flix は引数・戻り値の型をシグネチャに記述し、`if` は値を返す式です。再代入なしに条件ごとの値を返す純粋関数として表します。
+
 #### 日本語指向のスクリプト言語
 
 **なでしこ3**:
@@ -194,6 +206,7 @@ max3 a b c = max a (max b c)
 | Clojure | `defn` | なし | `()` | なし | 最後の式 |
 | Elixir | `def` | なし | `do...end` | なし | 最後の式 |
 | Haskell | なし（型宣言別） | 型宣言（推奨） | なし（インデント） | なし | 最後の式 |
+| Flix | `def` | 明示または推論 | `{}` / インデント | なし | 最後の式 |
 | なでしこ3 | `●` | なし | `ここまで` | なし | `を戻す` |
 
 ### 実装アプローチの違い
@@ -202,7 +215,7 @@ max3 a b c = max a (max b c)
 
 1. **命令型**: 変数に代入しながら `if` で更新（Python, TypeScript, Java, C#, Go, C, Rust, なでしこ3）
 2. **組み込み関数活用**: 言語標準の `max` 関数やコレクション操作を利用（Ruby, PHP, Clojure, Elixir）
-3. **関数合成**: `max` 関数を合成して表現（F#, Scala, Haskell）
+3. **関数合成・式指向**: `max` 関数の合成、または条件式で値を選択（F#, Scala, Haskell, Flix）
 
 ```mermaid
 graph LR
@@ -213,7 +226,7 @@ graph LR
     B --> B2[C#, Go, C, Rust, なでしこ3]
     C --> C1[Ruby, PHP]
     C --> C2[Clojure, Elixir]
-    D --> D1[F#, Scala, Haskell]
+    D --> D1[F#, Scala, Haskell, Flix]
 ```
 
 ## 変数宣言の比較
@@ -235,13 +248,14 @@ graph LR
 | Clojure | `(def x 1)` | `(atom 1)` | 常に推論 |
 | Elixir | `x = 1` | -（再束縛可） | 常に推論 |
 | Haskell | `x = 1`（全て不変） | `IORef`（IO 内） | 推論あり |
+| Flix | `let x = 1` | `let mut x = 1` / `Array` 等 | 推論あり |
 | なでしこ3 | `x = 1` | 同じ代入で更新 | 実行時 |
 
 ### デフォルトの不変性
 
 関数型言語は **デフォルトが不変**（immutable）で、可変にするには明示的な宣言が必要です:
 
-- **デフォルト不変**: Rust (`let`), F# (`let`), Scala (`val`), Kotlin (`val`), Haskell（全て不変）
+- **デフォルト不変**: Rust (`let`), F# (`let`), Scala (`val`), Kotlin (`val`), Haskell（全て不変）, Flix (`let`)
 - **デフォルト可変**: Python, Java, C#, Ruby, PHP, Go, C
 
 なでしこ3 は `最大候補 = B` のように代入して状態を更新する命令型の書き方です。変数に型注釈は付けず、値に応じて実行時に型が扱われます。
@@ -258,6 +272,7 @@ Kotlin は `val` を優先して再代入を防ぎ、状態を更新する必要
 | TypeScript | `if (x > 0) { } else if { } else { }` | 文 |
 | Java | `if (x > 0) { } else if { } else { }` | 文 |
 | Kotlin | `if (x > 0) { ... } else { ... }` | 式 |
+| Flix | `if (x > 0) positive else nonPositive` | 式 |
 | Ruby | `if x > 0 ... elsif ... else ... end` | 式 |
 | Go | `if x > 0 { } else if { } else { }` | 文 |
 | C | `if (x > 0) { } else if { } else { }` | 文 |
@@ -282,6 +297,7 @@ Kotlin は `val` を優先して再代入を防ぎ、状態を更新する必要
 | C# | `switch` 式（8.0+パターンマッチング） |
 | Java | `switch` 式（14+） |
 | Kotlin | `when` 式。sealed class と組み合わせると全ケースを網羅できる |
+| Flix | `match` 式。enum の全 variant を網羅するよう検査される |
 
 ## テストの書き方比較
 
@@ -325,6 +341,14 @@ describe "max3" $ do
     max3 1 2 3 `shouldBe` 3
 ```
 
+**Flix (`@Test` / `Assert`)**:
+
+```flix
+@Test
+def max3_returns_maximum(): Unit \ Assert =
+    Assert.assertEq(expected = 3, BasicAlgorithms.max3(3, 2, 1))
+```
+
 **Elixir (ExUnit)**:
 
 ```elixir
@@ -349,6 +373,7 @@ end
 
 - **OOP 言語**（Java, C#, Python, TypeScript）は似た構文で命令型のアプローチを取る
 - **Kotlin** は JVM のクラスベース OOP に式指向構文、高階関数、null 安全な型を組み合わせる
+- **Flix** は型付き関数シグネチャと式指向の分岐を用い、必要な可変操作を効果として明示する
 - **関数型言語**（F#, Scala, Haskell）は関数合成による簡潔な表現が特徴
 - **動的型付き言語**（Ruby, PHP, Clojure, Elixir）は組み込み関数を活用した短い実装になる
 - **パターンマッチング**は関数型言語に共通する強力な機能で、`mid3` のような条件分岐で威力を発揮する
