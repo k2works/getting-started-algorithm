@@ -1210,6 +1210,230 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../flix/02-arrays/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 2 章 配列
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../flix/03-search-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 3 章 探索アルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../flix/04-stack-and-queue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 4 章 スタックとキュー
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../flix/05-recursion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 5 章 再帰アルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../flix/06-sort-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 6 章 ソートアルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../flix/07-string-processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 7 章 文字列処理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../flix/08-lists/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 8 章 リスト
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../flix/09-tree-structures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 9 章 木構造
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -8085,6 +8309,13 @@
 <td>Unicode</td>
 </tr>
 <tr>
+<td>Flix</td>
+<td><code>String</code></td>
+<td>不変</td>
+<td><code>String.get(i, s)</code></td>
+<td>UTF-16 <code>Char</code> 単位</td>
+</tr>
+<tr>
 <td>なでしこ3</td>
 <td>文字列</td>
 <td>文字配列に分解して操作</td>
@@ -8094,6 +8325,7 @@
 </tbody>
 </table>
 <p>Kotlin の <code>String</code> は JVM と同じ UTF-16 のコード単位で添字アクセスします。したがって <code>s[i]</code> の <code>Char</code> は必ずしも Unicode code point 1 文字とは限らず、サロゲートペアを扱う処理ではコードポイント単位の走査が必要です。</p>
+<p>Flix の文字列処理も <code>String.length</code> と <code>String.get</code> による UTF-16 <code>Char</code> 単位です。教材では日本語文字列のテストを含みますが、サロゲートペアを含む文字列を Unicode code point 単位で処理する場合は別途変換が必要です。</p>
 <h3 id="bf">BF 法（力まかせ法）の比較<a class="headerlink" href="#bf" title="Permanent link">&para;</a></h3>
 <p><strong>Python</strong>:</p>
 <div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">bf_match</span><span class="p">(</span><span class="n">txt</span><span class="p">,</span> <span class="n">pat</span><span class="p">):</span>
@@ -8128,6 +8360,37 @@
 <span class="w">      </span><span class="o">|</span><span class="w"> </span><span class="n">take</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="p">(</span><span class="n">drop</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="n">txt</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">pat</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Just</span><span class="w"> </span><span class="n">i</span>
 <span class="w">      </span><span class="o">|</span><span class="w"> </span><span class="n">otherwise</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">go</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
 </code></pre></div>
+<p><strong>Flix</strong>:</p>
+<div class="highlight"><pre><span></span><code>pub def bfMatch(text: String, pattern: String): Option[Int32] =
+    let textLength = String.length(text);
+    let patternLength = String.length(pattern);
+    if (patternLength == 0) {
+        Some(0)
+    } else if (patternLength &gt; textLength) {
+        None
+    } else region rc {
+        let textChars = String.toArray(rc, text);
+        let patternChars = String.toArray(rc, pattern);
+
+        def search(start) =
+            if (start &gt; textLength - patternLength) {
+                None
+            } else {
+                def compare(offset) =
+                    if (offset &gt;= patternLength) {
+                        Some(start)
+                    } else if (Array.get(start + offset, textChars) == Array.get(offset, patternChars)) {
+                        compare(offset + 1)
+                    } else {
+                        search(start + 1)
+                    };
+                compare(0)
+            };
+
+        search(0)
+    }
+</code></pre></div>
+<p>空パターンは位置 0、パターンがテキストより長い場合や一致しない場合は <code>None</code> を返します。文字列を一時配列に変換して添字比較するため、探索位置は UTF-16 <code>Char</code> 単位です。</p>
 <h2 id="_4">連結リストの実装パターン<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <p>連結リストの実装は、言語の <strong>メモリモデル</strong> と <strong>参照の扱い</strong> を最も深く反映します。</p>
 <h3 id="1-c">パターン 1: ポインタベース（C）<a class="headerlink" href="#1-c" title="Permanent link">&para;</a></h3>
@@ -8216,6 +8479,18 @@
 <div class="highlight"><pre><span></span><code><span class="c1">// F# の標準リストは連結リスト</span>
 <span class="k">let</span><span class="w"> </span><span class="nv">addFirst</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">::</span><span class="w"> </span><span class="n">xs</span><span class="w">  </span><span class="c1">// cons 演算子</span>
 </code></pre></div>
+<p><strong>Flix（再帰 enum）</strong>:</p>
+<div class="highlight"><pre><span></span><code>pub enum Chain[a] {
+    case ChainEmpty
+    case ChainNode(a, Chain[a])
+}
+
+pub def chainRemoveFirst(values: Chain[a]): Option[(a, Chain[a])] = match values {
+    case Chain.ChainEmpty =&gt; None
+    case Chain.ChainNode(value, tail) =&gt; Some((value, tail))
+}
+</code></pre></div>
+<p>標準 <code>List[a]</code> も不変な単方向リストです。独自 enum の例では空とノードを明示し、空リストからの削除を <code>None</code> で表します。</p>
 <h3 id="6-map">パターン 6: プロセスベース / Map ベース<a class="headerlink" href="#6-map" title="Permanent link">&para;</a></h3>
 <p><strong>Elixir</strong>:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">defmodule</span><span class="w"> </span><span class="nc">SinglyLinkedList</span><span class="w"> </span><span class="k">do</span>
@@ -8290,6 +8565,12 @@
 <td>GC（不変）</td>
 </tr>
 <tr>
+<td><strong>代数的データ型</strong></td>
+<td>Flix</td>
+<td>再帰 <code>enum</code> とパターンマッチ</td>
+<td>JVM GC（不変）</td>
+</tr>
+<tr>
 <td><strong>Map/構造体</strong></td>
 <td>Go</td>
 <td><code>struct</code> + <code>*Node</code></td>
@@ -8332,6 +8613,24 @@
 <span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="n">Node</span><span class="o">(</span><span class="n">v</span><span class="o">,</span><span class="w"> </span><span class="n">left</span><span class="o">,</span><span class="w"> </span><span class="n">right</span><span class="o">)</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Node</span><span class="o">(</span><span class="n">v</span><span class="o">,</span><span class="w"> </span><span class="n">left</span><span class="o">,</span><span class="w"> </span><span class="n">insert</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">right</span><span class="o">)</span>
 <span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="n">node</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">node</span>
 </code></pre></div>
+<p><strong>Flix（再帰 enum）</strong>:</p>
+<div class="highlight"><pre><span></span><code>pub enum BST[a] {
+    case Empty
+    case Node(Int32, a, BST[a], BST[a])
+}
+
+pub def search(key: Int32, tree: BST[a]): Option[a] = match tree {
+    case BST.Empty =&gt; None
+    case BST.Node(nodeKey, value, left, right) =&gt;
+        if (key == nodeKey)
+            Some(value)
+        else if (key &lt; nodeKey)
+            search(key, left)
+        else
+            search(key, right)
+}
+</code></pre></div>
+<p>空木とノードを enum の variant にし、再帰的な探索を網羅的な <code>match</code> で記述します。キーは <code>Int32</code>、値は型パラメータ <code>a</code> で表し、未発見は <code>Option</code> で返します。</p>
 <p><strong>Kotlin（sealed class）</strong>:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">private</span><span class="w"> </span><span class="kd">sealed</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">Node</span><span class="o">&lt;</span><span class="n">K</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Comparable</span><span class="o">&lt;</span><span class="n">K</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">V</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kt">Any</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kd">class</span><span class="w"> </span><span class="nc">Empty</span><span class="o">&lt;</span><span class="n">K</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Comparable</span><span class="o">&lt;</span><span class="n">K</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">V</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kt">Any</span><span class="o">&gt;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Node</span><span class="o">&lt;</span><span class="n">K</span><span class="p">,</span><span class="w"> </span><span class="n">V</span><span class="o">&gt;</span><span class="p">()</span>
@@ -8385,6 +8684,12 @@
 <td>Haskell</td>
 <td><code>data BST a = Empty \| Node ...</code></td>
 <td>関数定義で直接</td>
+<td>非常に自然</td>
+</tr>
+<tr>
+<td>Flix</td>
+<td><code>enum BST[a] = Empty \| Node ...</code></td>
+<td><code>match</code> 式（網羅性検査）</td>
 <td>非常に自然</td>
 </tr>
 <tr>
@@ -8480,6 +8785,11 @@
 <td>不自然（純粋でない）</td>
 </tr>
 <tr>
+<td>Flix</td>
+<td>不変リストの zipper</td>
+<td>zipper で注目位置を移動</td>
+</tr>
+<tr>
 <td>Clojure</td>
 <td>zipper パターン</td>
 <td>やや不自然</td>
@@ -8501,7 +8811,7 @@
 <ul>
 <li><strong>文字列探索</strong>: 言語間の差は比較的小さいが、Rust と Haskell の型安全な戻り値（<code>Option</code>/<code>Maybe</code>）が際立つ</li>
 <li><strong>連結リスト</strong>: C のポインタ、Java の参照、Rust の所有権、Haskell の代数的データ型 —— 最もメモリモデルの違いが現れる</li>
-<li><strong>木構造</strong>: 代数的データ型と網羅的なパターン分岐（Haskell, F#, Scala, Kotlin）が自然に表現できる</li>
+<li><strong>木構造</strong>: 代数的データ型と網羅的なパターン分岐（Haskell, F#, Flix, Scala, Kotlin）が自然に表現できる</li>
 <li><strong>双方向リスト</strong>: 不変性を重視する言語ほど実装が困難。言語の設計思想の限界が見える</li>
 <li><strong>パターンマッチ</strong>: 再帰的データ構造の操作において、パターンマッチは圧倒的な可読性を提供する</li>
 </ul>

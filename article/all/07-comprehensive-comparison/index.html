@@ -1210,6 +1210,230 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../flix/02-arrays/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 2 章 配列
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../flix/03-search-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 3 章 探索アルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../flix/04-stack-and-queue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 4 章 スタックとキュー
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../flix/05-recursion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 5 章 再帰アルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../flix/06-sort-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 6 章 ソートアルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../flix/07-string-processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 7 章 文字列処理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../flix/08-lists/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 8 章 リスト
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../flix/09-tree-structures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 9 章 木構造
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -6446,6 +6670,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#jvm-flix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        関数型ファーストの JVM 言語（Flix）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#jvm-oop-fpkotlin" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -8076,7 +8311,7 @@
 
 <h1 id="7">第 7 章 総合比較とまとめ<a class="headerlink" href="#7" title="Permanent link">&para;</a></h1>
 <h2 id="_1">はじめに<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>ここまで 16 言語でアルゴリズムとデータ構造を実装し、パラダイム・型システム・メモリ管理・実装スタイルの違いを比較してきました。最終章では、これらの知見を総合し、言語選択の指針と学習ロードマップを提示します。</p>
+<p>ここまで 17 言語でアルゴリズムとデータ構造を実装し、パラダイム・型システム・メモリ管理・実装スタイルの違いを比較してきました。最終章では、これらの知見を総合し、言語選択の指針と学習ロードマップを提示します。</p>
 <h2 id="_2">総合評価マトリックス<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <h3 id="_3">可読性・安全性・パフォーマンス<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <table>
@@ -8219,6 +8454,14 @@
 <td>★★☆☆☆</td>
 <td>★★★★★</td>
 </tr>
+<tr>
+<td>Flix</td>
+<td>★★★★☆</td>
+<td>★★★★★</td>
+<td>★★★★☆（JVM GC）</td>
+<td>★★★☆☆</td>
+<td>★★☆☆☆</td>
+</tr>
 </tbody>
 </table>
 <h3 id="_4">アルゴリズム実装の適性<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
@@ -8245,6 +8488,11 @@
 <td><strong>型安全性重視</strong></td>
 <td>Rust, Haskell, F#</td>
 <td>コンパイル時の厳格なチェック</td>
+</tr>
+<tr>
+<td><strong>型と副作用を明示して学ぶ</strong></td>
+<td>Flix</td>
+<td>静的型付けに加え、配列更新などの効果を型で表現</td>
 </tr>
 <tr>
 <td><strong>簡潔な表現</strong></td>
@@ -8315,6 +8563,8 @@
 <li><strong>可変データ構造</strong> の実装が不自然になる場合がある</li>
 <li><strong>エコシステム</strong> が OOP 言語に比べて小さい</li>
 </ul>
+<h3 id="jvm-flix">関数型ファーストの JVM 言語（Flix）<a class="headerlink" href="#jvm-flix" title="Permanent link">&para;</a></h3>
+<p>Flix は代数的データ型、パターンマッチ、不変コレクションを用いてアルゴリズムを表現しつつ、配列の更新などの副作用を型付き効果として明示します。再帰 enum の二分探索木と、領域効果を持つ配列ベースのヒープを同じ教材内で対比できます。</p>
 <h3 id="jvm-oop-fpkotlin">JVM 上の OOP + FP（Kotlin）<a class="headerlink" href="#jvm-oop-fpkotlin" title="Permanent link">&para;</a></h3>
 <p>Kotlin はクラスやインターフェースを中心に設計しながら、関数型の高階関数や不変コレクションも自然に利用できるマルチパラダイム言語です。Java のライブラリと相互運用しやすく、<code>T?</code> や sealed class によって null や状態の表現を型に反映できます。</p>
 <h2 id="_7">言語選択ガイド<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
@@ -8342,7 +8592,8 @@
     F --&gt; F1[入門: Python]
     F --&gt; F2[関数型入門: F# / Elixir]
     F --&gt; F3[深い理解: Haskell / Rust]
-    F --&gt; F4[日本語で学ぶ: なでしこ3]</code></pre>
+    F --&gt; F4[日本語で学ぶ: なでしこ3]
+    F --&gt; F5[型付き効果を学ぶ: Flix]</code></pre>
 <h3 id="_9">「次に学ぶ言語」の選び方<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -8411,11 +8662,12 @@
 <li>OOP の設計パターンを深める</li>
 </ul>
 <h3 id="3-3">レベル 3: 関数型プログラミング入門（3 言語目）<a class="headerlink" href="#3-3" title="Permanent link">&para;</a></h3>
-<p><strong>F#</strong> または <strong>Elixir</strong> を学びます。</p>
+<p><strong>F#</strong>、<strong>Elixir</strong>、または <strong>Flix</strong> を学びます。</p>
 <ul>
 <li>不変データ・パターンマッチ・パイプライン演算子を体験</li>
 <li>再帰をループの代替として自然に使う</li>
 <li>副作用の管理について意識する</li>
+<li>Flix では配列更新などの効果を関数の型で確認する</li>
 </ul>
 <h3 id="4-4">レベル 4: システムプログラミング（4 言語目）<a class="headerlink" href="#4-4" title="Permanent link">&para;</a></h3>
 <p><strong>Rust</strong> または <strong>Go</strong> を学びます。</p>
@@ -8467,7 +8719,7 @@
 <li><strong>プログラミングの本質</strong> —— つまりアルゴリズムとデータ構造 —— がより深く理解できる</li>
 </ul>
 <h2 id="_12">おわりに<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
-<p>16 言語を通じてアルゴリズムとデータ構造を学ぶ旅は、単なる言語の構文比較ではありません。各言語が体現する <strong>設計思想の違い</strong> を理解し、<strong>問題に最適なアプローチを選ぶ力</strong> を養うことが、このシリーズの本当の目的です。</p>
+<p>17 言語を通じてアルゴリズムとデータ構造を学ぶ旅は、単なる言語の構文比較ではありません。各言語が体現する <strong>設計思想の違い</strong> を理解し、<strong>問題に最適なアプローチを選ぶ力</strong> を養うことが、このシリーズの本当の目的です。</p>
 <p>プログラミング言語は道具です。しかし、よい道具を知ることで、よいソフトウェアを作る力は確実に高まります。</p>
 <hr />
 <h2 id="_13">参考文献<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>

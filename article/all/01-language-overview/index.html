@@ -1210,6 +1210,230 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../flix/02-arrays/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 2 章 配列
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../flix/03-search-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 3 章 探索アルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../flix/04-stack-and-queue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 4 章 スタックとキュー
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../flix/05-recursion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 5 章 再帰アルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../flix/06-sort-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 6 章 ソートアルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../flix/07-string-processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 7 章 文字列処理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../flix/08-lists/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 8 章 リスト
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../flix/09-tree-structures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 9 章 木構造
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -7893,7 +8117,7 @@
 
 <h1 id="1">第 1 章 言語概要と開発環境比較<a class="headerlink" href="#1" title="Permanent link">&para;</a></h1>
 <h2 id="_1">はじめに<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>本章では、シリーズで使用した 16 言語を <strong>パラダイム</strong>・<strong>型システム</strong>・<strong>メモリ管理</strong>・<strong>開発環境</strong> の観点から俯瞰的に比較します。アルゴリズム実装の具体的な違いに入る前に、各言語がどのような設計思想を持ち、どのような場面で使われているかを整理します。</p>
+<p>本章では、シリーズで使用した 17 言語を <strong>パラダイム</strong>・<strong>型システム</strong>・<strong>メモリ管理</strong>・<strong>開発環境</strong> の観点から俯瞰的に比較します。アルゴリズム実装の具体的な違いに入る前に、各言語がどのような設計思想を持ち、どのような場面で使われているかを整理します。</p>
 <h2 id="_2">言語パラダイム分類<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>プログラミング言語は、その設計思想に基づいていくつかのパラダイムに分類できます。</p>
 <pre class="mermaid"><code>graph TD
@@ -7916,6 +8140,7 @@
     D --&gt; D3[Clojure]
     D --&gt; D4[Elixir]
     D --&gt; D5[Haskell]
+    D --&gt; D6[Flix]
     A --&gt; F[日本語指向]
     F --&gt; F1[なでしこ3]</code></pre>
 <h3 id="_3">パラダイム別グルーピング<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
@@ -7957,6 +8182,11 @@
 <td><strong>純粋関数型</strong></td>
 <td>Haskell</td>
 <td>副作用を型で管理。遅延評価。最も厳格な関数型</td>
+</tr>
+<tr>
+<td><strong>関数型ファースト（JVM）</strong></td>
+<td>Flix</td>
+<td>不変データと代数的データ型を基本とし、可変操作を型付き効果で表現</td>
 </tr>
 <tr>
 <td><strong>日本語指向のスクリプト言語</strong></td>
@@ -8048,6 +8278,13 @@
 <td><code>Option&lt;'T&gt;</code></td>
 </tr>
 <tr>
+<td>Flix</td>
+<td>静的・強い</td>
+<td>あり</td>
+<td>あり（型パラメータ）</td>
+<td><code>Option[a]</code></td>
+</tr>
+<tr>
 <td>Scala</td>
 <td>静的・強い</td>
 <td>強力</td>
@@ -8119,7 +8356,7 @@
 </tr>
 <tr>
 <td><strong>ガベージコレクション（GC）</strong></td>
-<td>Java, Kotlin, C#, Go, Python, Ruby, PHP, TypeScript, Scala, Clojure, Haskell</td>
+<td>Java, Kotlin, C#, Go, Python, Ruby, PHP, TypeScript, Scala, Clojure, Haskell, Flix</td>
 <td>ランタイムが自動でメモリを回収</td>
 </tr>
 <tr>
@@ -8263,6 +8500,13 @@
 <td><code>gonako lint</code> / <code>gonako format</code></td>
 <td>Make</td>
 </tr>
+<tr>
+<td>Flix</td>
+<td>Flix 標準ツール</td>
+<td>Flix 標準 <code>@Test</code> / <code>Assert</code></td>
+<td>Flix formatter</td>
+<td>Flix CLI / Make</td>
+</tr>
 </tbody>
 </table>
 <h2 id="_8">実行モデル比較<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
@@ -8282,7 +8526,7 @@
 </tr>
 <tr>
 <td><strong>JVM バイトコード</strong></td>
-<td>Java, Kotlin, Scala, Clojure</td>
+<td>Java, Kotlin, Scala, Clojure, Flix</td>
 <td>Java 仮想マシン上で実行。JIT コンパイル</td>
 </tr>
 <tr>
@@ -8313,7 +8557,7 @@
 </tbody>
 </table>
 <h2 id="nix">Nix 開発環境<a class="headerlink" href="#nix" title="Permanent link">&para;</a></h2>
-<p>本プロジェクトでは、全 16 言語の開発環境を <strong>Nix</strong> で統一管理しています。</p>
+<p>本プロジェクトでは、全 17 言語の開発環境を <strong>Nix</strong> で統一管理しています。</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># 各言語の開発環境に入る</span>
 nix<span class="w"> </span>develop<span class="w"> </span>.#python
 nix<span class="w"> </span>develop<span class="w"> </span>.#node
@@ -8330,6 +8574,7 @@ nix<span class="w"> </span>develop<span class="w"> </span>.#clojure
 nix<span class="w"> </span>develop<span class="w"> </span>.#haskell
 nix<span class="w"> </span>develop<span class="w"> </span>.#elixir
 nix<span class="w"> </span>develop<span class="w"> </span>.#nadesiko
+nix<span class="w"> </span>develop<span class="w"> </span>.#flix
 </code></pre></div>
 <p>Nix を使うことで、言語処理系のバージョン差異に悩まされることなく、全言語で再現性のある開発環境を構築できます。</p>
 <h2 id="_9">言語の歴史と設計哲学<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
@@ -8439,10 +8684,16 @@ nix<span class="w"> </span>develop<span class="w"> </span>.#nadesiko
 <td>クジラ飛行机</td>
 <td>日本語の語順・助詞を構文に取り入れたプログラミング言語</td>
 </tr>
+<tr>
+<td>Flix</td>
+<td>2015</td>
+<td>Magnus Madsen ほか</td>
+<td>JVM 上で関数型と命令型を統合し、型・効果システムで副作用を表現</td>
+</tr>
 </tbody>
 </table>
 <h2 id="_10">まとめ<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
-<p>16 言語は、以下の軸で大きく異なります:</p>
+<p>17 言語は、以下の軸で大きく異なります:</p>
 <ol>
 <li><strong>パラダイム</strong>: 手続き型 / OOP / 関数型 / 純粋関数型</li>
 <li><strong>型システム</strong>: 静的 vs 動的、型推論の有無、Null 安全性</li>

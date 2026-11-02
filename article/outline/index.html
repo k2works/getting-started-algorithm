@@ -1932,6 +1932,230 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flix/02-arrays/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 2 章 配列
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flix/03-search-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 3 章 探索アルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flix/04-stack-and-queue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 4 章 スタックとキュー
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flix/05-recursion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 5 章 再帰アルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flix/06-sort-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 6 章 ソートアルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flix/07-string-processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 7 章 文字列処理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flix/08-lists/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 8 章 リスト
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flix/09-tree-structures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 9 章 木構造
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -9301,7 +9525,7 @@ apps/kotlin/
 <ul>
 <li>記事は <code>docs/article/flix/</code>、実装は <code>apps/flix/</code> に置き、前作と同じく <code>src/</code> と <code>test/</code> に分ける。</li>
 <li>Flix 標準の <code>@Test</code> と <code>Assert</code> 効果を使い、テストを先に書く。前作の Makefile を参考に <code>make test</code>（<code>java -jar flix.jar test</code>）で各章の Red → Green → Refactor を確認し、空入力、境界値、重複値、未発見などをテストする。</li>
-<li><code>make check</code>（<code>java -jar flix.jar check</code>）で型・効果・パターン網羅性を検査し、<code>make format-check</code>（<code>java -jar flix.jar format --check</code>）で整形を確認する。品質ゲートはテスト・検査・整形のうち実際に利用できるコマンドで構成する。</li>
+<li><code>make check</code>（<code>java -jar flix.jar check</code>）で型・効果・パターン網羅性を検査し、<code>make format-check</code> で一時コピーを整形して差分がないことを確認する。Flix 0.75.1 の <code>format</code> は <code>--check</code> に対応していないため、品質ゲートは実際に利用できるコマンドで構成する。</li>
 <li><code>Int32</code> などの数値型、<code>List</code>、<code>Option</code>、enum、レコード、トレイトを章の目的に応じて使い分ける。探索結果や空のデータ構造は、番兵値だけでなく <code>Option</code> 等の型で表現する方法も扱う。</li>
 <li>リストを使う純粋・非破壊的な実装と、配列を使う更新型の実装を区別する。配列を採用する場合は、Flix 0.75.1 で利用可能な操作を実行確認し、入力が変更されるかをテストで明示する。</li>
 <li>リストや木の再帰的な表現には enum 等の代数的データ型を検討し、パターンマッチの網羅性をコンパイラで確認する。トレイトや効果は題材に必要な場合に限って導入し、アルゴリズム本体に不要な抽象化や副作用を持ち込まない。</li>
@@ -9340,31 +9564,31 @@ apps/kotlin/
 <td>4</td>
 <td><code>04-stack-and-queue.md</code></td>
 <td>スタックとキュー</td>
-<td><code>List</code> とパターンマッチを使ったスタック・キューを実装する。空状態を <code>Option</code> 等で表現し、LIFO / FIFO と操作後の不変条件を確認する</td>
+<td>固定長配列のスタックとリングバッファのキューを実装する。状態を明示的に受け渡し、<code>Option</code> で空・満杯を表現して LIFO / FIFO と不変条件を確認する</td>
 </tr>
 <tr>
 <td>5</td>
 <td><code>05-recursion.md</code></td>
 <td>再帰アルゴリズム</td>
-<td>階乗・ユークリッドの互除法・ハノイの塔を実装する。基底条件、再帰呼び出し、計算量とスタック使用量をテスト・解説する</td>
+<td>Python 版に合わせ、階乗・ユークリッドの互除法・ハノイの塔、複数回再帰と作業スタック、3 段階の 8 王妃問題、迷路探索を実装する。基底条件、末尾再帰形、バックトラッキング、計算量とスタック使用量をテスト・解説する</td>
 </tr>
 <tr>
 <td>6</td>
 <td><code>06-sort-algorithms.md</code></td>
 <td>ソートアルゴリズム</td>
-<td>バブル・選択・挿入・クイック・マージソートを扱う。不変なリスト処理を基準とし、更新型の実装を掲載する場合は入力変更と Flix の配列 API を検証する</td>
+<td>バブル・選択・挿入・マージソートは <code>Array</code> を in-place 更新し、クイックソートは不変な <code>List</code> を返す。配列 API、入力変更の契約、安定性、平均・最悪計算量と追加領域をテスト・解説する</td>
 </tr>
 <tr>
 <td>7</td>
 <td><code>07-string-processing.md</code></td>
 <td>文字列処理</td>
-<td>文字列の基本操作、力まかせ法・KMP 法・Boyer–Moore 法を実装する。Flix の文字列走査・インデックスの仕様を確認し、日本語を含む入力の扱いをテストする</td>
+<td><code>String</code> の基本操作、力まかせ法・KMP 法・Boyer–Moore の不一致文字ルール、文字カウント・逆順・回文判定を実装する。検索位置と文字走査が UTF-16 <code>Char</code> 単位であること、日本語を含む入力、空パターン、境界値をテストする</td>
 </tr>
 <tr>
 <td>8</td>
 <td><code>08-lists.md</code></td>
 <td>リスト</td>
-<td>線形・連結・循環・双方向リストを扱う。標準 <code>List</code> と、enum / レコードによるノード表現を比較し、各操作後の構造の不変条件をテストする</td>
+<td>標準 <code>List</code>・enum の単方向リスト・配列カーソル・zipper を比較し、追加・削除・探索と構造の不変条件をテストする。循環リンクは不変データで直接構築せず、回転で循環的な順序を表現する</td>
 </tr>
 <tr>
 <td>9</td>

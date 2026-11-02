@@ -1210,6 +1210,230 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../flix/02-arrays/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 2 章 配列
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../flix/03-search-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 3 章 探索アルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../flix/04-stack-and-queue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 4 章 スタックとキュー
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../flix/05-recursion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 5 章 再帰アルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../flix/06-sort-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 6 章 ソートアルゴリズム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../flix/07-string-processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 7 章 文字列処理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../flix/08-lists/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 8 章 リスト
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../flix/09-tree-structures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 9 章 木構造
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -8067,6 +8291,17 @@
 <span class="w">  </span><span class="k">end</span>
 <span class="k">end</span>
 </code></pre></div>
+<p><strong>Flix（モジュール関数 + 状態の明示）</strong>:</p>
+<div class="highlight"><pre><span></span><code>pub def stackPush(value: a, values: Array[a, r], size: Int32): Option[Int32] \ r =
+    let capacity = Array.length(values);
+    if (size &lt; 0 or size &gt;= capacity) {
+        None
+    } else {
+        Array.put(value, size, values);
+        Some(size + 1)
+    }
+</code></pre></div>
+<p>Flix の固定長スタックはデータを領域 <code>r</code> の配列に保持し、サイズは別の値として受け渡します。配列更新の効果 <code>\ r</code> をシグネチャに示し、満杯や不正なサイズは <code>None</code> で表します。</p>
 <h3 id="4_1">パターン 4: 代数的データ型 / リスト（純粋関数型）<a class="headerlink" href="#4_1" title="Permanent link">&para;</a></h3>
 <p><strong>Haskell（IORef ベース）</strong>:</p>
 <div class="highlight"><pre><span></span><code><span class="kr">type</span><span class="w"> </span><span class="kt">Stack</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">IORef</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span>
@@ -8159,6 +8394,13 @@
 <td>例外 / Option</td>
 </tr>
 <tr>
+<td><strong>モジュール関数 + 領域付き配列</strong></td>
+<td>Flix</td>
+<td>モジュール境界</td>
+<td><code>\ r</code> 効果を型に記述</td>
+<td><code>Option</code></td>
+</tr>
+<tr>
 <td><strong>不変データ + IORef</strong></td>
 <td>Haskell</td>
 <td>型で保護</td>
@@ -8237,6 +8479,11 @@ front = (front + 1) % capacity  // dequeue 時
 <td><code>mod</code></td>
 <td><code>(mod (inc rear) capacity)</code></td>
 </tr>
+<tr>
+<td>Flix</td>
+<td><code>%</code></td>
+<td><code>if (rear + 1 == capacity) 0 else rear + 1</code></td>
+</tr>
 </tbody>
 </table>
 <p>なでしこ3 の教材ではリングバッファではなく、2 つのスタックを使ってキューを実装します。入力スタックから出力スタックへ要素を移すことで、先入れ先出し（FIFO）の順序を保ちます。</p>
@@ -8276,6 +8523,11 @@ front = (front + 1) % capacity  // dequeue 時
 <td>なでしこ3</td>
 <td><code>配列追加</code> / <code>配列ポップ</code> が元配列を変更</td>
 </tr>
+<tr>
+<td><strong>破壊的（領域付き配列）</strong></td>
+<td>Flix</td>
+<td><code>Array.put</code> で更新し、領域効果を型に記述</td>
+</tr>
 </tbody>
 </table>
 <pre class="mermaid"><code>graph LR
@@ -8286,6 +8538,7 @@ front = (front + 1) % capacity  // dequeue 時
     C --&gt; C2[Rust: &amp;mut self 明示]
     C --&gt; C3[Haskell: IORef in IO]
     C --&gt; C4[なでしこ3: 配列を変更]
+    C --&gt; C5[Flix: 領域効果を明示]
     D --&gt; D1[Clojure: 永続データ構造]
     D --&gt; D2[Elixir: イミュータブル]</code></pre>
 <h3 id="_7">ジェネリクス（型パラメータ）のサポート<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
@@ -8374,6 +8627,11 @@ front = (front + 1) % capacity  // dequeue 時
 <td><code>Stack a</code></td>
 </tr>
 <tr>
+<td>Flix</td>
+<td><code>a</code></td>
+<td><code>Array[a, r]</code>（配列要素の型）</td>
+</tr>
+<tr>
 <td>なでしこ3</td>
 <td>なし</td>
 <td>動的型付き配列</td>
@@ -8426,6 +8684,11 @@ front = (front + 1) % capacity  // dequeue 時
 <td>なでしこ3</td>
 <td><code>[いいえ, 0]</code> / <code>[はい, 値]</code></td>
 </tr>
+<tr>
+<td><strong>Option</strong></td>
+<td>Flix</td>
+<td><code>None</code> / <code>Some(value)</code></td>
+</tr>
 </tbody>
 </table>
 <h2 id="_9">まとめ<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
@@ -8434,6 +8697,7 @@ front = (front + 1) % capacity  // dequeue 時
 <li><strong>Kotlin</strong>: <code>private</code> な可変状態とジェネリクスをクラスにまとめ、<code>check</code> / <code>require</code> で不変条件を検査</li>
 <li><strong>システム言語（Go, C）</strong>: 構造体 + 関数。エラーは戻り値で返す</li>
 <li><strong>Rust</strong>: 構造体 + impl。所有権システムと <code>Result</code> 型で安全性を保証</li>
+<li><strong>Flix</strong>: 配列とサイズ状態を関数間で受け渡し、配列の可変領域を型付き効果で明示</li>
 <li><strong>関数型言語</strong>: モジュール / 代数的データ型。不変データを基本とし、可変状態は明示的に管理</li>
 <li><strong>Haskell</strong>: 最も厳格。可変状態は <code>IORef</code> を通じて IO モナド内でのみ許可</li>
 <li><strong>Clojure/Elixir</strong>: 不変データ構造を基本とし、状態管理は <code>atom</code> / プロセスで行う</li>
