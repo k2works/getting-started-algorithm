@@ -1,0 +1,44 @@
+name: CI Flix
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+    paths:
+      - 'apps/flix/**'
+      - 'ops/nix/environments/flix/**'
+      - 'flake.nix'
+      - 'flake.lock'
+      - '.github/workflows/ci-flix.yml'
+  pull_request:
+    branches:
+      - main
+      - develop
+    paths:
+      - 'apps/flix/**'
+      - 'ops/nix/environments/flix/**'
+      - 'flake.nix'
+      - 'flake.lock'
+      - '.github/workflows/ci-flix.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v30
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+
+      - name: Run Flix checks
+        run: nix develop .#flix --command bash -c "cd apps/flix && make check && make test && make build && make format-check"

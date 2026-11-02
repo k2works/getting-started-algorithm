@@ -481,9 +481,9 @@ apps/kotlin/
 - 前作のプロジェクト設定と実装例: `tmp/getting-started-tdd/apps/flix/`（`flix.toml`、`Makefile`、`src/`、`test/`）
 - アルゴリズムの仕様と章範囲: 本アウトラインの「章構成」、対応する Wiki 記事、Python 版
 - 読者の前提: Flix 基本文法、TDD、Git、`make test` と `make check` の基本操作
-- 実行環境: 前作の `flix.toml` に記載された Flix 0.75.1 と JVM。前作の `index.md` に記載された JDK 25 を候補とし、Flix の対応要件を確認してからバージョンを固定する
+- 実行環境: Flix 0.75.1、JDK 21、GNU Make。前作の `flix.toml` と CI で使用している Flix / JDK バージョンに合わせる
 
-現行リポジトリには Flix の Nix 開発環境と `apps/flix/` がない。記事・実装に着手する前に `ops/nix/environments/flix/` と `flake.nix` の `.#flix` を整備し、前作と同じ Flix バージョンを再現できるようにする。`flix.jar` は前作に合わせてリポジトリへ含めず、`flix.toml` のバージョンを基準に取得する。JDK と Flix の組み合わせ、各コマンド、Nix 環境での実行可否を確認し、記事内の手順をこのリポジトリで再現できる状態にしてから執筆する。
+Flix の実行環境は `ops/nix/environments/flix/` と `flake.nix` の `.#flix` で提供する。JDK 21 と GNU Make を Nix で管理し、Flix 0.75.1 の `flix.jar` は `apps/flix/flix.toml` を基準に取得する。JAR はリポジトリに含めず、取得手順は `docs/operation/Flix開発環境セットアップ手順書.md` に従う。
 
 ### 開発・テスト方針
 

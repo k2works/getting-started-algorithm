@@ -29,6 +29,7 @@
           c = import ./ops/nix/environments/c/shell.nix { inherit packages; };
           nadesiko = import ./ops/nix/environments/nadesiko/shell.nix { inherit packages; };
           kotlin = import ./ops/nix/environments/kotlin/shell.nix { inherit packages; };
+          flix = import ./ops/nix/environments/flix/shell.nix { inherit packages; };
         };
       }
     );

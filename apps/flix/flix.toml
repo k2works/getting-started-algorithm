@@ -1,0 +1,6 @@
+[package]
+name        = "getting-started-algorithm"
+description = "Algorithm and data-structure exercises in Flix"
+version     = "0.1.0"
+flix        = "0.75.1"
+authors     = ["k2works"]
