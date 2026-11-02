@@ -2,7 +2,7 @@
 
 ## 概要
 
-「アルゴリズムから始めるプログラミング入門」シリーズの執筆計画。Wiki 記事のうち最も完成度の高い Python 版を原本として再構成し、既存対象言語へ多言語展開する。加えて、TDD 入門を終えた読者向けに、なでしこ3 と Kotlin でアルゴリズムとデータ構造を学ぶ続編を執筆する。
+「アルゴリズムから始めるプログラミング入門」シリーズの執筆計画。Wiki 記事のうち最も完成度の高い Python 版を原本として再構成し、既存対象言語へ多言語展開する。加えて、TDD 入門を終えた読者向けに、なでしこ3、Kotlin、Flix でアルゴリズムとデータ構造を学ぶ続編を執筆する。
 
 ## 対象言語
 
@@ -25,6 +25,7 @@
 | elixir | Elixir | なし | Python | BEAM VM、並行関数型 |
 | nadesiko | なでしこ3 | なし（TDD 入門はあり） | Python と TDD 入門 | 日本語プログラミング。Nix 開発環境の追加が前提 |
 | kotlin | Kotlin | なし（TDD 入門はあり） | Python と TDD 入門 | JVM 上の静的型付け。Nix 開発環境の追加が前提 |
+| flix | Flix | なし（TDD 入門はあり） | Python と TDD 入門 | 関数型ファーストの JVM 言語。Nix 開発環境の追加が前提 |
 
 ## 環境構築方針
 
@@ -47,6 +48,7 @@ nix develop .#scala
 nix develop .#haskell
 nix develop .#elixir
 nix develop .#kotlin
+nix develop .#flix
 ```
 
 Nix 環境に入ることで、言語処理系・ビルドツール・パッケージマネージャーがすべて利用可能になる。ホスト環境に言語をインストールする必要はない。
@@ -78,6 +80,7 @@ Nix 環境に入ることで、言語処理系・ビルドツール・パッケ�
 | Haskell | Stack | `package.yaml`, `stack.yaml`, `.hlint.yaml` | HLint, stylish-haskell | stack | Hspec |
 | Elixir | Mix | `mix.exs` | Credo, Dialyxir | mix tasks | ExUnit |
 | Kotlin | Gradle | `build.gradle.kts`, `settings.gradle.kts` | detekt, ktlint（採用時） | Gradle | kotlin.test (JUnit Platform) |
+| Flix | Flix 標準ツール | `flix.toml` | Flix コンパイラ（型・効果検査、format） | Makefile + `flix.jar` | Flix 標準 `@Test` |
 
 ### 各言語の apps/ ディレクトリ構造
 
@@ -328,6 +331,7 @@ Wiki 記事の 9 章構成をそのまま維持する。各章はアルゴリズ
 | 言語 | 特色 |
 |------|------|
 | Kotlin | null 安全、data / sealed class、拡張関数、高階関数、JVM エコシステム |
+| Flix | 関数型ファースト、代数的データ型、トレイト、パターンマッチング、不変データ、代数的効果 |
 
 ## なでしこ3 版（TDD 入門の続編）
 
@@ -461,6 +465,74 @@ apps/kotlin/
 
 各章は前作と同じ Red → Green → Refactor の小さなサイクルで執筆する。章ごとのテストと `./gradlew check` を実行し、完成した記事は `docs/article/kotlin/index.md`、`docs/article/index.md`、`mkdocs.yml` に反映する。
 
+## Flix 版（TDD 入門の続編）
+
+### 位置づけと対象読者
+
+`tmp/getting-started-tdd/docs/article/flix/` の「テスト駆動開発から始める Flix 入門」を修了し、Flix の基本文法、標準テスト、型・効果検査、TDD の Red → Green → Refactor を理解した読者を対象とする。前作で扱った Git、`flix.toml`、Makefile、CI/CD、列挙型・トレイト、パターンマッチング、高階関数、不変データ、代数的効果を再説明せず、アルゴリズムとデータ構造の設計・実装に焦点を当てる。
+
+章の題材と学習順序は Python 版の 9 章に対応させる。前作の FizzBuzz をアルゴリズムの題材に置き換え、Flix の静的型付けと効果システムを活用する。計算ロジックは可能な限り純粋関数として実装し、コンパイル・型検査・効果検査の失敗も TDD の Red として扱う。標準の `List` を中心に不変な実装を示し、可変配列がアルゴリズムの理解に必要な場合は、利用する API と入力変更の契約を実行検証してから採用する。
+
+### 参照資料と前提条件
+
+- TDD 入門の全体構成と Flix の言語特性: `tmp/getting-started-tdd/docs/article/flix/index.md`
+- 前作のテスト、パッケージ、品質検査、自動化: `tmp/getting-started-tdd/docs/article/flix/01-todo-list-and-first-test.md`、`05-package-management-and-static-analysis.md`、`06-task-runner-and-ci-cd.md`
+- 前作の型・データ構造・関数型設計・効果の例: `tmp/getting-started-tdd/docs/article/flix/07-enums-and-traits.md` 〜 `12-error-handling-and-effects.md`
+- 前作のプロジェクト設定と実装例: `tmp/getting-started-tdd/apps/flix/`（`flix.toml`、`Makefile`、`src/`、`test/`）
+- アルゴリズムの仕様と章範囲: 本アウトラインの「章構成」、対応する Wiki 記事、Python 版
+- 読者の前提: Flix 基本文法、TDD、Git、`make test` と `make check` の基本操作
+- 実行環境: 前作の `flix.toml` に記載された Flix 0.75.1 と JVM。前作の `index.md` に記載された JDK 25 を候補とし、Flix の対応要件を確認してからバージョンを固定する
+
+現行リポジトリには Flix の Nix 開発環境と `apps/flix/` がない。記事・実装に着手する前に `ops/nix/environments/flix/` と `flake.nix` の `.#flix` を整備し、前作と同じ Flix バージョンを再現できるようにする。`flix.jar` は前作に合わせてリポジトリへ含めず、`flix.toml` のバージョンを基準に取得する。JDK と Flix の組み合わせ、各コマンド、Nix 環境での実行可否を確認し、記事内の手順をこのリポジトリで再現できる状態にしてから執筆する。
+
+### 開発・テスト方針
+
+- 記事は `docs/article/flix/`、実装は `apps/flix/` に置き、前作と同じく `src/` と `test/` に分ける。
+- Flix 標準の `@Test` と `Assert` 効果を使い、テストを先に書く。前作の Makefile を参考に `make test`（`java -jar flix.jar test`）で各章の Red → Green → Refactor を確認し、空入力、境界値、重複値、未発見などをテストする。
+- `make check`（`java -jar flix.jar check`）で型・効果・パターン網羅性を検査し、`make format-check`（`java -jar flix.jar format --check`）で整形を確認する。品質ゲートはテスト・検査・整形のうち実際に利用できるコマンドで構成する。
+- `Int32` などの数値型、`List`、`Option`、enum、レコード、トレイトを章の目的に応じて使い分ける。探索結果や空のデータ構造は、番兵値だけでなく `Option` 等の型で表現する方法も扱う。
+- リストを使う純粋・非破壊的な実装と、配列を使う更新型の実装を区別する。配列を採用する場合は、Flix 0.75.1 で利用可能な操作を実行確認し、入力が変更されるかをテストで明示する。
+- リストや木の再帰的な表現には enum 等の代数的データ型を検討し、パターンマッチの網羅性をコンパイラで確認する。トレイトや効果は題材に必要な場合に限って導入し、アルゴリズム本体に不要な抽象化や副作用を持ち込まない。
+- コード例は対象 Flix バージョンでコンパイル・テストし、記事・実装・テストを同期する。章の完成時に `make test`、`make check`、`make format-check` を実行する。
+
+### 章構成と執筆時の重点
+
+| 章 | 記事ファイル | テーマ | Flix で扱う重点 |
+|----|-------------|--------|----------------|
+| 1 | `01-basic-algorithms.md` | 基本的なアルゴリズム | `Int32` の型注釈、条件分岐、反復処理を小さな純粋関数に分け、最大値・中央値のテストで TDD を始める |
+| 2 | `02-arrays.md` | 配列 | `List` の走査・変換と配列操作を比較する。基数変換や素数列挙を題材に、不変な結果と入力を更新する操作の違いをテストする |
+| 3 | `03-search-algorithms.md` | 探索アルゴリズム | 線形探索・番兵法・二分探索・ハッシュ法を扱う。`Option` による未発見の表現、空入力、重複値、整列済みという前提をテストする |
+| 4 | `04-stack-and-queue.md` | スタックとキュー | `List` とパターンマッチを使ったスタック・キューを実装する。空状態を `Option` 等で表現し、LIFO / FIFO と操作後の不変条件を確認する |
+| 5 | `05-recursion.md` | 再帰アルゴリズム | 階乗・ユークリッドの互除法・ハノイの塔を実装する。基底条件、再帰呼び出し、計算量とスタック使用量をテスト・解説する |
+| 6 | `06-sort-algorithms.md` | ソートアルゴリズム | バブル・選択・挿入・クイック・マージソートを扱う。不変なリスト処理を基準とし、更新型の実装を掲載する場合は入力変更と Flix の配列 API を検証する |
+| 7 | `07-string-processing.md` | 文字列処理 | 文字列の基本操作、力まかせ法・KMP 法・Boyer–Moore 法を実装する。Flix の文字列走査・インデックスの仕様を確認し、日本語を含む入力の扱いをテストする |
+| 8 | `08-lists.md` | リスト | 線形・連結・循環・双方向リストを扱う。標準 `List` と、enum / レコードによるノード表現を比較し、各操作後の構造の不変条件をテストする |
+| 9 | `09-tree-structures.md` | 木構造 | 二分探索木の追加・探索・削除・走査と最小ヒープを扱う。代数的データ型と網羅的パターンマッチを使い、空木・削除の各ケース・親子関係を確認する |
+
+### ファイル構成
+
+```text
+docs/article/flix/
+├── index.md
+├── 01-basic-algorithms.md
+├── 02-arrays.md
+├── 03-search-algorithms.md
+├── 04-stack-and-queue.md
+├── 05-recursion.md
+├── 06-sort-algorithms.md
+├── 07-string-processing.md
+├── 08-lists.md
+└── 09-tree-structures.md
+
+apps/flix/
+├── src/                  # Flix のアルゴリズム実装
+├── test/                 # @Test によるテスト
+├── flix.toml             # Flix バージョンとパッケージ設定
+└── Makefile              # test / check / format 等
+```
+
+各章は前作と同じ Red → Green → Refactor の小さなサイクルで執筆する。完成した記事は `docs/article/flix/index.md`、`docs/article/index.md`、`mkdocs.yml` に反映し、`apps/flix/` の実装とともに検証する。
+
 ## ファイル構成
 
 ```
@@ -523,6 +595,10 @@ docs/article/
 │   ├── index.md
 │   ├── 01-basic-algorithms.md
 │   └── ...
+├── flix/                 # Flix（TDD 入門の続編）
+│   ├── index.md
+│   ├── 01-basic-algorithms.md
+│   └── ...
 └── all/                  # 多言語統合解説
     ├── index.md
     └── ...
@@ -547,7 +623,8 @@ apps/
 ├── haskell/              # Haskell プロジェクト
 ├── elixir/               # Elixir プロジェクト
 ├── nadesiko/             # なでしこ3 プロジェクト
-└── kotlin/               # Kotlin プロジェクト（Gradle）
+├── kotlin/               # Kotlin プロジェクト（Gradle）
+└── flix/                 # Flix プロジェクト
 ```
 
 ## Wiki 記事との対応
