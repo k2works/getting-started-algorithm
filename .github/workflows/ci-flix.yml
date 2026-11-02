@@ -40,5 +40,13 @@ jobs:
           extra_nix_config: |
             experimental-features = nix-command flakes
 
+      - name: Download Flix
+        run: |
+          version="$(sed -n 's/^flix[[:space:]]*=[[:space:]]*"\([^"]*\)".*/\1/p' apps/flix/flix.toml)"
+          test -n "$version"
+          curl -fL --retry 2 \
+            -o apps/flix/flix.jar \
+            "https://github.com/flix/flix/releases/download/v${version}/flix.jar"
+
       - name: Run Flix checks
         run: nix develop .#flix --command bash -c "cd apps/flix && make check && make test && make build && make format-check"
