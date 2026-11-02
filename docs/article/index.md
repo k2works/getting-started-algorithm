@@ -50,7 +50,7 @@
 | 言語 | パラダイム | 特徴 |
 |------|-----------|------|
 | [Kotlin](kotlin/index.md) | OOP + FP | JVM、null 安全、data / sealed class、高階関数 |
-| [Flix](flix/01-basic-algorithms.md) | 関数型ファースト | JVM、代数的データ型、型付き効果 |
+| Flix 版（[第 1 章](flix/01-basic-algorithms.md)・[第 2 章](flix/02-arrays.md)・[第 3 章](flix/03-search-algorithms.md)・[第 4 章](flix/04-stack-and-queue.md)・[第 5 章](flix/05-recursion.md)・[第 6 章](flix/06-sort-algorithms.md)・[第 7 章](flix/07-string-processing.md)・[第 8 章](flix/08-lists.md)・[第 9 章](flix/09-tree-structures.md)） | 関数型ファースト | JVM、代数的データ型、型付き効果 |
 
 ## 多言語統合解説
 
